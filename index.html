@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head> 
+<head>
 
 <meta charset="UTF-8">
 
@@ -11,75 +11,39 @@
 
 <title>Our Little Adventure ❤️</title>
 
-
 <style>
-
-/* =========================================
-   GENERAL
-========================================= */
 
 * {
     box-sizing: border-box;
 }
 
 body {
-
     margin: 0;
-
     background: #111;
-
     color: white;
-
     font-family: Georgia, serif;
-
     display: flex;
-
     justify-content: center;
-
     align-items: center;
-
     width: 100vw;
-
     height: 100vh;
-
     overflow: hidden;
 }
 
-
-/* =========================================
-   GAME
-========================================= */
-
 #game {
-
     position: relative;
-
     width: 960px;
-
     height: 540px;
-
     max-width: 100vw;
-
     max-height: 100vh;
-
     overflow: hidden;
-
     background: #87CEEB;
 }
 
-
-/* =========================================
-   CANVAS
-========================================= */
-
 canvas {
-
     display: block;
-
     width: 100%;
-
     height: 100%;
-
     image-rendering: pixelated;
 }
 
@@ -89,74 +53,45 @@ canvas {
 ========================================= */
 
 #titleScreen {
-
     position: absolute;
-
     inset: 0;
-
     background:
         linear-gradient(
             rgba(20, 20, 40, 0.35),
             rgba(20, 20, 40, 0.75)
         );
-
     display: flex;
-
     flex-direction: column;
-
     justify-content: center;
-
     align-items: center;
-
     text-align: center;
-
     z-index: 10;
 }
 
-
 #titleScreen h1 {
-
     font-size: 58px;
-
     margin: 0 0 10px 0;
-
-    text-shadow:
-        3px 3px 0 #000;
+    text-shadow: 3px 3px 0 #000;
 }
 
-
 #titleScreen p {
-
     font-size: 20px;
-
     margin-bottom: 35px;
 }
 
-
 #startButton {
-
     padding: 14px 35px;
-
     border: none;
-
     border-radius: 10px;
-
     background: white;
-
     color: #222;
-
     font-family: Georgia, serif;
-
     font-size: 20px;
-
     cursor: pointer;
-
     transition: transform 0.15s;
 }
 
-
 #startButton:hover {
-
     transform: scale(1.08);
 }
 
@@ -166,42 +101,26 @@ canvas {
 ========================================= */
 
 #chapterTitle {
-
     position: absolute;
-
     top: 35%;
-
     left: 50%;
-
     transform: translate(-50%, -50%);
-
     text-align: center;
-
     z-index: 8;
-
     pointer-events: none;
-
-    text-shadow:
-        3px 3px 0 #000;
+    text-shadow: 3px 3px 0 #000;
 }
 
-
 #chapterNumber {
-
     font-size: 20px;
 }
 
-
 #chapterName {
-
     font-size: 50px;
-
     margin: 5px 0;
 }
 
-
 .chapterHidden {
-
     display: none;
 }
 
@@ -211,67 +130,40 @@ canvas {
 ========================================= */
 
 #dialogue {
-
     position: absolute;
-
     bottom: 20px;
-
     left: 50%;
-
     transform: translateX(-50%);
-
     width: 88%;
-
     padding: 18px 22px;
-
     background: rgba(15, 15, 25, 0.96);
-
     border: 3px solid white;
-
     border-radius: 12px;
-
     z-index: 20;
 }
 
-
 #speaker {
-
     font-size: 20px;
-
     font-weight: bold;
-
     margin-bottom: 8px;
 }
 
-
 #dialogueText {
-
     font-size: 19px;
-
     line-height: 1.45;
-
     min-height: 55px;
 }
 
-
 #continueButton {
-
     margin-top: 12px;
-
     padding: 8px 16px;
-
     border: none;
-
     border-radius: 7px;
-
     cursor: pointer;
-
     font-family: Georgia, serif;
 }
 
-
 .hidden {
-
     display: none !important;
 }
 
@@ -282,11 +174,7 @@ canvas {
 
 <body>
 
-
 <div id="game">
-
-
-    <!-- GAME CANVAS -->
 
     <canvas
         id="gameCanvas"
@@ -347,13 +235,10 @@ canvas {
 
     </div>
 
-
 </div>
 
 
-
 <script>
-
 
 /* =========================================
    CANVAS
@@ -408,7 +293,11 @@ let dialogueActive = false;
 
 let currentDialogue = 0;
 
+let currentChapter = 1;
+
 let firstMeetingTriggered = false;
+
+let girlfriendQuestionTriggered = false;
 
 
 /* =========================================
@@ -444,9 +333,6 @@ document.addEventListener(
         keys[event.key.toLowerCase()] = true;
 
 
-        /* Continue dialogue with
-           Space or Enter */
-
         if (
             dialogueActive &&
             (
@@ -479,6 +365,10 @@ document.addEventListener(
 
 const chapters = {
 
+    /* =====================================
+       CHAPTER 1
+    ===================================== */
+
     firstMeeting: {
 
         title: "The Beginning",
@@ -487,79 +377,197 @@ const chapters = {
 
             {
                 speaker: "Narrator",
-
                 text:
                     "It started with two people who had never met."
             },
 
             {
                 speaker: "Narrator",
-
                 text:
                     "Then, one day... they matched on Hinge."
             },
 
             {
                 speaker: "Cooper",
-
                 text:
                     "Want to go on a date?"
             },
 
             {
                 speaker: "Her",
-
                 text:
                     "Sure! ❤️"
             },
 
             {
                 speaker: "Her (secretly)",
-
                 text:
                     "Please cancel. Please cancel. Please cancel. 😂"
             },
 
             {
                 speaker: "Narrator",
-
                 text:
                     "But he didn't cancel."
             },
 
             {
                 speaker: "Narrator",
-
                 text:
                     "And neither did she."
             },
 
             {
                 speaker: "Narrator",
-
                 text:
                     "So they went on their first date..."
             },
 
             {
                 speaker: "Narrator",
-
                 text:
                     "...and somehow, things started going really well."
             },
 
             {
                 speaker: "Narrator",
-
                 text:
                     "Neither of them knew it yet..."
             },
 
             {
                 speaker: "Narrator",
-
                 text:
                     "but this was only the beginning."
+            }
+
+        ]
+
+    },
+
+
+    /* =====================================
+       CHAPTER 2
+    ===================================== */
+
+    girlfriendQuestion: {
+
+        title: "The Question",
+
+        dialogue: [
+
+            {
+                speaker: "Narrator",
+                text:
+                    "A little time passed..."
+            },
+
+            {
+                speaker: "Narrator",
+                text:
+                    "And Cooper realized there was something he wanted to ask."
+            },
+
+            {
+                speaker: "Narrator",
+                text:
+                    "So, one early morning..."
+            },
+
+            {
+                speaker: "Narrator",
+                text:
+                    "he quietly made his way into her backyard."
+            },
+
+            {
+                speaker: "Narrator",
+                text:
+                    "He wasn't empty-handed, either."
+            },
+
+            {
+                speaker: "Cooper",
+                text:
+                    "Okay... I hope she likes this."
+            },
+
+            {
+                speaker: "Narrator",
+                text:
+                    "He brought her a gift basket."
+            },
+
+            {
+                speaker: "Narrator",
+                text:
+                    "Now there was only one thing left to do."
+            },
+
+            {
+                speaker: "Cooper",
+                text:
+                    "Hey..."
+            },
+
+            {
+                speaker: "Her",
+                text:
+                    "What are you doing here so early? 😂"
+            },
+
+            {
+                speaker: "Cooper",
+                text:
+                    "I wanted to give you something."
+            },
+
+            {
+                speaker: "Her",
+                text:
+                    "Aww... what's this? ❤️"
+            },
+
+            {
+                speaker: "Cooper",
+                text:
+                    "There's something else I wanted to ask you."
+            },
+
+            {
+                speaker: "Her",
+                text:
+                    "What?"
+            },
+
+            {
+                speaker: "Cooper",
+                text:
+                    "Will you be my girlfriend?"
+            },
+
+            {
+                speaker: "Her",
+                text:
+                    "Yes. ❤️"
+            },
+
+            {
+                speaker: "Narrator",
+                text:
+                    "And just like that..."
+            },
+
+            {
+                speaker: "Narrator",
+                text:
+                    "they became something more."
+            },
+
+            {
+                speaker: "Narrator",
+                text:
+                    "But their story was only getting started."
             }
 
         ]
@@ -580,6 +588,10 @@ startButton.addEventListener(
         titleScreen.classList.add("hidden");
 
         gameStarted = true;
+
+        currentChapter = 1;
+
+        player.x = 180;
 
         showChapter(
             "CHAPTER 1",
@@ -631,16 +643,13 @@ function startDialogue(dialogue) {
 
     }
 
-
     dialogueActive = true;
 
     currentDialogue = 0;
 
-
     dialogueBox.classList.remove(
         "hidden"
     );
-
 
     displayDialogue(
         dialogue[0]
@@ -665,9 +674,33 @@ function nextDialogue() {
     currentDialogue++;
 
 
+    /* =====================================
+       CHAPTER 1 FINISHED
+    ===================================== */
+
     if (
+        currentChapter === 1 &&
         currentDialogue >=
         chapters.firstMeeting.dialogue.length
+    ) {
+
+        endDialogue();
+
+        startChapter2();
+
+        return;
+
+    }
+
+
+    /* =====================================
+       CHAPTER 2 FINISHED
+    ===================================== */
+
+    if (
+        currentChapter === 2 &&
+        currentDialogue >=
+        chapters.girlfriendQuestion.dialogue.length
     ) {
 
         endDialogue();
@@ -677,11 +710,29 @@ function nextDialogue() {
     }
 
 
-    displayDialogue(
-        chapters.firstMeeting.dialogue[
-            currentDialogue
-        ]
-    );
+    /* =====================================
+       SHOW NEXT LINE
+    ===================================== */
+
+    if (currentChapter === 1) {
+
+        displayDialogue(
+            chapters.firstMeeting.dialogue[
+                currentDialogue
+            ]
+        );
+
+    }
+
+    else if (currentChapter === 2) {
+
+        displayDialogue(
+            chapters.girlfriendQuestion.dialogue[
+                currentDialogue
+            ]
+        );
+
+    }
 
 }
 
@@ -700,11 +751,62 @@ function endDialogue() {
 
 
 /* =========================================
+   START CHAPTER 2
+========================================= */
+
+function startChapter2() {
+
+    currentChapter = 2;
+
+    firstMeetingTriggered = true;
+
+    girlfriendQuestionTriggered = false;
+
+    player.x = 180;
+
+    showChapter(
+        "CHAPTER 2",
+        "The Question"
+    );
+
+}
+
+
+/* =========================================
    DRAW BACKGROUND
 ========================================= */
 
 function drawBackground() {
 
+    /* =====================================
+       CHAPTER 1 BACKGROUND
+    ===================================== */
+
+    if (currentChapter === 1) {
+
+        drawChapter1Background();
+
+    }
+
+
+    /* =====================================
+       CHAPTER 2 BACKGROUND
+    ===================================== */
+
+    else if (currentChapter === 2) {
+
+        drawChapter2Background();
+
+    }
+
+}
+
+
+/* =========================================
+   CHAPTER 1 BACKGROUND
+========================================= */
+
+function drawChapter1Background() {
 
     /* SKY */
 
@@ -781,9 +883,185 @@ function drawBackground() {
     drawFlower(870, 360);
 
 
-    /* FIRST MEETING SIGN */
+    /* SIGN */
 
     drawFirstMeetingSign();
+
+}
+
+
+/* =========================================
+   CHAPTER 2 BACKGROUND
+========================================= */
+
+function drawChapter2Background() {
+
+    /* MORNING SKY */
+
+    ctx.fillStyle = "#F7CFA5";
+
+    ctx.fillRect(
+        0,
+        0,
+        canvas.width,
+        320
+    );
+
+
+    /* MORNING LIGHT */
+
+    ctx.fillStyle = "#FFD98A";
+
+    ctx.beginPath();
+
+    ctx.arc(
+        760,
+        100,
+        55,
+        0,
+        Math.PI * 2
+    );
+
+    ctx.fill();
+
+
+    /* GRASS */
+
+    ctx.fillStyle = "#5E984D";
+
+    ctx.fillRect(
+        0,
+        320,
+        canvas.width,
+        220
+    );
+
+
+    /* BACKYARD FENCE */
+
+    ctx.fillStyle = "#D6B27C";
+
+    for (
+        let x = 0;
+        x < canvas.width;
+        x += 45
+    ) {
+
+        ctx.fillRect(
+            x,
+            250,
+            32,
+            110
+        );
+
+    }
+
+
+    ctx.fillStyle = "#B58D5E";
+
+    ctx.fillRect(
+        0,
+        250,
+        canvas.width,
+        12
+    );
+
+    ctx.fillRect(
+        0,
+        310,
+        canvas.width,
+        12
+    );
+
+
+    /* HOUSE */
+
+    ctx.fillStyle = "#F2E1C9";
+
+    ctx.fillRect(
+        590,
+        150,
+        280,
+        180
+    );
+
+
+    /* ROOF */
+
+    ctx.fillStyle = "#7D4F50";
+
+    ctx.beginPath();
+
+    ctx.moveTo(550, 150);
+
+    ctx.lineTo(730, 60);
+
+    ctx.lineTo(910, 150);
+
+    ctx.closePath();
+
+    ctx.fill();
+
+
+    /* WINDOW */
+
+    ctx.fillStyle = "#9DD7E8";
+
+    ctx.fillRect(
+        680,
+        190,
+        70,
+        60
+    );
+
+    ctx.strokeStyle = "#5A4A42";
+
+    ctx.lineWidth = 5;
+
+    ctx.strokeRect(
+        680,
+        190,
+        70,
+        60
+    );
+
+    ctx.beginPath();
+
+    ctx.moveTo(715, 190);
+    ctx.lineTo(715, 250);
+
+    ctx.moveTo(680, 220);
+    ctx.lineTo(750, 220);
+
+    ctx.stroke();
+
+
+    /* BACKYARD PATH */
+
+    ctx.fillStyle = "#D5B98A";
+
+    ctx.fillRect(
+        0,
+        400,
+        canvas.width,
+        80
+    );
+
+
+    /* FLOWERS */
+
+    drawFlower(100, 350);
+
+    drawFlower(150, 340);
+
+    drawFlower(500, 350);
+
+    drawFlower(550, 360);
+
+
+    /* GIFT BASKET */
+
+    drawGiftBasket();
 
 }
 
@@ -796,9 +1074,7 @@ function drawCloud(x, y) {
 
     ctx.fillStyle = "white";
 
-
     ctx.beginPath();
-
 
     ctx.arc(
         x,
@@ -808,7 +1084,6 @@ function drawCloud(x, y) {
         Math.PI * 2
     );
 
-
     ctx.arc(
         x + 30,
         y - 10,
@@ -817,7 +1092,6 @@ function drawCloud(x, y) {
         Math.PI * 2
     );
 
-
     ctx.arc(
         x + 60,
         y,
@@ -825,7 +1099,6 @@ function drawCloud(x, y) {
         0,
         Math.PI * 2
     );
-
 
     ctx.fill();
 
@@ -838,9 +1111,6 @@ function drawCloud(x, y) {
 
 function drawFlower(x, y) {
 
-
-    /* STEM */
-
     ctx.fillStyle = "#3D8032";
 
     ctx.fillRect(
@@ -849,9 +1119,6 @@ function drawFlower(x, y) {
         4,
         20
     );
-
-
-    /* FLOWER */
 
     ctx.fillStyle = "#FF6FAE";
 
@@ -876,9 +1143,6 @@ function drawFlower(x, y) {
 
 function drawFirstMeetingSign() {
 
-
-    /* SIGN */
-
     ctx.fillStyle = "#8E405D";
 
     ctx.fillRect(
@@ -888,8 +1152,6 @@ function drawFirstMeetingSign() {
         90
     );
 
-
-    /* SIGN POST */
 
     ctx.fillStyle = "#69452E";
 
@@ -901,8 +1163,6 @@ function drawFirstMeetingSign() {
     );
 
 
-    /* TEXT */
-
     ctx.fillStyle = "white";
 
     ctx.font =
@@ -910,7 +1170,6 @@ function drawFirstMeetingSign() {
 
     ctx.textAlign =
         "center";
-
 
     ctx.fillText(
         "FIRST MEETING ❤️",
@@ -922,11 +1181,109 @@ function drawFirstMeetingSign() {
 
 
 /* =========================================
+   GIFT BASKET
+========================================= */
+
+function drawGiftBasket() {
+
+    const x = 760;
+    const y = 365;
+
+
+    /* BASKET */
+
+    ctx.fillStyle = "#A96F3B";
+
+    ctx.fillRect(
+        x,
+        y,
+        70,
+        45
+    );
+
+
+    /* BASKET TOP */
+
+    ctx.fillStyle = "#C58A4C";
+
+    ctx.fillRect(
+        x - 5,
+        y,
+        80,
+        10
+    );
+
+
+    /* HANDLE */
+
+    ctx.strokeStyle = "#8A572D";
+
+    ctx.lineWidth = 7;
+
+    ctx.beginPath();
+
+    ctx.arc(
+        x + 35,
+        y,
+        28,
+        Math.PI,
+        0
+    );
+
+    ctx.stroke();
+
+
+    /* RIBBON */
+
+    ctx.fillStyle = "#E85D75";
+
+    ctx.fillRect(
+        x + 28,
+        y - 5,
+        14,
+        20
+    );
+
+
+    ctx.beginPath();
+
+    ctx.moveTo(x + 35, y + 10);
+
+    ctx.lineTo(x + 18, y + 25);
+
+    ctx.lineTo(x + 35, y + 20);
+
+    ctx.lineTo(x + 52, y + 25);
+
+    ctx.closePath();
+
+    ctx.fill();
+
+
+    /* LABEL */
+
+    ctx.fillStyle = "white";
+
+    ctx.font =
+        "bold 14px Arial";
+
+    ctx.textAlign =
+        "center";
+
+    ctx.fillText(
+        "FOR HER ❤️",
+        x + 35,
+        y + 65
+    );
+
+}
+
+
+/* =========================================
    PLAYER
 ========================================= */
 
 function drawPlayer() {
-
 
     /* BODY */
 
@@ -975,7 +1332,6 @@ function drawPlayer() {
         3
     );
 
-
     ctx.fillRect(
         player.x + 20,
         player.y - 14,
@@ -992,24 +1348,16 @@ function drawPlayer() {
 
 function updatePlayer() {
 
-
     if (!gameStarted) {
-
         return;
-
     }
-
 
     if (dialogueActive) {
-
         return;
-
     }
 
 
-    /* =====================================
-       LEFT
-    ===================================== */
+    /* LEFT */
 
     if (
         keys["arrowleft"] ||
@@ -1021,9 +1369,7 @@ function updatePlayer() {
     }
 
 
-    /* =====================================
-       RIGHT
-    ===================================== */
+    /* RIGHT */
 
     if (
         keys["arrowright"] ||
@@ -1035,53 +1381,87 @@ function updatePlayer() {
     }
 
 
-    /* =====================================
-       SCREEN LIMITS
-    ===================================== */
+    /* SCREEN LIMITS */
 
     player.x =
         Math.max(
             0,
             Math.min(
-                canvas.width -
-                player.width,
+                canvas.width - player.width,
                 player.x
             )
         );
 
 
-    /* =====================================
-       KEEP PLAYER ON PATH
-    ===================================== */
+    /* KEEP PLAYER ON PATH */
 
     player.y = 390;
 
 
     /* =====================================
-       FIRST MEETING INTERACTION
+       CHAPTER 1 INTERACTION
     ===================================== */
 
-    const firstMeetingX = 775;
+    if (currentChapter === 1) {
 
-    const playerCenter =
-        player.x + player.width / 2;
+        const firstMeetingX = 775;
 
-    const distance =
-        Math.abs(
-            playerCenter -
-            firstMeetingX
-        );
+        const playerCenter =
+            player.x + player.width / 2;
 
-
-    if (distance < 100) {
-
-        if (!firstMeetingTriggered) {
-
-            firstMeetingTriggered = true;
-
-            startDialogue(
-                chapters.firstMeeting.dialogue
+        const distance =
+            Math.abs(
+                playerCenter -
+                firstMeetingX
             );
+
+
+        if (distance < 100) {
+
+            if (!firstMeetingTriggered) {
+
+                firstMeetingTriggered = true;
+
+                startDialogue(
+                    chapters.firstMeeting.dialogue
+                );
+
+            }
+
+        }
+
+    }
+
+
+    /* =====================================
+       CHAPTER 2 INTERACTION
+    ===================================== */
+
+    if (currentChapter === 2) {
+
+        const giftBasketX = 795;
+
+        const playerCenter =
+            player.x + player.width / 2;
+
+        const distance =
+            Math.abs(
+                playerCenter -
+                giftBasketX
+            );
+
+
+        if (distance < 100) {
+
+            if (!girlfriendQuestionTriggered) {
+
+                girlfriendQuestionTriggered = true;
+
+                startDialogue(
+                    chapters.girlfriendQuestion.dialogue
+                );
+
+            }
 
         }
 
@@ -1091,11 +1471,28 @@ function updatePlayer() {
 
 
 /* =========================================
+   CONTINUE BUTTON
+========================================= */
+
+continueButton.addEventListener(
+    "click",
+    function() {
+
+        if (dialogueActive) {
+
+            nextDialogue();
+
+        }
+
+    }
+);
+
+
+/* =========================================
    GAME LOOP
 ========================================= */
 
 function gameLoop() {
-
 
     ctx.clearRect(
         0,
