@@ -1,10 +1,16 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
 
 <title>Our Little Adventure ❤️</title>
+
 
 <style>
 
@@ -17,28 +23,43 @@
 }
 
 body {
+
     margin: 0;
+
     background: #111;
+
     color: white;
+
     font-family: Georgia, serif;
 
     display: flex;
+
     justify-content: center;
+
     align-items: center;
 
     width: 100vw;
+
     height: 100vh;
 
     overflow: hidden;
 }
 
+
+/* =========================================
+   GAME
+========================================= */
+
 #game {
+
     position: relative;
 
     width: 960px;
+
     height: 540px;
 
     max-width: 100vw;
+
     max-height: 100vh;
 
     overflow: hidden;
@@ -52,9 +73,11 @@ body {
 ========================================= */
 
 canvas {
+
     display: block;
 
     width: 100%;
+
     height: 100%;
 
     image-rendering: pixelated;
@@ -90,6 +113,7 @@ canvas {
     z-index: 10;
 }
 
+
 #titleScreen h1 {
 
     font-size: 58px;
@@ -98,16 +122,16 @@ canvas {
 
     text-shadow:
         3px 3px 0 #000;
-
 }
+
 
 #titleScreen p {
 
     font-size: 20px;
 
     margin-bottom: 35px;
-
 }
+
 
 #startButton {
 
@@ -128,13 +152,12 @@ canvas {
     cursor: pointer;
 
     transition: transform 0.15s;
-
 }
+
 
 #startButton:hover {
 
     transform: scale(1.08);
-
 }
 
 
@@ -160,22 +183,22 @@ canvas {
 
     text-shadow:
         3px 3px 0 #000;
-
 }
+
 
 #chapterNumber {
 
     font-size: 20px;
-
 }
+
 
 #chapterName {
 
     font-size: 50px;
 
     margin: 5px 0;
-
 }
+
 
 .chapterHidden {
 
@@ -208,8 +231,8 @@ canvas {
     border-radius: 12px;
 
     z-index: 20;
-
 }
+
 
 #speaker {
 
@@ -218,8 +241,8 @@ canvas {
     font-weight: bold;
 
     margin-bottom: 8px;
-
 }
+
 
 #dialogueText {
 
@@ -228,8 +251,8 @@ canvas {
     line-height: 1.45;
 
     min-height: 55px;
-
 }
+
 
 #continueButton {
 
@@ -244,16 +267,16 @@ canvas {
     cursor: pointer;
 
     font-family: Georgia, serif;
-
 }
+
 
 .hidden {
 
     display: none !important;
-
 }
 
 </style>
+
 </head>
 
 
@@ -262,9 +285,13 @@ canvas {
 
 <div id="game">
 
-    <canvas id="gameCanvas"
-            width="960"
-            height="540">
+
+    <!-- GAME CANVAS -->
+
+    <canvas
+        id="gameCanvas"
+        width="960"
+        height="540">
     </canvas>
 
 
@@ -272,7 +299,9 @@ canvas {
 
     <div id="titleScreen">
 
-        <h1>Our Little Adventure ❤️</h1>
+        <h1>
+            Our Little Adventure ❤️
+        </h1>
 
         <p>
             A very small game about a very big story.
@@ -287,8 +316,9 @@ canvas {
 
     <!-- CHAPTER TITLE -->
 
-    <div id="chapterTitle"
-         class="chapterHidden">
+    <div
+        id="chapterTitle"
+        class="chapterHidden">
 
         <div id="chapterNumber">
             CHAPTER 1
@@ -303,8 +333,9 @@ canvas {
 
     <!-- DIALOGUE -->
 
-    <div id="dialogue"
-         class="hidden">
+    <div
+        id="dialogue"
+        class="hidden">
 
         <div id="speaker"></div>
 
@@ -318,6 +349,7 @@ canvas {
 
 
 </div>
+
 
 
 <script>
@@ -376,7 +408,7 @@ let dialogueActive = false;
 
 let currentDialogue = 0;
 
-let hingeTriggered = false;
+let firstMeetingTriggered = false;
 
 
 /* =========================================
@@ -404,11 +436,16 @@ const player = {
 
 const keys = {};
 
+
 document.addEventListener(
     "keydown",
     function(event) {
 
         keys[event.key.toLowerCase()] = true;
+
+
+        /* Continue dialogue with
+           Space or Enter */
 
         if (
             dialogueActive &&
@@ -424,6 +461,7 @@ document.addEventListener(
 
     }
 );
+
 
 document.addEventListener(
     "keyup",
@@ -441,7 +479,7 @@ document.addEventListener(
 
 const chapters = {
 
-    hinge: {
+    firstMeeting: {
 
         title: "The Beginning",
 
@@ -449,66 +487,77 @@ const chapters = {
 
             {
                 speaker: "Narrator",
+
                 text:
                     "It started with two people who had never met."
             },
 
             {
                 speaker: "Narrator",
+
                 text:
                     "Then, one day... they matched on Hinge."
             },
 
             {
                 speaker: "Cooper",
+
                 text:
                     "Want to go on a date?"
             },
 
             {
                 speaker: "Her",
+
                 text:
                     "Sure! ❤️"
             },
 
             {
                 speaker: "Her (secretly)",
+
                 text:
                     "Please cancel. Please cancel. Please cancel. 😂"
             },
 
             {
                 speaker: "Narrator",
+
                 text:
                     "But he didn't cancel."
             },
 
             {
                 speaker: "Narrator",
+
                 text:
                     "And neither did she."
             },
 
             {
                 speaker: "Narrator",
+
                 text:
                     "So they went on their first date..."
             },
 
             {
                 speaker: "Narrator",
+
                 text:
                     "...and somehow, things started going really well."
             },
 
             {
                 speaker: "Narrator",
+
                 text:
                     "Neither of them knew it yet..."
             },
 
             {
                 speaker: "Narrator",
+
                 text:
                     "but this was only the beginning."
             }
@@ -555,6 +604,7 @@ function showChapter(number, name) {
         "chapterHidden"
     );
 
+
     setTimeout(
         function() {
 
@@ -576,16 +626,21 @@ function showChapter(number, name) {
 function startDialogue(dialogue) {
 
     if (dialogueActive) {
+
         return;
+
     }
+
 
     dialogueActive = true;
 
     currentDialogue = 0;
 
+
     dialogueBox.classList.remove(
         "hidden"
     );
+
 
     displayDialogue(
         dialogue[0]
@@ -609,9 +664,10 @@ function nextDialogue() {
 
     currentDialogue++;
 
+
     if (
         currentDialogue >=
-        chapters.hinge.dialogue.length
+        chapters.firstMeeting.dialogue.length
     ) {
 
         endDialogue();
@@ -620,8 +676,9 @@ function nextDialogue() {
 
     }
 
+
     displayDialogue(
-        chapters.hinge.dialogue[
+        chapters.firstMeeting.dialogue[
             currentDialogue
         ]
     );
@@ -647,6 +704,7 @@ function endDialogue() {
 ========================================= */
 
 function drawBackground() {
+
 
     /* SKY */
 
@@ -723,18 +781,24 @@ function drawBackground() {
     drawFlower(870, 360);
 
 
-    /* HINGE SIGN */
+    /* FIRST MEETING SIGN */
 
-    drawHingeSign();
+    drawFirstMeetingSign();
 
 }
 
+
+/* =========================================
+   CLOUD
+========================================= */
 
 function drawCloud(x, y) {
 
     ctx.fillStyle = "white";
 
+
     ctx.beginPath();
+
 
     ctx.arc(
         x,
@@ -744,6 +808,7 @@ function drawCloud(x, y) {
         Math.PI * 2
     );
 
+
     ctx.arc(
         x + 30,
         y - 10,
@@ -751,6 +816,7 @@ function drawCloud(x, y) {
         0,
         Math.PI * 2
     );
+
 
     ctx.arc(
         x + 60,
@@ -760,12 +826,18 @@ function drawCloud(x, y) {
         Math.PI * 2
     );
 
+
     ctx.fill();
 
 }
 
 
+/* =========================================
+   FLOWER
+========================================= */
+
 function drawFlower(x, y) {
+
 
     /* STEM */
 
@@ -798,7 +870,12 @@ function drawFlower(x, y) {
 }
 
 
-function drawHingeSign() {
+/* =========================================
+   FIRST MEETING SIGN
+========================================= */
+
+function drawFirstMeetingSign() {
+
 
     /* SIGN */
 
@@ -829,13 +906,14 @@ function drawHingeSign() {
     ctx.fillStyle = "white";
 
     ctx.font =
-        "bold 30px Arial";
+        "bold 24px Arial";
 
     ctx.textAlign =
         "center";
 
+
     ctx.fillText(
-        "HINGE ❤️",
+        "FIRST MEETING ❤️",
         775,
         290
     );
@@ -848,6 +926,7 @@ function drawHingeSign() {
 ========================================= */
 
 function drawPlayer() {
+
 
     /* BODY */
 
@@ -896,6 +975,7 @@ function drawPlayer() {
         3
     );
 
+
     ctx.fillRect(
         player.x + 20,
         player.y - 14,
@@ -912,16 +992,24 @@ function drawPlayer() {
 
 function updatePlayer() {
 
+
     if (!gameStarted) {
+
         return;
+
     }
+
 
     if (dialogueActive) {
+
         return;
+
     }
 
 
-    /* LEFT */
+    /* =====================================
+       LEFT
+    ===================================== */
 
     if (
         keys["arrowleft"] ||
@@ -933,7 +1021,9 @@ function updatePlayer() {
     }
 
 
-    /* RIGHT */
+    /* =====================================
+       RIGHT
+    ===================================== */
 
     if (
         keys["arrowright"] ||
@@ -945,31 +1035,9 @@ function updatePlayer() {
     }
 
 
-    /* UP */
-
-    if (
-        keys["arrowup"] ||
-        keys["w"]
-    ) {
-
-        player.y -= player.speed;
-
-    }
-
-
-    /* DOWN */
-
-    if (
-        keys["arrowdown"] ||
-        keys["s"]
-    ) {
-
-        player.y += player.speed;
-
-    }
-
-
-    /* SCREEN LIMITS */
+    /* =====================================
+       SCREEN LIMITS
+    ===================================== */
 
     player.x =
         Math.max(
@@ -982,31 +1050,37 @@ function updatePlayer() {
         );
 
 
-    player.y =
-        Math.max(
-            280,
-            Math.min(
-                440,
-                player.y
-            )
+    /* =====================================
+       KEEP PLAYER ON PATH
+    ===================================== */
+
+    player.y = 390;
+
+
+    /* =====================================
+       FIRST MEETING INTERACTION
+    ===================================== */
+
+    const firstMeetingX = 775;
+
+    const playerCenter =
+        player.x + player.width / 2;
+
+    const distance =
+        Math.abs(
+            playerCenter -
+            firstMeetingX
         );
 
 
-    /* HINGE INTERACTION */
+    if (distance < 100) {
 
-    if (
-        player.x > 620 &&
-        player.x < 850 &&
-        player.y > 210 &&
-        player.y < 350
-    ) {
+        if (!firstMeetingTriggered) {
 
-        if (!hingeTriggered) {
-
-            hingeTriggered = true;
+            firstMeetingTriggered = true;
 
             startDialogue(
-                chapters.hinge.dialogue
+                chapters.firstMeeting.dialogue
             );
 
         }
@@ -1021,6 +1095,7 @@ function updatePlayer() {
 ========================================= */
 
 function gameLoop() {
+
 
     ctx.clearRect(
         0,
@@ -1050,8 +1125,9 @@ function gameLoop() {
 
 gameLoop();
 
-
 </script>
 
 </body>
+
 </html>
+```
