@@ -39,9 +39,9 @@ canvas {
 }
 
 
-/* =========================================================
+/* ==============================
    TITLE SCREEN
-========================================================= */
+============================== */
 
 #titleScreen {
     position: absolute;
@@ -82,9 +82,9 @@ button:hover {
 }
 
 
-/* =========================================================
+/* ==============================
    CHAPTER TITLE
-========================================================= */
+============================== */
 
 #chapterTitle {
     position: absolute;
@@ -110,9 +110,9 @@ button:hover {
 }
 
 
-/* =========================================================
+/* ==============================
    DIALOGUE
-========================================================= */
+============================== */
 
 #dialogueBox {
     position: absolute;
@@ -162,58 +162,58 @@ button:hover {
 
 <div id="game">
 
-    <canvas id="canvas" width="960" height="540"></canvas>
+<canvas id="canvas" width="960" height="540"></canvas>
 
 
-    <!-- =====================================================
-         TITLE SCREEN
-    ===================================================== -->
+<!-- ==============================
+     TITLE SCREEN
+============================== -->
 
-    <div id="titleScreen">
+<div id="titleScreen">
 
-        <h1>Our Little Adventure ❤️</h1>
+    <h1>Our Little Adventure ❤️</h1>
 
-        <p>A story about us</p>
+    <p>A story about us</p>
 
-        <button id="startButton">
-            Start Our Story
-        </button>
+    <button id="startButton">
+        Start Our Story
+    </button>
 
+</div>
+
+
+<!-- ==============================
+     CHAPTER TITLE
+============================== -->
+
+<div id="chapterTitle" class="hidden">
+
+    <h1 id="chapterTitleText">
+        CHAPTER 1
+    </h1>
+
+    <p id="chapterSubtitle">
+        The Beginning
+    </p>
+
+</div>
+
+
+<!-- ==============================
+     DIALOGUE BOX
+============================== -->
+
+<div id="dialogueBox" class="hidden">
+
+    <div id="speaker"></div>
+
+    <div id="dialogueText"></div>
+
+    <div id="continueText">
+        Press SPACE or ENTER to continue
     </div>
 
-
-    <!-- =====================================================
-         CHAPTER TITLE
-    ===================================================== -->
-
-    <div id="chapterTitle" class="hidden">
-
-        <h1 id="chapterTitleText">
-            CHAPTER 1
-        </h1>
-
-        <p id="chapterSubtitle">
-            The Beginning
-        </p>
-
-    </div>
-
-
-    <!-- =====================================================
-         DIALOGUE
-    ===================================================== -->
-
-    <div id="dialogueBox" class="hidden">
-
-        <div id="speaker"></div>
-
-        <div id="dialogueText"></div>
-
-        <div id="continueText">
-            Press SPACE or ENTER to continue
-        </div>
-
-    </div>
+</div>
 
 </div>
 
@@ -229,20 +229,32 @@ const ctx = canvas.getContext("2d");
 
 
 /* =========================================================
-   UI ELEMENTS
+   UI
 ========================================================= */
 
-const titleScreen = document.getElementById("titleScreen");
+const titleScreen =
+    document.getElementById("titleScreen");
 
-const chapterTitle = document.getElementById("chapterTitle");
-const chapterTitleText = document.getElementById("chapterTitleText");
-const chapterSubtitle = document.getElementById("chapterSubtitle");
+const chapterTitle =
+    document.getElementById("chapterTitle");
 
-const dialogueBox = document.getElementById("dialogueBox");
-const speakerElement = document.getElementById("speaker");
-const dialogueTextElement = document.getElementById("dialogueText");
+const chapterTitleText =
+    document.getElementById("chapterTitleText");
 
-const startButton = document.getElementById("startButton");
+const chapterSubtitle =
+    document.getElementById("chapterSubtitle");
+
+const dialogueBox =
+    document.getElementById("dialogueBox");
+
+const speakerElement =
+    document.getElementById("speaker");
+
+const dialogueTextElement =
+    document.getElementById("dialogueText");
+
+const startButton =
+    document.getElementById("startButton");
 
 
 /* =========================================================
@@ -288,461 +300,461 @@ let keys = {};
 
 
 /* =========================================================
-   DIALOGUE
+   CHAPTER DIALOGUE
 ========================================================= */
 
 const chapters = {
 
 
-    /* =====================================================
-       CHAPTER 1
-    ===================================================== */
-
-    firstMeeting: [
-
-        {
-            speaker: "You",
-            text: "I still remember our first meeting."
-        },
-
-        {
-            speaker: "You",
-            text: "I had no idea that meeting you would change my life."
-        },
-
-        {
-            speaker: "You",
-            text: "At first, I was probably a little nervous."
-        },
-
-        {
-            speaker: "You",
-            text: "But talking to you felt so easy."
-        },
-
-        {
-            speaker: "You",
-            text: "Before I knew it, I was looking forward to every conversation."
-        },
-
-        {
-            speaker: "You",
-            text: "Somehow, you became one of my favorite people."
-        },
-
-        {
-            speaker: "You",
-            text: "And I wanted to know you more."
-        },
-
-        {
-            speaker: "You",
-            text: "I didn't know where this little adventure would take us..."
-        },
-
-        {
-            speaker: "You",
-            text: "But I'm really glad I took that first step."
-        },
-
-        {
-            speaker: "You",
-            text: "Because that first meeting eventually led me to you."
-        },
-
-        {
-            speaker: "You",
-            text: "And this was only the beginning. ❤️"
-        }
-
-    ],
-
-
-    /* =====================================================
-       CHAPTER 2
-    ===================================================== */
-
-    girlfriendQuestion: [
-
-        {
-            speaker: "You",
-            text: "It was early in the morning..."
-        },
-
-        {
-            speaker: "You",
-            text: "And I had a plan."
-        },
-
-        {
-            speaker: "You",
-            text: "I grabbed a gift basket..."
-        },
-
-        {
-            speaker: "You",
-            text: "And somehow convinced myself that sneaking into your backyard was a good idea."
-        },
-
-        {
-            speaker: "You",
-            text: "I was probably more nervous than I wanted to admit."
-        },
-
-        {
-            speaker: "You",
-            text: "But there was something I really wanted to ask you."
-        },
-
-        {
-            speaker: "You",
-            text: "I didn't want to just keep wondering what we could become."
-        },
-
-        {
-            speaker: "You",
-            text: "I wanted you to be mine."
-        },
-
-        {
-            speaker: "You",
-            text: "So I showed up..."
-        },
-
-        {
-            speaker: "You",
-            text: "With a gift basket..."
-        },
-
-        {
-            speaker: "You",
-            text: "And a very important question."
-        },
-
-        {
-            speaker: "You",
-            text: "Would you be my girlfriend?"
-        },
-
-        {
-            speaker: "Her",
-            text: "..."
-        },
-
-        {
-            speaker: "Her",
-            text: "Of course. ❤️"
-        },
-
-        {
-            speaker: "You",
-            text: "And just like that..."
-        },
-
-        {
-            speaker: "You",
-            text: "Our story became something even more special."
-        },
-
-        {
-            speaker: "You",
-            text: "I had no idea how many memories we were about to make."
-        },
-
-        {
-            speaker: "You",
-            text: "But I knew I wanted to make them with you."
-        },
-
-        {
-            speaker: "You",
-            text: "And I'm so glad I did."
-        },
-
-        {
-            speaker: "You",
-            text: "Because look at us now. ❤️"
-        }
-
-    ],
-
-
-    /* =====================================================
-       CHAPTER 3
-    ===================================================== */
-
-    pittsburgh: [
-
-        {
-            speaker: "You",
-            text: "And then came the day you had to leave."
-        },
-
-        {
-            speaker: "Her",
-            text: "I'm flying to Pittsburgh to visit my sister."
-        },
-
-        {
-            speaker: "You",
-            text: "I knew it wasn't forever..."
-        },
-
-        {
-            speaker: "You",
-            text: "But saying goodbye still wasn't easy."
-        },
-
-        {
-            speaker: "Her",
-            text: "I'll see you soon."
-        },
-
-        {
-            speaker: "You",
-            text: "I love you."
-        },
-
-        {
-            speaker: "Her",
-            text: "I love you too. ❤️"
-        },
-
-        {
-            speaker: "You",
-            text: "So I watched you leave..."
-        },
-
-        {
-            speaker: "You",
-            text: "And then watched the plane disappear into the sky."
-        },
-
-        {
-            speaker: "You",
-            text: "That's when it really hit me."
-        },
-
-        {
-            speaker: "You",
-            text: "I didn't want to keep saying goodbye to you."
-        },
-
-        {
-            speaker: "Her",
-            text: "I don't like being away from you."
-        },
-
-        {
-            speaker: "You",
-            text: "Me neither."
-        },
-
-        {
-            speaker: "Her",
-            text: "What if we didn't have to do this anymore?"
-        },
-
-        {
-            speaker: "You",
-            text: "What do you mean?"
-        },
-
-        {
-            speaker: "Her",
-            text: "What if we just... got married?"
-        },
-
-        {
-            speaker: "You",
-            text: "I remember thinking about it."
-        },
-
-        {
-            speaker: "You",
-            text: "And honestly..."
-        },
-
-        {
-            speaker: "You",
-            text: "It didn't feel crazy."
-        },
-
-        {
-            speaker: "You",
-            text: "It felt right."
-        },
-
-        {
-            speaker: "You",
-            text: "Let's do it."
-        },
-
-        {
-            speaker: "Her",
-            text: "Really?"
-        },
-
-        {
-            speaker: "You",
-            text: "Really."
-        },
-
-        {
-            speaker: "Her",
-            text: "Then let's get married. ❤️"
-        },
-
-        {
-            speaker: "You",
-            text: "And just like that..."
-        },
-
-        {
-            speaker: "You",
-            text: "We decided to spend the rest of our lives together."
-        }
-
-    ],
-
-
-    /* =====================================================
-       CHAPTER 4
-    ===================================================== */
-
-    wedding: [
-
-        {
-            speaker: "You",
-            text: "And then came the day we had been talking about."
-        },
-
-        {
-            speaker: "You",
-            text: "Our wedding day."
-        },
-
-        {
-            speaker: "You",
-            text: "There wasn't a huge venue."
-        },
-
-        {
-            speaker: "You",
-            text: "There wasn't a huge crowd."
-        },
-
-        {
-            speaker: "You",
-            text: "Just a backyard..."
-        },
-
-        {
-            speaker: "You",
-            text: "A little white flower arch..."
-        },
-
-        {
-            speaker: "You",
-            text: "And the person I wanted to spend my life with."
-        },
-
-        {
-            speaker: "You",
-            text: "And even though they couldn't all be there in person..."
-        },
-
-        {
-            speaker: "You",
-            text: "Your cousin was there."
-        },
-
-        {
-            speaker: "You",
-            text: "Your cousin's husband was there."
-        },
-
-        {
-            speaker: "You",
-            text: "Your cousin's child was there."
-        },
-
-        {
-            speaker: "You",
-            text: "Your friends were there."
-        },
-
-        {
-            speaker: "You",
-            text: "And your mom was there."
-        },
-
-        {
-            speaker: "You",
-            text: "All watching us through FaceTime."
-        },
-
-        {
-            speaker: "Her",
-            text: "I can't believe we're actually getting married."
-        },
-
-        {
-            speaker: "You",
-            text: "Neither can I."
-        },
-
-        {
-            speaker: "You",
-            text: "Do you remember this backyard?"
-        },
-
-        {
-            speaker: "Her",
-            text: "Of course I do."
-        },
-
-        {
-            speaker: "You",
-            text: "This is where I asked you to be my girlfriend."
-        },
-
-        {
-            speaker: "You",
-            text: "And now I'm standing here asking you to be my wife."
-        },
-
-        {
-            speaker: "Her",
-            text: "I choose you."
-        },
-
-        {
-            speaker: "You",
-            text: "I choose you too."
-        },
-
-        {
-            speaker: "Her",
-            text: "Forever?"
-        },
-
-        {
-            speaker: "You",
-            text: "Forever."
-        },
-
-        {
-            speaker: "You",
-            text: "And with everyone we love watching..."
-        },
-
-        {
-            speaker: "You",
-            text: "We became husband and wife. ❤️"
-        }
-
-    ]
+/* =========================================================
+   CHAPTER 1
+========================================================= */
+
+firstMeeting: [
+
+    {
+        speaker: "You",
+        text: "I still remember our first meeting."
+    },
+
+    {
+        speaker: "You",
+        text: "I had no idea that meeting you would change my life."
+    },
+
+    {
+        speaker: "You",
+        text: "At first, I was probably a little nervous."
+    },
+
+    {
+        speaker: "You",
+        text: "But talking to you felt so easy."
+    },
+
+    {
+        speaker: "You",
+        text: "Before I knew it, I was looking forward to every conversation."
+    },
+
+    {
+        speaker: "You",
+        text: "Somehow, you became one of my favorite people."
+    },
+
+    {
+        speaker: "You",
+        text: "And I wanted to know you more."
+    },
+
+    {
+        speaker: "You",
+        text: "I didn't know where this little adventure would take us..."
+    },
+
+    {
+        speaker: "You",
+        text: "But I'm really glad I took that first step."
+    },
+
+    {
+        speaker: "You",
+        text: "Because that first meeting eventually led me to you."
+    },
+
+    {
+        speaker: "You",
+        text: "And this was only the beginning. ❤️"
+    }
+
+],
+
+
+/* =========================================================
+   CHAPTER 2
+========================================================= */
+
+girlfriendQuestion: [
+
+    {
+        speaker: "You",
+        text: "It was early in the morning..."
+    },
+
+    {
+        speaker: "You",
+        text: "And I had a plan."
+    },
+
+    {
+        speaker: "You",
+        text: "I grabbed a gift basket..."
+    },
+
+    {
+        speaker: "You",
+        text: "And somehow convinced myself that sneaking into your backyard was a good idea."
+    },
+
+    {
+        speaker: "You",
+        text: "I was probably more nervous than I wanted to admit."
+    },
+
+    {
+        speaker: "You",
+        text: "But there was something I really wanted to ask you."
+    },
+
+    {
+        speaker: "You",
+        text: "I didn't want to just keep wondering what we could become."
+    },
+
+    {
+        speaker: "You",
+        text: "I wanted you to be mine."
+    },
+
+    {
+        speaker: "You",
+        text: "So I showed up..."
+    },
+
+    {
+        speaker: "You",
+        text: "With a gift basket..."
+    },
+
+    {
+        speaker: "You",
+        text: "And a very important question."
+    },
+
+    {
+        speaker: "You",
+        text: "Would you be my girlfriend?"
+    },
+
+    {
+        speaker: "Her",
+        text: "..."
+    },
+
+    {
+        speaker: "Her",
+        text: "Of course. ❤️"
+    },
+
+    {
+        speaker: "You",
+        text: "And just like that..."
+    },
+
+    {
+        speaker: "You",
+        text: "Our story became something even more special."
+    },
+
+    {
+        speaker: "You",
+        text: "I had no idea how many memories we were about to make."
+    },
+
+    {
+        speaker: "You",
+        text: "But I knew I wanted to make them with you."
+    },
+
+    {
+        speaker: "You",
+        text: "And I'm so glad I did."
+    },
+
+    {
+        speaker: "You",
+        text: "Because look at us now. ❤️"
+    }
+
+],
+
+
+/* =========================================================
+   CHAPTER 3
+========================================================= */
+
+pittsburgh: [
+
+    {
+        speaker: "You",
+        text: "And then came the day you had to leave."
+    },
+
+    {
+        speaker: "Her",
+        text: "I'm flying to Pittsburgh to visit my sister."
+    },
+
+    {
+        speaker: "You",
+        text: "I knew it wasn't forever..."
+    },
+
+    {
+        speaker: "You",
+        text: "But saying goodbye still wasn't easy."
+    },
+
+    {
+        speaker: "Her",
+        text: "I'll see you soon."
+    },
+
+    {
+        speaker: "You",
+        text: "I love you."
+    },
+
+    {
+        speaker: "Her",
+        text: "I love you too. ❤️"
+    },
+
+    {
+        speaker: "You",
+        text: "So I watched you leave..."
+    },
+
+    {
+        speaker: "You",
+        text: "And then watched the plane disappear into the sky."
+    },
+
+    {
+        speaker: "You",
+        text: "That's when it really hit me."
+    },
+
+    {
+        speaker: "You",
+        text: "I didn't want to keep saying goodbye to you."
+    },
+
+    {
+        speaker: "Her",
+        text: "I don't like being away from you."
+    },
+
+    {
+        speaker: "You",
+        text: "Me neither."
+    },
+
+    {
+        speaker: "Her",
+        text: "What if we didn't have to do this anymore?"
+    },
+
+    {
+        speaker: "You",
+        text: "What do you mean?"
+    },
+
+    {
+        speaker: "Her",
+        text: "What if we just... got married?"
+    },
+
+    {
+        speaker: "You",
+        text: "I remember thinking about it."
+    },
+
+    {
+        speaker: "You",
+        text: "And honestly..."
+    },
+
+    {
+        speaker: "You",
+        text: "It didn't feel crazy."
+    },
+
+    {
+        speaker: "You",
+        text: "It felt right."
+    },
+
+    {
+        speaker: "You",
+        text: "Let's do it."
+    },
+
+    {
+        speaker: "Her",
+        text: "Really?"
+    },
+
+    {
+        speaker: "You",
+        text: "Really."
+    },
+
+    {
+        speaker: "Her",
+        text: "Then let's get married. ❤️"
+    },
+
+    {
+        speaker: "You",
+        text: "And just like that..."
+    },
+
+    {
+        speaker: "You",
+        text: "We decided to spend the rest of our lives together."
+    }
+
+],
+
+
+/* =========================================================
+   CHAPTER 4
+========================================================= */
+
+wedding: [
+
+    {
+        speaker: "You",
+        text: "And then came the day we had been talking about."
+    },
+
+    {
+        speaker: "You",
+        text: "Our wedding day."
+    },
+
+    {
+        speaker: "You",
+        text: "There wasn't a huge venue."
+    },
+
+    {
+        speaker: "You",
+        text: "There wasn't a huge crowd."
+    },
+
+    {
+        speaker: "You",
+        text: "Just a backyard..."
+    },
+
+    {
+        speaker: "You",
+        text: "A little white flower arch..."
+    },
+
+    {
+        speaker: "You",
+        text: "And the person I wanted to spend my life with."
+    },
+
+    {
+        speaker: "You",
+        text: "And even though they couldn't all be there in person..."
+    },
+
+    {
+        speaker: "You",
+        text: "Your cousin was there."
+    },
+
+    {
+        speaker: "You",
+        text: "Your cousin's husband was there."
+    },
+
+    {
+        speaker: "You",
+        text: "Your cousin's child was there."
+    },
+
+    {
+        speaker: "You",
+        text: "Your friends were there."
+    },
+
+    {
+        speaker: "You",
+        text: "And your mom was there."
+    },
+
+    {
+        speaker: "You",
+        text: "All watching us through FaceTime."
+    },
+
+    {
+        speaker: "Her",
+        text: "I can't believe we're actually getting married."
+    },
+
+    {
+        speaker: "You",
+        text: "Neither can I."
+    },
+
+    {
+        speaker: "You",
+        text: "Do you remember this backyard?"
+    },
+
+    {
+        speaker: "Her",
+        text: "Of course I do."
+    },
+
+    {
+        speaker: "You",
+        text: "This is where I asked you to be my girlfriend."
+    },
+
+    {
+        speaker: "You",
+        text: "And now I'm standing here asking you to be my wife."
+    },
+
+    {
+        speaker: "Her",
+        text: "I choose you."
+    },
+
+    {
+        speaker: "You",
+        text: "I choose you too."
+    },
+
+    {
+        speaker: "Her",
+        text: "Forever?"
+    },
+
+    {
+        speaker: "You",
+        text: "Forever."
+    },
+
+    {
+        speaker: "You",
+        text: "And with everyone we love watching..."
+    },
+
+    {
+        speaker: "You",
+        text: "We became husband and wife. ❤️"
+    }
+
+]
 
 };
 
@@ -754,27 +766,19 @@ const chapters = {
 function getCurrentDialogue() {
 
     if (currentChapter === 1) {
-
         return chapters.firstMeeting;
-
     }
 
     if (currentChapter === 2) {
-
         return chapters.girlfriendQuestion;
-
     }
 
     if (currentChapter === 3) {
-
         return chapters.pittsburgh;
-
     }
 
     if (currentChapter === 4) {
-
         return chapters.wedding;
-
     }
 
     return [];
@@ -786,7 +790,10 @@ function getCurrentDialogue() {
    START GAME
 ========================================================= */
 
-startButton.addEventListener("click", startGame);
+startButton.addEventListener(
+    "click",
+    startGame
+);
 
 
 function startGame() {
@@ -818,7 +825,7 @@ function startGame() {
 
 
 /* =========================================================
-   SHOW CHAPTER TITLE
+   SHOW CHAPTER
 ========================================================= */
 
 function showChapter(title, subtitle) {
@@ -829,7 +836,7 @@ function showChapter(title, subtitle) {
 
     chapterTitle.classList.remove("hidden");
 
-    setTimeout(() => {
+    setTimeout(function() {
 
         chapterTitle.classList.add("hidden");
 
@@ -871,9 +878,11 @@ function displayDialogue(dialogue) {
         return;
     }
 
-    speakerElement.textContent = dialogue.speaker;
+    speakerElement.textContent =
+        dialogue.speaker;
 
-    dialogueTextElement.textContent = dialogue.text;
+    dialogueTextElement.textContent =
+        dialogue.text;
 
 }
 
@@ -888,17 +897,23 @@ function nextDialogue() {
         return;
     }
 
-    const dialogue = getCurrentDialogue();
+    const dialogue =
+        getCurrentDialogue();
 
     currentDialogue++;
 
-    if (currentDialogue >= dialogue.length) {
+
+    if (
+        currentDialogue >=
+        dialogue.length
+    ) {
 
         endDialogue();
 
         return;
 
     }
+
 
     displayDialogue(
         dialogue[currentDialogue]
@@ -920,9 +935,9 @@ function endDialogue() {
     currentDialogue = 0;
 
 
-    /* =====================================================
+    /* -----------------------------------------
        CHAPTER 1 → CHAPTER 2
-    ===================================================== */
+    ----------------------------------------- */
 
     if (currentChapter === 1) {
 
@@ -941,9 +956,9 @@ function endDialogue() {
     }
 
 
-    /* =====================================================
+    /* -----------------------------------------
        CHAPTER 2 → CHAPTER 3
-    ===================================================== */
+    ----------------------------------------- */
 
     if (currentChapter === 2) {
 
@@ -962,9 +977,9 @@ function endDialogue() {
     }
 
 
-    /* =====================================================
+    /* -----------------------------------------
        CHAPTER 3 → CHAPTER 4
-    ===================================================== */
+    ----------------------------------------- */
 
     if (currentChapter === 3) {
 
@@ -983,9 +998,9 @@ function endDialogue() {
     }
 
 
-    /* =====================================================
+    /* -----------------------------------------
        CHAPTER 4 END
-    ===================================================== */
+    ----------------------------------------- */
 
     if (currentChapter === 4) {
 
@@ -1001,41 +1016,47 @@ function endDialogue() {
 
 
 /* =========================================================
-   KEYBOARD
+   KEYBOARD INPUT
 ========================================================= */
 
-document.addEventListener("keydown", function(event) {
+document.addEventListener(
+    "keydown",
+    function(event) {
 
-    keys[event.key.toLowerCase()] = true;
+        keys[event.key.toLowerCase()] = true;
 
 
-    if (
-        event.code === "Space" ||
-        event.code === "Enter"
-    ) {
+        if (
+            event.code === "Space" ||
+            event.code === "Enter"
+        ) {
 
-        if (dialogueActive) {
+            if (dialogueActive) {
 
-            event.preventDefault();
+                event.preventDefault();
 
-            nextDialogue();
+                nextDialogue();
+
+            }
 
         }
 
     }
+);
 
-});
 
+document.addEventListener(
+    "keyup",
+    function(event) {
 
-document.addEventListener("keyup", function(event) {
+        keys[event.key.toLowerCase()] = false;
 
-    keys[event.key.toLowerCase()] = false;
-
-});
+    }
+);
 
 
 /* =========================================================
-   UPDATE PLAYER
+   PLAYER UPDATE
 ========================================================= */
 
 function updatePlayer() {
@@ -1073,97 +1094,81 @@ function updatePlayer() {
     }
 
 
-    /* Keep player inside screen */
+    /* Screen boundaries */
 
     if (player.x < 20) {
-
         player.x = 20;
-
     }
 
     if (player.x > 900) {
-
         player.x = 900;
-
     }
 
 
-    /* =====================================================
+    /* -----------------------------------------
        CHAPTER 1 TRIGGER
-    ===================================================== */
+    ----------------------------------------- */
 
-    if (currentChapter === 1) {
+    if (
+        currentChapter === 1 &&
+        !firstMeetingTriggered &&
+        player.x > 720
+    ) {
 
-        if (
-            !firstMeetingTriggered &&
-            player.x > 720
-        ) {
+        firstMeetingTriggered = true;
 
-            firstMeetingTriggered = true;
-
-            startDialogue();
-
-        }
+        startDialogue();
 
     }
 
 
-    /* =====================================================
+    /* -----------------------------------------
        CHAPTER 2 TRIGGER
-    ===================================================== */
+    ----------------------------------------- */
 
-    if (currentChapter === 2) {
+    if (
+        currentChapter === 2 &&
+        !girlfriendQuestionTriggered &&
+        player.x > 700
+    ) {
 
-        if (
-            !girlfriendQuestionTriggered &&
-            player.x > 700
-        ) {
+        girlfriendQuestionTriggered = true;
 
-            girlfriendQuestionTriggered = true;
-
-            startDialogue();
-
-        }
+        startDialogue();
 
     }
 
 
-    /* =====================================================
+    /* -----------------------------------------
        CHAPTER 3 TRIGGER
-    ===================================================== */
+    ----------------------------------------- */
 
-    if (currentChapter === 3) {
+    if (
+        currentChapter === 3 &&
+        !airportTriggered &&
+        player.x > 700
+    ) {
 
-        if (
-            !airportTriggered &&
-            player.x > 700
-        ) {
+        airportTriggered = true;
 
-            airportTriggered = true;
-
-            startDialogue();
-
-        }
+        startDialogue();
 
     }
 
 
-    /* =====================================================
+    /* -----------------------------------------
        CHAPTER 4 TRIGGER
-    ===================================================== */
+    ----------------------------------------- */
 
-    if (currentChapter === 4) {
+    if (
+        currentChapter === 4 &&
+        !weddingTriggered &&
+        player.x > 650
+    ) {
 
-        if (
-            !weddingTriggered &&
-            player.x > 700
-        ) {
+        weddingTriggered = true;
 
-            weddingTriggered = true;
-
-            startDialogue();
-
-        }
+        startDialogue();
 
     }
 
@@ -1171,7 +1176,7 @@ function updatePlayer() {
 
 
 /* =========================================================
-   DRAW PLAYER
+   PLAYER
 ========================================================= */
 
 function drawPlayer() {
@@ -1249,7 +1254,7 @@ function drawPlayer() {
 
 
 /* =========================================================
-   CHAPTER 1 BACKGROUND
+   CHAPTER 1
 ========================================================= */
 
 function drawChapter1() {
@@ -1261,12 +1266,10 @@ function drawChapter1() {
     ctx.fillRect(
         0,
         0,
-        canvas.width,
+        960,
         540
     );
 
-
-    /* Clouds */
 
     drawCloud(150, 90);
 
@@ -1313,7 +1316,7 @@ function drawChapter1() {
     drawTree(850, 275);
 
 
-    /* Sign post */
+    /* Sign */
 
     ctx.fillStyle = "#754c24";
 
@@ -1324,8 +1327,6 @@ function drawChapter1() {
         90
     );
 
-
-    /* Sign */
 
     ctx.fillStyle = "#fff";
 
@@ -1374,19 +1375,19 @@ function drawChapter1() {
 
 
 /* =========================================================
-   CHAPTER 2 BACKGROUND
+   CHAPTER 2
 ========================================================= */
 
 function drawChapter2() {
 
-    /* Morning sky */
+    /* Sky */
 
     ctx.fillStyle = "#f7cfa4";
 
     ctx.fillRect(
         0,
         0,
-        canvas.width,
+        960,
         540
     );
 
@@ -1408,8 +1409,6 @@ function drawChapter2() {
     ctx.fill();
 
 
-    /* Clouds */
-
     drawCloud(170, 80);
 
     drawCloud(450, 110);
@@ -1427,7 +1426,7 @@ function drawChapter2() {
     );
 
 
-    /* Backyard path */
+    /* Path */
 
     ctx.fillStyle = "#c9a06b";
 
@@ -1487,7 +1486,7 @@ function drawChapter2() {
     );
 
 
-    ctx.strokeStyle = "#ffffff";
+    ctx.strokeStyle = "#fff";
 
     ctx.lineWidth = 5;
 
@@ -1547,24 +1546,22 @@ function drawChapter2() {
 
 
 /* =========================================================
-   CHAPTER 3 BACKGROUND
+   CHAPTER 3
 ========================================================= */
 
 function drawChapter3() {
 
-    /* Airport sky */
+    /* Sky */
 
     ctx.fillStyle = "#b9d8ed";
 
     ctx.fillRect(
         0,
         0,
-        canvas.width,
+        960,
         540
     );
 
-
-    /* Clouds */
 
     drawCloud(120, 90);
 
@@ -1573,7 +1570,7 @@ function drawChapter3() {
     drawCloud(780, 110);
 
 
-    /* Airport building */
+    /* Airport */
 
     ctx.fillStyle = "#e7e7e7";
 
@@ -1605,29 +1602,7 @@ function drawChapter3() {
     }
 
 
-    /* Window frames */
-
-    ctx.strokeStyle = "#dceaf2";
-
-    ctx.lineWidth = 4;
-
-    for (
-        let x = 30;
-        x < 930;
-        x += 100
-    ) {
-
-        ctx.strokeRect(
-            x,
-            215,
-            75,
-            95
-        );
-
-    }
-
-
-    /* Airport floor */
+    /* Floor */
 
     ctx.fillStyle = "#888";
 
@@ -1639,7 +1614,7 @@ function drawChapter3() {
     );
 
 
-    /* Floor tiles */
+    /* Tiles */
 
     ctx.strokeStyle = "#aaa";
 
@@ -1679,7 +1654,7 @@ function drawChapter3() {
     }
 
 
-    /* Departure sign */
+    /* Departures sign */
 
     ctx.fillStyle = "#222";
 
@@ -1742,15 +1717,11 @@ function drawChapter3() {
     ctx.textAlign = "left";
 
 
-    /* Airplane */
-
     drawAirplane(
         610,
         270
     );
 
-
-    /* Suitcase */
 
     drawSuitcase(
         715,
@@ -1772,37 +1743,31 @@ function drawChapter3() {
 
 
 /* =========================================================
-   CHAPTER 4 WEDDING BACKGROUND
+   CHAPTER 4 WEDDING
 ========================================================= */
 
 function drawChapter4() {
 
-    /* =====================================================
-       SKY
-    ===================================================== */
+    /* Sky */
 
     ctx.fillStyle = "#a9d8ef";
 
     ctx.fillRect(
         0,
         0,
-        canvas.width,
+        960,
         540
     );
 
 
-    /* Clouds */
-
     drawCloud(130, 80);
 
-    drawCloud(430, 65);
+    drawCloud(450, 65);
 
-    drawCloud(770, 95);
+    drawCloud(780, 95);
 
 
-    /* =====================================================
-       GRASS
-    ===================================================== */
+    /* Grass */
 
     ctx.fillStyle = "#65a94d";
 
@@ -1814,29 +1779,25 @@ function drawChapter4() {
     );
 
 
-    /* =====================================================
-       BACKGROUND TREES
-    ===================================================== */
+    /* Trees */
 
-    drawWeddingTree(90, 230);
+    drawWeddingTree(80, 220);
 
-    drawWeddingTree(240, 215);
+    drawWeddingTree(230, 230);
 
-    drawWeddingTree(730, 220);
+    drawWeddingTree(730, 225);
 
-    drawWeddingTree(875, 230);
+    drawWeddingTree(875, 220);
 
 
-    /* =====================================================
-       BACKYARD HOUSE
-    ===================================================== */
+    /* House in background */
 
     ctx.fillStyle = "#f0dfc5";
 
     ctx.fillRect(
-        330,
+        300,
         145,
-        330,
+        360,
         160
     );
 
@@ -1848,13 +1809,13 @@ function drawChapter4() {
     ctx.beginPath();
 
     ctx.moveTo(
-        290,
+        260,
         145
     );
 
     ctx.lineTo(
-        495,
-        40
+        480,
+        35
     );
 
     ctx.lineTo(
@@ -1872,7 +1833,7 @@ function drawChapter4() {
     ctx.fillStyle = "#9dd8f2";
 
     ctx.fillRect(
-        385,
+        355,
         185,
         70,
         60
@@ -1891,7 +1852,7 @@ function drawChapter4() {
     ctx.lineWidth = 4;
 
     ctx.strokeRect(
-        385,
+        355,
         185,
         70,
         60
@@ -1905,31 +1866,43 @@ function drawChapter4() {
     );
 
 
+    /* Door */
+
+    ctx.fillStyle = "#805333";
+
+    ctx.fillRect(
+        455,
+        230,
+        50,
+        75
+    );
+
+
     /* =====================================================
        WEDDING AISLE
     ===================================================== */
 
-    ctx.fillStyle = "#f3e4ce";
+    ctx.fillStyle = "#f5e8d5";
 
     ctx.beginPath();
 
     ctx.moveTo(
-        375,
+        365,
         540
     );
 
     ctx.lineTo(
-        585,
+        595,
         540
     );
 
     ctx.lineTo(
-        535,
+        545,
         300
     );
 
     ctx.lineTo(
-        425,
+        415,
         300
     );
 
@@ -1952,31 +1925,13 @@ function drawChapter4() {
        WEDDING PODIUM
     ===================================================== */
 
-    ctx.fillStyle = "#d8c3a5";
+    ctx.fillStyle = "#c8ad8a";
 
     ctx.fillRect(
-        450,
-        270,
-        60,
-        70
-    );
-
-
-    /* Flowers on podium */
-
-    drawSmallWhiteFlower(
-        455,
-        275
-    );
-
-    drawSmallWhiteFlower(
-        475,
-        265
-    );
-
-    drawSmallWhiteFlower(
-        495,
-        275
+        452,
+        275,
+        56,
+        65
     );
 
 
@@ -1985,22 +1940,34 @@ function drawChapter4() {
     ===================================================== */
 
     drawFaceTimePhone(
-        760,
+        750,
         315
     );
 
 
     /* =====================================================
-       SMALL WEDDING FLOWERS
+       FLOWERS
     ===================================================== */
 
-    drawSmallWhiteFlower(200, 375);
+    drawSmallWhiteFlower(
+        200,
+        385
+    );
 
-    drawSmallWhiteFlower(270, 410);
+    drawSmallWhiteFlower(
+        275,
+        410
+    );
 
-    drawSmallWhiteFlower(690, 390);
+    drawSmallWhiteFlower(
+        690,
+        390
+    );
 
-    drawSmallWhiteFlower(890, 370);
+    drawSmallWhiteFlower(
+        905,
+        380
+    );
 
 }
 
@@ -2011,7 +1978,7 @@ function drawChapter4() {
 
 function drawWeddingArch(x, y) {
 
-    /* Arch structure */
+    /* White arch */
 
     ctx.strokeStyle = "#ffffff";
 
@@ -2046,29 +2013,56 @@ function drawWeddingArch(x, y) {
 
     /* Flowers */
 
-    drawArchFlower(x - 105, y - 85);
+    drawArchFlower(
+        x - 105,
+        y - 85
+    );
 
-    drawArchFlower(x - 85, y - 120);
+    drawArchFlower(
+        x - 85,
+        y - 120
+    );
 
-    drawArchFlower(x - 55, y - 145);
+    drawArchFlower(
+        x - 55,
+        y - 145
+    );
 
-    drawArchFlower(x - 25, y - 160);
+    drawArchFlower(
+        x - 25,
+        y - 160
+    );
 
-    drawArchFlower(x, y - 165);
+    drawArchFlower(
+        x,
+        y - 165
+    );
 
-    drawArchFlower(x + 25, y - 160);
+    drawArchFlower(
+        x + 25,
+        y - 160
+    );
 
-    drawArchFlower(x + 55, y - 145);
+    drawArchFlower(
+        x + 55,
+        y - 145
+    );
 
-    drawArchFlower(x + 85, y - 120);
+    drawArchFlower(
+        x + 85,
+        y - 120
+    );
 
-    drawArchFlower(x + 105, y - 85);
+    drawArchFlower(
+        x + 105,
+        y - 85
+    );
 
 }
 
 
 /* =========================================================
-   ARCH FLOWER
+   ARCH FLOWERS
 ========================================================= */
 
 function drawArchFlower(x, y) {
@@ -2080,7 +2074,7 @@ function drawArchFlower(x, y) {
     ctx.arc(
         x,
         y,
-        11,
+        12,
         0,
         Math.PI * 2
     );
@@ -2088,7 +2082,7 @@ function drawArchFlower(x, y) {
     ctx.fill();
 
 
-    ctx.fillStyle = "#f4d9e2";
+    ctx.fillStyle = "#f2d9e2";
 
     ctx.beginPath();
 
@@ -2145,7 +2139,354 @@ function drawArchFlower(x, y) {
 
 
 /* =========================================================
-   SMALL WHITE FLOWER
+   WEDDING TREES
+========================================================= */
+
+function drawWeddingTree(x, y) {
+
+    /* Trunk */
+
+    ctx.fillStyle = "#70482b";
+
+    ctx.fillRect(
+        x - 12,
+        y,
+        24,
+        110
+    );
+
+
+    /* Leaves */
+
+    ctx.fillStyle = "#397c3c";
+
+    ctx.beginPath();
+
+    ctx.arc(
+        x,
+        y - 25,
+        58,
+        0,
+        Math.PI * 2
+    );
+
+    ctx.fill();
+
+
+    ctx.beginPath();
+
+    ctx.arc(
+        x - 38,
+        y + 5,
+        42,
+        0,
+        Math.PI * 2
+    );
+
+    ctx.fill();
+
+
+    ctx.beginPath();
+
+    ctx.arc(
+        x + 38,
+        y + 5,
+        42,
+        0,
+        Math.PI * 2
+    );
+
+    ctx.fill();
+
+}
+
+
+/* =========================================================
+   FACETIME PHONE
+========================================================= */
+
+function drawFaceTimePhone(x, y) {
+
+    /* Phone body */
+
+    ctx.fillStyle = "#202020";
+
+    ctx.fillRect(
+        x,
+        y,
+        150,
+        110
+    );
+
+
+    /* Screen */
+
+    ctx.fillStyle = "#8fb6d0";
+
+    ctx.fillRect(
+        x + 8,
+        y + 8,
+        134,
+        94
+    );
+
+
+    /* Three people */
+
+    drawTinyPerson(
+        x + 35,
+        y + 35
+    );
+
+    drawTinyPerson(
+        x + 75,
+        y + 30
+    );
+
+    drawTinyPerson(
+        x + 115,
+        y + 38
+    );
+
+
+    /* Bottom bar */
+
+    ctx.fillStyle = "#222";
+
+    ctx.fillRect(
+        x + 8,
+        y + 82,
+        134,
+        20
+    );
+
+
+    ctx.fillStyle = "#fff";
+
+    ctx.font = "11px Arial";
+
+    ctx.textAlign = "center";
+
+    ctx.fillText(
+        "❤️ WATCHING",
+        x + 75,
+        y + 96
+    );
+
+    ctx.textAlign = "left";
+
+
+    /* Stand */
+
+    ctx.fillStyle = "#444";
+
+    ctx.fillRect(
+        x + 60,
+        y + 110,
+        30,
+        20
+    );
+
+    ctx.fillRect(
+        x + 45,
+        y + 125,
+        60,
+        8
+    );
+
+}
+
+
+/* =========================================================
+   TINY FACETIME PERSON
+========================================================= */
+
+function drawTinyPerson(x, y) {
+
+    /* Head */
+
+    ctx.fillStyle = "#ffd0a6";
+
+    ctx.beginPath();
+
+    ctx.arc(
+        x,
+        y,
+        10,
+        0,
+        Math.PI * 2
+    );
+
+    ctx.fill();
+
+
+    /* Body */
+
+    ctx.fillStyle = "#ff6f91";
+
+    ctx.fillRect(
+        x - 10,
+        y + 10,
+        20,
+        20
+    );
+
+}
+
+
+/* =========================================================
+   CLOUD
+========================================================= */
+
+function drawCloud(x, y) {
+
+    ctx.fillStyle =
+        "rgba(255,255,255,0.85)";
+
+    ctx.beginPath();
+
+    ctx.arc(
+        x,
+        y,
+        25,
+        0,
+        Math.PI * 2
+    );
+
+    ctx.arc(
+        x + 30,
+        y - 10,
+        32,
+        0,
+        Math.PI * 2
+    );
+
+    ctx.arc(
+        x + 65,
+        y,
+        25,
+        0,
+        Math.PI * 2
+    );
+
+    ctx.fill();
+
+}
+
+
+/* =========================================================
+   NORMAL TREE
+========================================================= */
+
+function drawTree(x, y) {
+
+    /* Trunk */
+
+    ctx.fillStyle = "#754c24";
+
+    ctx.fillRect(
+        x - 12,
+        y,
+        24,
+        90
+    );
+
+
+    /* Leaves */
+
+    ctx.fillStyle = "#347a38";
+
+    ctx.beginPath();
+
+    ctx.arc(
+        x,
+        y - 20,
+        55,
+        0,
+        Math.PI * 2
+    );
+
+    ctx.fill();
+
+
+    ctx.beginPath();
+
+    ctx.arc(
+        x - 35,
+        y + 5,
+        40,
+        0,
+        Math.PI * 2
+    );
+
+    ctx.fill();
+
+
+    ctx.beginPath();
+
+    ctx.arc(
+        x + 35,
+        y + 5,
+        40,
+        0,
+        Math.PI * 2
+    );
+
+    ctx.fill();
+
+}
+
+
+/* =========================================================
+   FLOWER
+========================================================= */
+
+function drawFlower(x, y) {
+
+    ctx.fillStyle = "#3c8c40";
+
+    ctx.fillRect(
+        x - 2,
+        y,
+        4,
+        25
+    );
+
+
+    ctx.fillStyle = "#ff6f91";
+
+    ctx.beginPath();
+
+    ctx.arc(
+        x,
+        y,
+        7,
+        0,
+        Math.PI * 2
+    );
+
+    ctx.fill();
+
+
+    ctx.fillStyle = "#ffd34d";
+
+    ctx.beginPath();
+
+    ctx.arc(
+        x,
+        y,
+        3,
+        0,
+        Math.PI * 2
+    );
+
+    ctx.fill();
+
+}
+
+
+/* =========================================================
+   WHITE FLOWER
 ========================================================= */
 
 function drawSmallWhiteFlower(x, y) {
@@ -2217,179 +2558,123 @@ function drawSmallWhiteFlower(x, y) {
 
 
 /* =========================================================
-   WEDDING TREE
+   FENCE
 ========================================================= */
 
-function drawWeddingTree(x, y) {
+function drawFence() {
 
-    /* Trunk */
+    ctx.fillStyle = "#eee0c0";
 
-    ctx.fillStyle = "#70482b";
+
+    for (
+        let x = 30;
+        x < 950;
+        x += 55
+    ) {
+
+        ctx.fillRect(
+            x,
+            315,
+            10,
+            80
+        );
+
+    }
+
 
     ctx.fillRect(
-        x - 12,
-        y,
-        24,
-        110
-    );
-
-
-    /* Leaves */
-
-    ctx.fillStyle = "#397c3c";
-
-    ctx.beginPath();
-
-    ctx.arc(
-        x,
-        y - 25,
-        58,
         0,
-        Math.PI * 2
+        330,
+        960,
+        10
     );
 
-    ctx.fill();
-
-
-    ctx.beginPath();
-
-    ctx.arc(
-        x - 38,
-        y + 5,
-        42,
+    ctx.fillRect(
         0,
-        Math.PI * 2
+        365,
+        960,
+        10
     );
-
-    ctx.fill();
-
-
-    ctx.beginPath();
-
-    ctx.arc(
-        x + 38,
-        y + 5,
-        42,
-        0,
-        Math.PI * 2
-    );
-
-    ctx.fill();
 
 }
 
 
 /* =========================================================
-   FACETIME PHONE
+   GIFT BASKET
 ========================================================= */
 
-function drawFaceTimePhone(x, y) {
+function drawGiftBasket(x, y) {
 
-    /* Phone */
+    /* Basket */
 
-    ctx.fillStyle = "#202020";
+    ctx.fillStyle = "#9b632e";
 
     ctx.fillRect(
         x,
         y,
-        150,
-        110
+        70,
+        45
     );
 
 
-    /* Screen */
+    /* Top */
 
-    ctx.fillStyle = "#8fb6d0";
+    ctx.fillStyle = "#c88b45";
 
     ctx.fillRect(
-        x + 8,
-        y + 8,
-        134,
-        94
+        x - 5,
+        y - 5,
+        80,
+        10
     );
 
 
-    /* People on screen */
+    /* Handle */
 
-    drawTinyPerson(
+    ctx.strokeStyle = "#754c24";
+
+    ctx.lineWidth = 5;
+
+    ctx.beginPath();
+
+    ctx.arc(
         x + 35,
-        y + 35
+        y,
+        32,
+        Math.PI,
+        Math.PI * 2
     );
 
-    drawTinyPerson(
-        x + 75,
-        y + 30
-    );
-
-    drawTinyPerson(
-        x + 115,
-        y + 38
-    );
+    ctx.stroke();
 
 
-    /* Bottom bar */
+    /* Ribbon */
 
-    ctx.fillStyle = "#222";
+    ctx.fillStyle = "#ff4f70";
 
     ctx.fillRect(
-        x + 8,
-        y + 82,
-        134,
-        20
+        x + 28,
+        y,
+        14,
+        45
     );
 
 
-    ctx.fillStyle = "#fff";
-
-    ctx.font = "11px Arial";
-
-    ctx.textAlign = "center";
-
-    ctx.fillText(
-        "❤️ WATCHING",
-        x + 75,
-        y + 96
-    );
-
-    ctx.textAlign = "left";
-
-
-    /* Phone stand */
-
-    ctx.fillStyle = "#444";
-
-    ctx.fillRect(
-        x + 60,
-        y + 110,
-        30,
-        20
-    );
-
-    ctx.fillRect(
-        x + 45,
-        y + 125,
-        60,
-        8
-    );
-
-}
-
-
-/* =========================================================
-   TINY FACETIME PERSON
-========================================================= */
-
-function drawTinyPerson(x, y) {
-
-    /* Head */
-
-    ctx.fillStyle = "#ffd0a6";
+    /* Bow */
 
     ctx.beginPath();
 
     ctx.arc(
-        x,
-        y,
+        x + 22,
+        y - 5,
+        10,
+        0,
+        Math.PI * 2
+    );
+
+    ctx.arc(
+        x + 48,
+        y - 5,
         10,
         0,
         Math.PI * 2
@@ -2398,16 +2683,36 @@ function drawTinyPerson(x, y) {
     ctx.fill();
 
 
-    /* Body */
+    ctx.fillStyle = "#ffd34d";
 
-    ctx.fillStyle = "#ff6f91";
+    ctx.beginPath();
 
-    ctx.fillRect(
-        x - 10,
-        y + 10,
-        20,
-        20
+    ctx.arc(
+        x + 35,
+        y - 5,
+        6,
+        0,
+        Math.PI * 2
     );
+
+    ctx.fill();
+
+
+    /* Heart */
+
+    ctx.fillStyle = "#fff";
+
+    ctx.font = "bold 12px Arial";
+
+    ctx.textAlign = "center";
+
+    ctx.fillText(
+        "❤️",
+        x + 35,
+        y + 28
+    );
+
+    ctx.textAlign = "left";
 
 }
 
@@ -2641,316 +2946,7 @@ function drawSuitcase(x, y) {
 
 
 /* =========================================================
-   CLOUD
-========================================================= */
-
-function drawCloud(x, y) {
-
-    ctx.fillStyle = "rgba(255,255,255,0.85)";
-
-    ctx.beginPath();
-
-    ctx.arc(
-        x,
-        y,
-        25,
-        0,
-        Math.PI * 2
-    );
-
-    ctx.arc(
-        x + 30,
-        y - 10,
-        32,
-        0,
-        Math.PI * 2
-    );
-
-    ctx.arc(
-        x + 65,
-        y,
-        25,
-        0,
-        Math.PI * 2
-    );
-
-    ctx.fill();
-
-}
-
-
-/* =========================================================
-   TREE
-========================================================= */
-
-function drawTree(x, y) {
-
-    /* Trunk */
-
-    ctx.fillStyle = "#754c24";
-
-    ctx.fillRect(
-        x - 12,
-        y,
-        24,
-        90
-    );
-
-
-    /* Leaves */
-
-    ctx.fillStyle = "#347a38";
-
-    ctx.beginPath();
-
-    ctx.arc(
-        x,
-        y - 20,
-        55,
-        0,
-        Math.PI * 2
-    );
-
-    ctx.fill();
-
-
-    ctx.beginPath();
-
-    ctx.arc(
-        x - 35,
-        y + 5,
-        40,
-        0,
-        Math.PI * 2
-    );
-
-    ctx.fill();
-
-
-    ctx.beginPath();
-
-    ctx.arc(
-        x + 35,
-        y + 5,
-        40,
-        0,
-        Math.PI * 2
-    );
-
-    ctx.fill();
-
-}
-
-
-/* =========================================================
-   FLOWER
-========================================================= */
-
-function drawFlower(x, y) {
-
-    ctx.fillStyle = "#3c8c40";
-
-    ctx.fillRect(
-        x - 2,
-        y,
-        4,
-        25
-    );
-
-
-    ctx.fillStyle = "#ff6f91";
-
-    ctx.beginPath();
-
-    ctx.arc(
-        x,
-        y,
-        7,
-        0,
-        Math.PI * 2
-    );
-
-    ctx.fill();
-
-
-    ctx.fillStyle = "#ffd34d";
-
-    ctx.beginPath();
-
-    ctx.arc(
-        x,
-        y,
-        3,
-        0,
-        Math.PI * 2
-    );
-
-    ctx.fill();
-
-}
-
-
-/* =========================================================
-   FENCE
-========================================================= */
-
-function drawFence() {
-
-    ctx.fillStyle = "#eee0c0";
-
-    for (
-        let x = 30;
-        x < 950;
-        x += 55
-    ) {
-
-        ctx.fillRect(
-            x,
-            315,
-            10,
-            80
-        );
-
-    }
-
-
-    ctx.fillRect(
-        0,
-        330,
-        960,
-        10
-    );
-
-    ctx.fillRect(
-        0,
-        365,
-        960,
-        10
-    );
-
-}
-
-
-/* =========================================================
-   GIFT BASKET
-========================================================= */
-
-function drawGiftBasket(x, y) {
-
-    /* Basket */
-
-    ctx.fillStyle = "#9b632e";
-
-    ctx.fillRect(
-        x,
-        y,
-        70,
-        45
-    );
-
-
-    /* Basket top */
-
-    ctx.fillStyle = "#c88b45";
-
-    ctx.fillRect(
-        x - 5,
-        y - 5,
-        80,
-        10
-    );
-
-
-    /* Handle */
-
-    ctx.strokeStyle = "#754c24";
-
-    ctx.lineWidth = 5;
-
-    ctx.beginPath();
-
-    ctx.arc(
-        x + 35,
-        y,
-        32,
-        Math.PI,
-        Math.PI * 2
-    );
-
-    ctx.stroke();
-
-
-    /* Ribbon */
-
-    ctx.fillStyle = "#ff4f70";
-
-    ctx.fillRect(
-        x + 28,
-        y,
-        14,
-        45
-    );
-
-
-    /* Bow */
-
-    ctx.beginPath();
-
-    ctx.arc(
-        x + 22,
-        y - 5,
-        10,
-        0,
-        Math.PI * 2
-    );
-
-    ctx.arc(
-        x + 48,
-        y - 5,
-        10,
-        0,
-        Math.PI * 2
-    );
-
-    ctx.fill();
-
-
-    ctx.fillStyle = "#ffd34d";
-
-    ctx.beginPath();
-
-    ctx.arc(
-        x + 35,
-        y - 5,
-        6,
-        0,
-        Math.PI * 2
-    );
-
-    ctx.fill();
-
-
-    /* Heart */
-
-    ctx.fillStyle = "#fff";
-
-    ctx.font = "bold 12px Arial";
-
-    ctx.textAlign = "center";
-
-    ctx.fillText(
-        "❤️",
-        x + 35,
-        y + 28
-    );
-
-    ctx.textAlign = "left";
-
-}
-
-
-/* =========================================================
-   BACKGROUND SWITCHER
+   BACKGROUND SWITCH
 ========================================================= */
 
 function drawBackground() {
@@ -3011,7 +3007,7 @@ function gameLoop() {
 
 
 /* =========================================================
-   START LOOP
+   START GAME LOOP
 ========================================================= */
 
 gameLoop();
