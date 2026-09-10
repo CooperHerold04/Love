@@ -806,6 +806,8 @@ function startGame() {
 
     currentDialogue = 0;
 
+    dialogueActive = false;
+
     firstMeetingTriggered = false;
 
     girlfriendQuestionTriggered = false;
@@ -897,16 +899,46 @@ function nextDialogue() {
         return;
     }
 
-    const dialogue =
-        getCurrentDialogue();
-
-    currentDialogue++;
+    const dialogue = getCurrentDialogue();
 
 
-    if (
-        currentDialogue >=
-        dialogue.length
-    ) {
+    /* -----------------------------------------
+       CHECK IF THIS IS THE LAST LINE
+    ----------------------------------------- */
+
+    if (currentDialogue >= dialogue.length - 1) {
+
+
+        /* -------------------------------------
+           CHAPTER 3 → CHAPTER 4
+        ------------------------------------- */
+
+        if (currentChapter === 3) {
+
+            dialogueActive = false;
+
+            dialogueBox.classList.add("hidden");
+
+            currentDialogue = 0;
+
+            currentChapter = 4;
+
+            player.x = 150;
+
+            weddingTriggered = false;
+
+            showChapter(
+                "CHAPTER 4",
+                "The Wedding"
+            );
+
+            return;
+        }
+
+
+        /* -------------------------------------
+           ALL OTHER CHAPTERS
+        ------------------------------------- */
 
         endDialogue();
 
@@ -914,6 +946,12 @@ function nextDialogue() {
 
     }
 
+
+    /* -----------------------------------------
+       MOVE TO NEXT LINE
+    ----------------------------------------- */
+
+    currentDialogue++;
 
     displayDialogue(
         dialogue[currentDialogue]
@@ -971,27 +1009,6 @@ function endDialogue() {
         showChapter(
             "CHAPTER 3",
             "The Big Decision"
-        );
-
-        return;
-    }
-
-
-    /* -----------------------------------------
-       CHAPTER 3 → CHAPTER 4
-    ----------------------------------------- */
-
-    if (currentChapter === 3) {
-
-        currentChapter = 4;
-
-        player.x = 150;
-
-        weddingTriggered = false;
-
-        showChapter(
-            "CHAPTER 4",
-            "The Wedding"
         );
 
         return;
@@ -1878,9 +1895,7 @@ function drawChapter4() {
     );
 
 
-    /* =====================================================
-       WEDDING AISLE
-    ===================================================== */
+    /* Wedding aisle */
 
     ctx.fillStyle = "#f5e8d5";
 
@@ -1911,9 +1926,7 @@ function drawChapter4() {
     ctx.fill();
 
 
-    /* =====================================================
-       WHITE FLOWER ARCH
-    ===================================================== */
+    /* White flower arch */
 
     drawWeddingArch(
         480,
@@ -1921,9 +1934,7 @@ function drawChapter4() {
     );
 
 
-    /* =====================================================
-       WEDDING PODIUM
-    ===================================================== */
+    /* Wedding podium */
 
     ctx.fillStyle = "#c8ad8a";
 
@@ -1935,9 +1946,7 @@ function drawChapter4() {
     );
 
 
-    /* =====================================================
-       FACE TIME PHONE
-    ===================================================== */
+    /* FaceTime phone */
 
     drawFaceTimePhone(
         750,
@@ -1945,9 +1954,7 @@ function drawChapter4() {
     );
 
 
-    /* =====================================================
-       FLOWERS
-    ===================================================== */
+    /* Flowers */
 
     drawSmallWhiteFlower(
         200,
@@ -1977,8 +1984,6 @@ function drawChapter4() {
 ========================================================= */
 
 function drawWeddingArch(x, y) {
-
-    /* White arch */
 
     ctx.strokeStyle = "#ffffff";
 
