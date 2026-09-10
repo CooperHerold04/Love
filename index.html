@@ -38,7 +38,10 @@ canvas {
     display: block;
 }
 
-/* TITLE SCREEN */
+
+/* =========================================================
+   TITLE SCREEN
+========================================================= */
 
 #titleScreen {
     position: absolute;
@@ -78,7 +81,10 @@ button:hover {
     background: #ff3158;
 }
 
-/* CHAPTER TITLE */
+
+/* =========================================================
+   CHAPTER TITLE
+========================================================= */
 
 #chapterTitle {
     position: absolute;
@@ -103,7 +109,10 @@ button:hover {
     margin-top: 10px;
 }
 
-/* DIALOGUE */
+
+/* =========================================================
+   DIALOGUE
+========================================================= */
 
 #dialogueBox {
     position: absolute;
@@ -155,7 +164,10 @@ button:hover {
 
     <canvas id="canvas" width="960" height="540"></canvas>
 
-    <!-- TITLE SCREEN -->
+
+    <!-- =====================================================
+         TITLE SCREEN
+    ===================================================== -->
 
     <div id="titleScreen">
 
@@ -169,7 +181,10 @@ button:hover {
 
     </div>
 
-    <!-- CHAPTER TITLE -->
+
+    <!-- =====================================================
+         CHAPTER TITLE
+    ===================================================== -->
 
     <div id="chapterTitle" class="hidden">
 
@@ -183,7 +198,10 @@ button:hover {
 
     </div>
 
-    <!-- DIALOGUE -->
+
+    <!-- =====================================================
+         DIALOGUE
+    ===================================================== -->
 
     <div id="dialogueBox" class="hidden">
 
@@ -244,6 +262,8 @@ let firstMeetingTriggered = false;
 let girlfriendQuestionTriggered = false;
 
 let airportTriggered = false;
+
+let weddingTriggered = false;
 
 
 /* =========================================================
@@ -583,6 +603,145 @@ const chapters = {
             text: "We decided to spend the rest of our lives together."
         }
 
+    ],
+
+
+    /* =====================================================
+       CHAPTER 4
+    ===================================================== */
+
+    wedding: [
+
+        {
+            speaker: "You",
+            text: "And then came the day we had been talking about."
+        },
+
+        {
+            speaker: "You",
+            text: "Our wedding day."
+        },
+
+        {
+            speaker: "You",
+            text: "There wasn't a huge venue."
+        },
+
+        {
+            speaker: "You",
+            text: "There wasn't a huge crowd."
+        },
+
+        {
+            speaker: "You",
+            text: "Just a backyard..."
+        },
+
+        {
+            speaker: "You",
+            text: "A little white flower arch..."
+        },
+
+        {
+            speaker: "You",
+            text: "And the person I wanted to spend my life with."
+        },
+
+        {
+            speaker: "You",
+            text: "And even though they couldn't all be there in person..."
+        },
+
+        {
+            speaker: "You",
+            text: "Your cousin was there."
+        },
+
+        {
+            speaker: "You",
+            text: "Your cousin's husband was there."
+        },
+
+        {
+            speaker: "You",
+            text: "Your cousin's child was there."
+        },
+
+        {
+            speaker: "You",
+            text: "Your friends were there."
+        },
+
+        {
+            speaker: "You",
+            text: "And your mom was there."
+        },
+
+        {
+            speaker: "You",
+            text: "All watching us through FaceTime."
+        },
+
+        {
+            speaker: "Her",
+            text: "I can't believe we're actually getting married."
+        },
+
+        {
+            speaker: "You",
+            text: "Neither can I."
+        },
+
+        {
+            speaker: "You",
+            text: "Do you remember this backyard?"
+        },
+
+        {
+            speaker: "Her",
+            text: "Of course I do."
+        },
+
+        {
+            speaker: "You",
+            text: "This is where I asked you to be my girlfriend."
+        },
+
+        {
+            speaker: "You",
+            text: "And now I'm standing here asking you to be my wife."
+        },
+
+        {
+            speaker: "Her",
+            text: "I choose you."
+        },
+
+        {
+            speaker: "You",
+            text: "I choose you too."
+        },
+
+        {
+            speaker: "Her",
+            text: "Forever?"
+        },
+
+        {
+            speaker: "You",
+            text: "Forever."
+        },
+
+        {
+            speaker: "You",
+            text: "And with everyone we love watching..."
+        },
+
+        {
+            speaker: "You",
+            text: "We became husband and wife. ❤️"
+        }
+
     ]
 
 };
@@ -609,6 +768,12 @@ function getCurrentDialogue() {
     if (currentChapter === 3) {
 
         return chapters.pittsburgh;
+
+    }
+
+    if (currentChapter === 4) {
+
+        return chapters.wedding;
 
     }
 
@@ -639,6 +804,8 @@ function startGame() {
     girlfriendQuestionTriggered = false;
 
     airportTriggered = false;
+
+    weddingTriggered = false;
 
     player.x = 180;
 
@@ -796,14 +963,35 @@ function endDialogue() {
 
 
     /* =====================================================
-       CHAPTER 3 END
+       CHAPTER 3 → CHAPTER 4
     ===================================================== */
 
     if (currentChapter === 3) {
 
+        currentChapter = 4;
+
+        player.x = 150;
+
+        weddingTriggered = false;
+
         showChapter(
-            "CHAPTER 3",
-            "Let's Get Married ❤️"
+            "CHAPTER 4",
+            "The Wedding"
+        );
+
+        return;
+    }
+
+
+    /* =====================================================
+       CHAPTER 4 END
+    ===================================================== */
+
+    if (currentChapter === 4) {
+
+        showChapter(
+            "WE'RE MARRIED ❤️",
+            "Forever Starts Here"
         );
 
         return;
@@ -959,6 +1147,26 @@ function updatePlayer() {
 
     }
 
+
+    /* =====================================================
+       CHAPTER 4 TRIGGER
+    ===================================================== */
+
+    if (currentChapter === 4) {
+
+        if (
+            !weddingTriggered &&
+            player.x > 700
+        ) {
+
+            weddingTriggered = true;
+
+            startDialogue();
+
+        }
+
+    }
+
 }
 
 
@@ -969,6 +1177,7 @@ function updatePlayer() {
 function drawPlayer() {
 
     const x = player.x;
+
     const y = player.y;
 
 
@@ -1155,8 +1364,6 @@ function drawChapter1() {
     ctx.textAlign = "left";
 
 
-    /* Flowers */
-
     drawFlower(300, 380);
 
     drawFlower(620, 410);
@@ -1330,8 +1537,6 @@ function drawChapter2() {
     );
 
 
-    /* Flowers */
-
     drawFlower(200, 390);
 
     drawFlower(260, 420);
@@ -1347,16 +1552,14 @@ function drawChapter2() {
 
 function drawChapter3() {
 
-    /* =====================================================
-       AIRPORT SKY
-    ===================================================== */
+    /* Airport sky */
 
     ctx.fillStyle = "#b9d8ed";
 
     ctx.fillRect(
         0,
         0,
-        960,
+        canvas.width,
         540
     );
 
@@ -1382,7 +1585,7 @@ function drawChapter3() {
     );
 
 
-    /* Large windows */
+    /* Windows */
 
     ctx.fillStyle = "#6d9dbb";
 
@@ -1539,7 +1742,7 @@ function drawChapter3() {
     ctx.textAlign = "left";
 
 
-    /* Airplane outside */
+    /* Airplane */
 
     drawAirplane(
         610,
@@ -1555,8 +1758,6 @@ function drawChapter3() {
     );
 
 
-    /* Goodbye heart */
-
     ctx.fillStyle = "#ff5c7a";
 
     ctx.font = "28px Arial";
@@ -1565,6 +1766,647 @@ function drawChapter3() {
         "❤️",
         850,
         400
+    );
+
+}
+
+
+/* =========================================================
+   CHAPTER 4 WEDDING BACKGROUND
+========================================================= */
+
+function drawChapter4() {
+
+    /* =====================================================
+       SKY
+    ===================================================== */
+
+    ctx.fillStyle = "#a9d8ef";
+
+    ctx.fillRect(
+        0,
+        0,
+        canvas.width,
+        540
+    );
+
+
+    /* Clouds */
+
+    drawCloud(130, 80);
+
+    drawCloud(430, 65);
+
+    drawCloud(770, 95);
+
+
+    /* =====================================================
+       GRASS
+    ===================================================== */
+
+    ctx.fillStyle = "#65a94d";
+
+    ctx.fillRect(
+        0,
+        300,
+        960,
+        240
+    );
+
+
+    /* =====================================================
+       BACKGROUND TREES
+    ===================================================== */
+
+    drawWeddingTree(90, 230);
+
+    drawWeddingTree(240, 215);
+
+    drawWeddingTree(730, 220);
+
+    drawWeddingTree(875, 230);
+
+
+    /* =====================================================
+       BACKYARD HOUSE
+    ===================================================== */
+
+    ctx.fillStyle = "#f0dfc5";
+
+    ctx.fillRect(
+        330,
+        145,
+        330,
+        160
+    );
+
+
+    /* Roof */
+
+    ctx.fillStyle = "#79503b";
+
+    ctx.beginPath();
+
+    ctx.moveTo(
+        290,
+        145
+    );
+
+    ctx.lineTo(
+        495,
+        40
+    );
+
+    ctx.lineTo(
+        700,
+        145
+    );
+
+    ctx.closePath();
+
+    ctx.fill();
+
+
+    /* Windows */
+
+    ctx.fillStyle = "#9dd8f2";
+
+    ctx.fillRect(
+        385,
+        185,
+        70,
+        60
+    );
+
+    ctx.fillRect(
+        535,
+        185,
+        70,
+        60
+    );
+
+
+    ctx.strokeStyle = "#fff";
+
+    ctx.lineWidth = 4;
+
+    ctx.strokeRect(
+        385,
+        185,
+        70,
+        60
+    );
+
+    ctx.strokeRect(
+        535,
+        185,
+        70,
+        60
+    );
+
+
+    /* =====================================================
+       WEDDING AISLE
+    ===================================================== */
+
+    ctx.fillStyle = "#f3e4ce";
+
+    ctx.beginPath();
+
+    ctx.moveTo(
+        375,
+        540
+    );
+
+    ctx.lineTo(
+        585,
+        540
+    );
+
+    ctx.lineTo(
+        535,
+        300
+    );
+
+    ctx.lineTo(
+        425,
+        300
+    );
+
+    ctx.closePath();
+
+    ctx.fill();
+
+
+    /* =====================================================
+       WHITE FLOWER ARCH
+    ===================================================== */
+
+    drawWeddingArch(
+        480,
+        300
+    );
+
+
+    /* =====================================================
+       WEDDING PODIUM
+    ===================================================== */
+
+    ctx.fillStyle = "#d8c3a5";
+
+    ctx.fillRect(
+        450,
+        270,
+        60,
+        70
+    );
+
+
+    /* Flowers on podium */
+
+    drawSmallWhiteFlower(
+        455,
+        275
+    );
+
+    drawSmallWhiteFlower(
+        475,
+        265
+    );
+
+    drawSmallWhiteFlower(
+        495,
+        275
+    );
+
+
+    /* =====================================================
+       FACE TIME PHONE
+    ===================================================== */
+
+    drawFaceTimePhone(
+        760,
+        315
+    );
+
+
+    /* =====================================================
+       SMALL WEDDING FLOWERS
+    ===================================================== */
+
+    drawSmallWhiteFlower(200, 375);
+
+    drawSmallWhiteFlower(270, 410);
+
+    drawSmallWhiteFlower(690, 390);
+
+    drawSmallWhiteFlower(890, 370);
+
+}
+
+
+/* =========================================================
+   WEDDING ARCH
+========================================================= */
+
+function drawWeddingArch(x, y) {
+
+    /* Arch structure */
+
+    ctx.strokeStyle = "#ffffff";
+
+    ctx.lineWidth = 12;
+
+    ctx.beginPath();
+
+    ctx.moveTo(
+        x - 110,
+        y + 40
+    );
+
+    ctx.lineTo(
+        x - 110,
+        y - 100
+    );
+
+    ctx.quadraticCurveTo(
+        x,
+        y - 220,
+        x + 110,
+        y - 100
+    );
+
+    ctx.lineTo(
+        x + 110,
+        y + 40
+    );
+
+    ctx.stroke();
+
+
+    /* Flowers */
+
+    drawArchFlower(x - 105, y - 85);
+
+    drawArchFlower(x - 85, y - 120);
+
+    drawArchFlower(x - 55, y - 145);
+
+    drawArchFlower(x - 25, y - 160);
+
+    drawArchFlower(x, y - 165);
+
+    drawArchFlower(x + 25, y - 160);
+
+    drawArchFlower(x + 55, y - 145);
+
+    drawArchFlower(x + 85, y - 120);
+
+    drawArchFlower(x + 105, y - 85);
+
+}
+
+
+/* =========================================================
+   ARCH FLOWER
+========================================================= */
+
+function drawArchFlower(x, y) {
+
+    ctx.fillStyle = "#ffffff";
+
+    ctx.beginPath();
+
+    ctx.arc(
+        x,
+        y,
+        11,
+        0,
+        Math.PI * 2
+    );
+
+    ctx.fill();
+
+
+    ctx.fillStyle = "#f4d9e2";
+
+    ctx.beginPath();
+
+    ctx.arc(
+        x - 7,
+        y,
+        7,
+        0,
+        Math.PI * 2
+    );
+
+    ctx.arc(
+        x + 7,
+        y,
+        7,
+        0,
+        Math.PI * 2
+    );
+
+    ctx.arc(
+        x,
+        y - 7,
+        7,
+        0,
+        Math.PI * 2
+    );
+
+    ctx.arc(
+        x,
+        y + 7,
+        7,
+        0,
+        Math.PI * 2
+    );
+
+    ctx.fill();
+
+
+    ctx.fillStyle = "#e8b84c";
+
+    ctx.beginPath();
+
+    ctx.arc(
+        x,
+        y,
+        3,
+        0,
+        Math.PI * 2
+    );
+
+    ctx.fill();
+
+}
+
+
+/* =========================================================
+   SMALL WHITE FLOWER
+========================================================= */
+
+function drawSmallWhiteFlower(x, y) {
+
+    ctx.fillStyle = "#3e8d43";
+
+    ctx.fillRect(
+        x - 2,
+        y,
+        4,
+        25
+    );
+
+
+    ctx.fillStyle = "#ffffff";
+
+    ctx.beginPath();
+
+    ctx.arc(
+        x - 6,
+        y,
+        6,
+        0,
+        Math.PI * 2
+    );
+
+    ctx.arc(
+        x + 6,
+        y,
+        6,
+        0,
+        Math.PI * 2
+    );
+
+    ctx.arc(
+        x,
+        y - 6,
+        6,
+        0,
+        Math.PI * 2
+    );
+
+    ctx.arc(
+        x,
+        y + 6,
+        6,
+        0,
+        Math.PI * 2
+    );
+
+    ctx.fill();
+
+
+    ctx.fillStyle = "#e8b84c";
+
+    ctx.beginPath();
+
+    ctx.arc(
+        x,
+        y,
+        3,
+        0,
+        Math.PI * 2
+    );
+
+    ctx.fill();
+
+}
+
+
+/* =========================================================
+   WEDDING TREE
+========================================================= */
+
+function drawWeddingTree(x, y) {
+
+    /* Trunk */
+
+    ctx.fillStyle = "#70482b";
+
+    ctx.fillRect(
+        x - 12,
+        y,
+        24,
+        110
+    );
+
+
+    /* Leaves */
+
+    ctx.fillStyle = "#397c3c";
+
+    ctx.beginPath();
+
+    ctx.arc(
+        x,
+        y - 25,
+        58,
+        0,
+        Math.PI * 2
+    );
+
+    ctx.fill();
+
+
+    ctx.beginPath();
+
+    ctx.arc(
+        x - 38,
+        y + 5,
+        42,
+        0,
+        Math.PI * 2
+    );
+
+    ctx.fill();
+
+
+    ctx.beginPath();
+
+    ctx.arc(
+        x + 38,
+        y + 5,
+        42,
+        0,
+        Math.PI * 2
+    );
+
+    ctx.fill();
+
+}
+
+
+/* =========================================================
+   FACETIME PHONE
+========================================================= */
+
+function drawFaceTimePhone(x, y) {
+
+    /* Phone */
+
+    ctx.fillStyle = "#202020";
+
+    ctx.fillRect(
+        x,
+        y,
+        150,
+        110
+    );
+
+
+    /* Screen */
+
+    ctx.fillStyle = "#8fb6d0";
+
+    ctx.fillRect(
+        x + 8,
+        y + 8,
+        134,
+        94
+    );
+
+
+    /* People on screen */
+
+    drawTinyPerson(
+        x + 35,
+        y + 35
+    );
+
+    drawTinyPerson(
+        x + 75,
+        y + 30
+    );
+
+    drawTinyPerson(
+        x + 115,
+        y + 38
+    );
+
+
+    /* Bottom bar */
+
+    ctx.fillStyle = "#222";
+
+    ctx.fillRect(
+        x + 8,
+        y + 82,
+        134,
+        20
+    );
+
+
+    ctx.fillStyle = "#fff";
+
+    ctx.font = "11px Arial";
+
+    ctx.textAlign = "center";
+
+    ctx.fillText(
+        "❤️ WATCHING",
+        x + 75,
+        y + 96
+    );
+
+    ctx.textAlign = "left";
+
+
+    /* Phone stand */
+
+    ctx.fillStyle = "#444";
+
+    ctx.fillRect(
+        x + 60,
+        y + 110,
+        30,
+        20
+    );
+
+    ctx.fillRect(
+        x + 45,
+        y + 125,
+        60,
+        8
+    );
+
+}
+
+
+/* =========================================================
+   TINY FACETIME PERSON
+========================================================= */
+
+function drawTinyPerson(x, y) {
+
+    /* Head */
+
+    ctx.fillStyle = "#ffd0a6";
+
+    ctx.beginPath();
+
+    ctx.arc(
+        x,
+        y,
+        10,
+        0,
+        Math.PI * 2
+    );
+
+    ctx.fill();
+
+
+    /* Body */
+
+    ctx.fillStyle = "#ff6f91";
+
+    ctx.fillRect(
+        x - 10,
+        y + 10,
+        20,
+        20
     );
 
 }
@@ -2128,6 +2970,12 @@ function drawBackground() {
     else if (currentChapter === 3) {
 
         drawChapter3();
+
+    }
+
+    else if (currentChapter === 4) {
+
+        drawChapter4();
 
     }
 
