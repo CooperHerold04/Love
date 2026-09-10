@@ -27,34 +27,28 @@ body {
 
 #gameContainer {
     position: relative;
-
     width: 960px;
     height: 540px;
-
     overflow: hidden;
-
     background: #87ceeb;
 }
 
 canvas {
     display: block;
-
     width: 960px;
     height: 540px;
 }
 
-/* ---------------- TITLE SCREEN ---------------- */
+/* TITLE SCREEN */
 
 #titleScreen {
     position: absolute;
-
     inset: 0;
 
     background: linear-gradient(#87ceeb, #bdefff);
 
     display: flex;
     flex-direction: column;
-
     justify-content: center;
     align-items: center;
 
@@ -65,31 +59,24 @@ canvas {
 
 #titleScreen h1 {
     font-size: 48px;
-
     margin: 0 0 10px 0;
-
     color: white;
-
     text-shadow: 3px 3px #555;
 }
 
 #titleScreen p {
     font-size: 22px;
-
     margin-bottom: 30px;
 }
 
 #startButton {
     padding: 15px 30px;
-
     font-size: 20px;
 
     border: none;
-
     border-radius: 12px;
 
     background: #ff6f91;
-
     color: white;
 
     cursor: pointer;
@@ -103,25 +90,20 @@ canvas {
 
 #startButton:active {
     transform: translateY(3px);
-
     box-shadow: 0 1px 0 #c94f6e;
 }
 
-/* ---------------- CHAPTER TITLE ---------------- */
+/* CHAPTER TITLE */
 
 #chapterTitle {
     position: absolute;
-
     inset: 0;
 
     background: rgba(0,0,0,.65);
 
     display: flex;
-
     flex-direction: column;
-
     justify-content: center;
-
     align-items: center;
 
     text-align: center;
@@ -131,17 +113,15 @@ canvas {
 
 #chapterTitle h2 {
     font-size: 48px;
-
     margin: 0;
 }
 
 #chapterTitle p {
     font-size: 25px;
-
     margin-top: 10px;
 }
 
-/* ---------------- DIALOGUE ---------------- */
+/* DIALOGUE */
 
 #dialogueBox {
     position: absolute;
@@ -156,7 +136,6 @@ canvas {
     background: rgba(0,0,0,.82);
 
     border: 3px solid white;
-
     border-radius: 12px;
 
     padding: 18px 22px;
@@ -168,7 +147,6 @@ canvas {
     display: block !important;
 
     font-size: 24px;
-
     font-weight: bold;
 
     margin-bottom: 8px;
@@ -178,9 +156,7 @@ canvas {
 
 #dialogueText {
     font-size: 19px;
-
     line-height: 1.4;
-
     min-height: 55px;
 }
 
@@ -188,13 +164,12 @@ canvas {
     text-align: right;
 
     font-size: 14px;
-
     color: #ccc;
 
     margin-top: 8px;
 }
 
-/* ---------------- CONTROLS ---------------- */
+/* CONTROLS */
 
 #controls {
     position: absolute;
@@ -213,8 +188,6 @@ canvas {
     z-index: 5;
 }
 
-/* ---------------- HIDDEN ---------------- */
-
 .hidden {
     display: none !important;
 }
@@ -222,96 +195,71 @@ canvas {
 </style>
 </head>
 
-
 <body>
 
 <div id="gameContainer">
 
-    <canvas id="gameCanvas" width="960" height="540"></canvas>
+<canvas id="gameCanvas" width="960" height="540"></canvas>
 
+<div id="titleScreen">
 
-    <!-- TITLE SCREEN -->
+    <h1>Our Little Adventure ❤️</h1>
 
-    <div id="titleScreen">
+    <p>A story about us</p>
 
-        <h1>Our Little Adventure ❤️</h1>
+    <button id="startButton">
+        Start Our Story
+    </button>
 
-        <p>A story about us</p>
+</div>
 
-        <button id="startButton">
-            Start Our Story
-        </button>
+<div id="chapterTitle" class="hidden">
 
-    </div>
+    <h2 id="chapterTitleText"></h2>
 
+    <p id="chapterSubtitle"></p>
 
-    <!-- CHAPTER TITLE -->
+</div>
 
-    <div id="chapterTitle" class="hidden">
+<div id="controls">
 
-        <h2 id="chapterTitleText"></h2>
+    ← → or A / D to move
 
-        <p id="chapterSubtitle"></p>
+</div>
 
-    </div>
+<div id="dialogueBox" class="hidden">
 
+    <div id="speaker"></div>
 
-    <!-- CONTROLS -->
+    <div id="dialogueText"></div>
 
-    <div id="controls">
-
-        ← → or A / D to move
-
-    </div>
-
-
-    <!-- DIALOGUE -->
-
-    <div id="dialogueBox" class="hidden">
-
-        <div id="speaker"></div>
-
-        <div id="dialogueText"></div>
-
-        <div id="continueText">
-            Press SPACE or ENTER
-        </div>
-
+    <div id="continueText">
+        Press SPACE or ENTER
     </div>
 
 </div>
 
+</div>
 
 <script>
 
 /* =========================================================
-   BASIC SETUP
+   SETUP
 ========================================================= */
 
 const canvas = document.getElementById("gameCanvas");
-
 const ctx = canvas.getContext("2d");
 
 const titleScreen = document.getElementById("titleScreen");
-
 const startButton = document.getElementById("startButton");
 
 const chapterTitle = document.getElementById("chapterTitle");
+const chapterTitleText = document.getElementById("chapterTitleText");
+const chapterSubtitle = document.getElementById("chapterSubtitle");
 
-const chapterTitleText =
-    document.getElementById("chapterTitleText");
-
-const chapterSubtitle =
-    document.getElementById("chapterSubtitle");
-
-const dialogueBox =
-    document.getElementById("dialogueBox");
-
-const speakerElement =
-    document.getElementById("speaker");
-
-const dialogueTextElement =
-    document.getElementById("dialogueText");
+const dialogueBox = document.getElementById("dialogueBox");
+const speakerElement = document.getElementById("speaker");
+const dialogueTextElement = document.getElementById("dialogueText");
 
 
 /* =========================================================
@@ -336,11 +284,9 @@ let chapterTitleTimer = null;
 const player = {
 
     x: 120,
-
-    y: 400,
+    y: 365,
 
     width: 40,
-
     height: 60,
 
     speed: 5
@@ -351,7 +297,6 @@ const player = {
 const keys = {
 
     left: false,
-
     right: false
 
 };
@@ -362,10 +307,6 @@ const keys = {
 ========================================================= */
 
 const chapters = {
-
-    /* -----------------------------------------------------
-       CHAPTER 1
-    ----------------------------------------------------- */
 
     firstMeeting: [
 
@@ -427,10 +368,6 @@ const chapters = {
     ],
 
 
-    /* -----------------------------------------------------
-       CHAPTER 2
-    ----------------------------------------------------- */
-
     girlfriendQuestion: [
 
         {
@@ -475,10 +412,6 @@ const chapters = {
 
     ],
 
-
-    /* -----------------------------------------------------
-       CHAPTER 3
-    ----------------------------------------------------- */
 
     pittsburgh: [
 
@@ -540,10 +473,6 @@ const chapters = {
     ],
 
 
-    /* -----------------------------------------------------
-       CHAPTER 4
-    ----------------------------------------------------- */
-
     wedding: [
 
         {
@@ -603,10 +532,6 @@ const chapters = {
 
     ],
 
-
-    /* -----------------------------------------------------
-       CHAPTER 5
-    ----------------------------------------------------- */
 
     distance: [
 
@@ -740,7 +665,7 @@ const chapterInfo = [
 
 
 /* =========================================================
-   GET CHAPTER ARRAY
+   CURRENT CHAPTER
 ========================================================= */
 
 function getCurrentChapter() {
@@ -753,7 +678,7 @@ function getCurrentChapter() {
 
 
 /* =========================================================
-   SHOW CHAPTER TITLE
+   CHAPTER TITLE
 ========================================================= */
 
 function showChapterTitle() {
@@ -767,9 +692,7 @@ function showChapterTitle() {
     chapterTitle.classList.remove("hidden");
 
     if (chapterTitleTimer) {
-
         clearTimeout(chapterTitleTimer);
-
     }
 
     chapterTitleTimer = setTimeout(() => {
@@ -784,7 +707,7 @@ function showChapterTitle() {
 
 
 /* =========================================================
-   SHOW DIALOGUE
+   DIALOGUE
 ========================================================= */
 
 function showDialogue() {
@@ -803,28 +726,15 @@ function showDialogue() {
 
     const dialogue = chapter[currentDialogue];
 
-    /*
-       IMPORTANT:
 
-       This automatically converts any old speaker
-       names such as "Me" or "Her" into the correct
-       names.
-
-       So even if an old version of the dialogue
-       somehow remains, the box will still display:
-
-       Me  -> Cooper
-       Her -> Alyssa
-    */
+    /* FORCE CORRECT NAMES */
 
     const speakerNames = {
 
         "Me": "Cooper",
-
         "Her": "Alyssa",
 
         "Cooper": "Cooper",
-
         "Alyssa": "Alyssa"
 
     };
@@ -833,10 +743,10 @@ function showDialogue() {
         speakerNames[dialogue.speaker] ||
         dialogue.speaker;
 
+
     speakerElement.textContent = speakerName;
 
-    dialogueTextElement.textContent =
-        dialogue.text;
+    dialogueTextElement.textContent = dialogue.text;
 
     dialogueBox.classList.remove("hidden");
 
@@ -890,8 +800,6 @@ function nextChapter() {
 
     if (currentChapter >= chapterInfo.length) {
 
-        currentChapter = chapterInfo.length - 1;
-
         dialogueBox.classList.remove("hidden");
 
         speakerElement.textContent = "Cooper";
@@ -932,7 +840,7 @@ function startGame() {
 
 
 /* =========================================================
-   KEYBOARD CONTROLS
+   KEYBOARD
 ========================================================= */
 
 document.addEventListener("keydown", function(event) {
@@ -996,10 +904,6 @@ document.addEventListener("keyup", function(event) {
 });
 
 
-/* =========================================================
-   START BUTTON
-========================================================= */
-
 startButton.addEventListener(
     "click",
     startGame
@@ -1007,7 +911,7 @@ startButton.addEventListener(
 
 
 /* =========================================================
-   UPDATE PLAYER
+   PLAYER MOVEMENT
 ========================================================= */
 
 function updatePlayer() {
@@ -1017,56 +921,67 @@ function updatePlayer() {
     }
 
     if (keys.left) {
-
         player.x -= player.speed;
-
     }
 
     if (keys.right) {
-
         player.x += player.speed;
-
     }
 
     if (player.x < 0) {
-
         player.x = 0;
-
     }
 
     if (player.x > canvas.width - player.width) {
-
-        player.x =
-            canvas.width - player.width;
-
+        player.x = canvas.width - player.width;
     }
 
 }
 
 
 /* =========================================================
-   DRAW SKY
+   SKY
 ========================================================= */
 
-function drawSky() {
+function drawSky(day = true) {
 
-    const gradient =
-        ctx.createLinearGradient(
-            0,
-            0,
-            0,
-            canvas.height
+    let gradient;
+
+    if (day) {
+
+        gradient = ctx.createLinearGradient(
+            0, 0,
+            0, canvas.height
         );
 
-    gradient.addColorStop(
-        0,
-        "#87ceeb"
-    );
+        gradient.addColorStop(
+            0,
+            "#72c9f5"
+        );
 
-    gradient.addColorStop(
-        1,
-        "#dff8ff"
-    );
+        gradient.addColorStop(
+            1,
+            "#e5f8ff"
+        );
+
+    } else {
+
+        gradient = ctx.createLinearGradient(
+            0, 0,
+            0, canvas.height
+        );
+
+        gradient.addColorStop(
+            0,
+            "#101936"
+        );
+
+        gradient.addColorStop(
+            1,
+            "#465080"
+        );
+
+    }
 
     ctx.fillStyle = gradient;
 
@@ -1081,12 +996,12 @@ function drawSky() {
 
 
 /* =========================================================
-   DRAW CLOUDS
+   CLOUD
 ========================================================= */
 
 function drawCloud(x, y, scale = 1) {
 
-    ctx.fillStyle = "white";
+    ctx.fillStyle = "rgba(255,255,255,.9)";
 
     ctx.beginPath();
 
@@ -1119,37 +1034,26 @@ function drawCloud(x, y, scale = 1) {
 }
 
 
-function drawClouds() {
-
-    drawCloud(120, 100, 1);
-
-    drawCloud(500, 80, 0.8);
-
-    drawCloud(800, 130, 1.1);
-
-}
-
-
 /* =========================================================
-   DRAW GROUND
+   GRASS
 ========================================================= */
 
-function drawGround() {
+function drawGrass() {
 
-    ctx.fillStyle = "#7ec850";
+    ctx.fillStyle = "#75bd50";
 
     ctx.fillRect(
         0,
-        430,
+        420,
         canvas.width,
-        110
+        120
     );
 
-    ctx.fillStyle = "#5fa83b";
+    ctx.fillStyle = "#5da340";
 
     ctx.fillRect(
         0,
-        430,
+        420,
         canvas.width,
         8
     );
@@ -1158,172 +1062,35 @@ function drawGround() {
 
 
 /* =========================================================
-   DRAW SIMPLE HOUSE
-========================================================= */
-
-function drawHouse() {
-
-    const x = 650;
-
-    const y = 280;
-
-    /* House */
-
-    ctx.fillStyle = "#f4d6b2";
-
-    ctx.fillRect(
-        x,
-        y + 70,
-        180,
-        130
-    );
-
-
-    /* Roof */
-
-    ctx.fillStyle = "#b44b4b";
-
-    ctx.beginPath();
-
-    ctx.moveTo(
-        x - 20,
-        y + 70
-    );
-
-    ctx.lineTo(
-        x + 90,
-        y
-    );
-
-    ctx.lineTo(
-        x + 200,
-        y + 70
-    );
-
-    ctx.closePath();
-
-    ctx.fill();
-
-
-    /* Door */
-
-    ctx.fillStyle = "#704214";
-
-    ctx.fillRect(
-        x + 75,
-        y + 120,
-        40,
-        80
-    );
-
-
-    /* Windows */
-
-    ctx.fillStyle = "#9edfff";
-
-    ctx.fillRect(
-        x + 20,
-        y + 100,
-        40,
-        40
-    );
-
-    ctx.fillRect(
-        x + 125,
-        y + 100,
-        40,
-        40
-    );
-
-
-    /* Window lines */
-
-    ctx.strokeStyle = "#555";
-
-    ctx.lineWidth = 3;
-
-    ctx.beginPath();
-
-    ctx.moveTo(
-        x + 40,
-        y + 100
-    );
-
-    ctx.lineTo(
-        x + 40,
-        y + 140
-    );
-
-    ctx.moveTo(
-        x + 20,
-        y + 120
-    );
-
-    ctx.lineTo(
-        x + 60,
-        y + 120
-    );
-
-    ctx.moveTo(
-        x + 145,
-        y + 100
-    );
-
-    ctx.lineTo(
-        x + 145,
-        y + 140
-    );
-
-    ctx.moveTo(
-        x + 125,
-        y + 120
-    );
-
-    ctx.lineTo(
-        x + 165,
-        y + 120
-    );
-
-    ctx.stroke();
-
-}
-
-
-/* =========================================================
-   DRAW TREE
+   TREE
 ========================================================= */
 
 function drawTree(x, y, scale = 1) {
 
-    /* Trunk */
-
-    ctx.fillStyle = "#7b4a25";
+    ctx.fillStyle = "#79502f";
 
     ctx.fillRect(
         x - 12 * scale,
         y,
         24 * scale,
-        90 * scale
+        100 * scale
     );
 
-
-    /* Leaves */
-
-    ctx.fillStyle = "#3f9639";
+    ctx.fillStyle = "#3e913d";
 
     ctx.beginPath();
 
     ctx.arc(
         x,
         y,
-        45 * scale,
+        48 * scale,
         0,
         Math.PI * 2
     );
 
     ctx.arc(
         x - 35 * scale,
-        y + 20 * scale,
+        y + 25 * scale,
         35 * scale,
         0,
         Math.PI * 2
@@ -1331,7 +1098,7 @@ function drawTree(x, y, scale = 1) {
 
     ctx.arc(
         x + 35 * scale,
-        y + 20 * scale,
+        y + 25 * scale,
         35 * scale,
         0,
         Math.PI * 2
@@ -1343,15 +1110,615 @@ function drawTree(x, y, scale = 1) {
 
 
 /* =========================================================
-   DRAW PLAYER
+   HOUSE
+========================================================= */
+
+function drawHouse(x = 650, y = 275) {
+
+    ctx.fillStyle = "#f1d0a7";
+
+    ctx.fillRect(
+        x,
+        y + 70,
+        190,
+        145
+    );
+
+    ctx.fillStyle = "#a94343";
+
+    ctx.beginPath();
+
+    ctx.moveTo(
+        x - 25,
+        y + 70
+    );
+
+    ctx.lineTo(
+        x + 95,
+        y
+    );
+
+    ctx.lineTo(
+        x + 215,
+        y + 70
+    );
+
+    ctx.closePath();
+
+    ctx.fill();
+
+    ctx.fillStyle = "#704214";
+
+    ctx.fillRect(
+        x + 78,
+        y + 130,
+        45,
+        85
+    );
+
+    ctx.fillStyle = "#9de4ff";
+
+    ctx.fillRect(
+        x + 20,
+        y + 105,
+        45,
+        45
+    );
+
+    ctx.fillRect(
+        x + 135,
+        y + 105,
+        45,
+        45
+    );
+
+}
+
+
+/* =========================================================
+   FENCE
+========================================================= */
+
+function drawFence() {
+
+    ctx.fillStyle = "#eee";
+
+    for (
+        let x = 0;
+        x < canvas.width;
+        x += 45
+    ) {
+
+        ctx.fillRect(
+            x,
+            385,
+            8,
+            50
+        );
+
+    }
+
+    ctx.fillRect(
+        0,
+        398,
+        canvas.width,
+        8
+    );
+
+    ctx.fillRect(
+        0,
+        425,
+        canvas.width,
+        8
+    );
+
+}
+
+
+/* =========================================================
+   GIFT BASKET
+========================================================= */
+
+function drawGiftBasket() {
+
+    const x = 330;
+    const y = 370;
+
+    ctx.fillStyle = "#9b5d32";
+
+    ctx.fillRect(
+        x,
+        y,
+        65,
+        35
+    );
+
+    ctx.strokeStyle = "#75411f";
+
+    ctx.lineWidth = 5;
+
+    ctx.beginPath();
+
+    ctx.arc(
+        x + 32,
+        y,
+        30,
+        Math.PI,
+        0
+    );
+
+    ctx.stroke();
+
+    ctx.fillStyle = "#ff6f91";
+
+    ctx.beginPath();
+
+    ctx.arc(
+        x + 20,
+        y - 8,
+        8,
+        0,
+        Math.PI * 2
+    );
+
+    ctx.arc(
+        x + 43,
+        y - 8,
+        8,
+        0,
+        Math.PI * 2
+    );
+
+    ctx.fill();
+
+}
+
+
+/* =========================================================
+   AIRPORT
+========================================================= */
+
+function drawAirport() {
+
+    ctx.fillStyle = "#d9dde3";
+
+    ctx.fillRect(
+        0,
+        285,
+        canvas.width,
+        135
+    );
+
+    /* Airport windows */
+
+    ctx.fillStyle = "#8ec8e8";
+
+    for (
+        let x = 30;
+        x < 930;
+        x += 90
+    ) {
+
+        ctx.fillRect(
+            x,
+            310,
+            65,
+            60
+        );
+
+    }
+
+    /* Roof */
+
+    ctx.fillStyle = "#777";
+
+    ctx.fillRect(
+        0,
+        270,
+        canvas.width,
+        20
+    );
+
+    /* Airport sign */
+
+    ctx.fillStyle = "#1f4e79";
+
+    ctx.fillRect(
+        365,
+        180,
+        230,
+        70
+    );
+
+    ctx.fillStyle = "white";
+
+    ctx.font = "bold 34px Arial";
+
+    ctx.textAlign = "center";
+
+    ctx.fillText(
+        "PITTSBURGH",
+        480,
+        225
+    );
+
+    ctx.textAlign = "left";
+
+
+    /* Runway */
+
+    ctx.fillStyle = "#444";
+
+    ctx.fillRect(
+        0,
+        420,
+        canvas.width,
+        120
+    );
+
+    ctx.strokeStyle = "#fff";
+
+    ctx.lineWidth = 5;
+
+    for (
+        let x = 0;
+        x < canvas.width;
+        x += 80
+    ) {
+
+        ctx.beginPath();
+
+        ctx.moveTo(
+            x,
+            475
+        );
+
+        ctx.lineTo(
+            x + 40,
+            475
+        );
+
+        ctx.stroke();
+
+    }
+
+}
+
+
+/* =========================================================
+   AIRPLANE
+========================================================= */
+
+function drawAirplane(x, y, scale = 1) {
+
+    ctx.fillStyle = "#f5f5f5";
+
+    ctx.beginPath();
+
+    ctx.ellipse(
+        x,
+        y,
+        90 * scale,
+        15 * scale,
+        0,
+        0,
+        Math.PI * 2
+    );
+
+    ctx.fill();
+
+    ctx.beginPath();
+
+    ctx.moveTo(
+        x - 10 * scale,
+        y
+    );
+
+    ctx.lineTo(
+        x - 50 * scale,
+        y - 40 * scale
+    );
+
+    ctx.lineTo(
+        x - 25 * scale,
+        y
+    );
+
+    ctx.fill();
+
+    ctx.beginPath();
+
+    ctx.moveTo(
+        x + 20 * scale,
+        y
+    );
+
+    ctx.lineTo(
+        x + 55 * scale,
+        y + 35 * scale
+    );
+
+    ctx.lineTo(
+        x + 40 * scale,
+        y
+    );
+
+    ctx.fill();
+
+}
+
+
+/* =========================================================
+   WEDDING ARCH
+========================================================= */
+
+function drawWeddingArch() {
+
+    ctx.strokeStyle = "#fff";
+
+    ctx.lineWidth = 15;
+
+    ctx.beginPath();
+
+    ctx.moveTo(
+        300,
+        410
+    );
+
+    ctx.lineTo(
+        300,
+        260
+    );
+
+    ctx.quadraticCurveTo(
+        480,
+        120,
+        660,
+        260
+    );
+
+    ctx.lineTo(
+        660,
+        410
+    );
+
+    ctx.stroke();
+
+
+    /* Flowers */
+
+    const flowers = [
+
+        [315,270],
+        [350,235],
+        [390,205],
+        [430,180],
+        [475,165],
+        [520,180],
+        [565,205],
+        [610,235],
+        [645,270]
+
+    ];
+
+    for (const [x,y] of flowers) {
+
+        ctx.fillStyle = "#ff9fbc";
+
+        ctx.beginPath();
+
+        ctx.arc(
+            x,
+            y,
+            10,
+            0,
+            Math.PI * 2
+        );
+
+        ctx.fill();
+
+    }
+
+}
+
+
+/* =========================================================
+   WEDDING CHAIRS
+========================================================= */
+
+function drawWeddingChairs() {
+
+    for (
+        let x = 60;
+        x < 900;
+        x += 100
+    ) {
+
+        ctx.fillStyle = "#eee";
+
+        ctx.fillRect(
+            x,
+            350,
+            45,
+            65
+        );
+
+        ctx.fillRect(
+            x + 5,
+            330,
+            35,
+            35
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   NIGHT SKY
+========================================================= */
+
+function drawStars() {
+
+    const stars = [
+
+        [70,80],
+        [150,125],
+        [230,65],
+        [315,110],
+        [390,55],
+        [470,90],
+        [550,45],
+        [635,120],
+        [720,70],
+        [805,115],
+        [900,60],
+
+        [110,180],
+        [280,160],
+        [450,175],
+        [620,170],
+        [780,185]
+
+    ];
+
+    ctx.fillStyle = "white";
+
+    for (const [x,y] of stars) {
+
+        ctx.beginPath();
+
+        ctx.arc(
+            x,
+            y,
+            2.5,
+            0,
+            Math.PI * 2
+        );
+
+        ctx.fill();
+
+    }
+
+}
+
+
+/* =========================================================
+   MOON
+========================================================= */
+
+function drawMoon() {
+
+    ctx.fillStyle = "#fff5c4";
+
+    ctx.beginPath();
+
+    ctx.arc(
+        800,
+        100,
+        45,
+        0,
+        Math.PI * 2
+    );
+
+    ctx.fill();
+
+    ctx.fillStyle = "#101936";
+
+    ctx.beginPath();
+
+    ctx.arc(
+        820,
+        85,
+        45,
+        0,
+        Math.PI * 2
+    );
+
+    ctx.fill();
+
+}
+
+
+/* =========================================================
+   DISTANCE CITY
+========================================================= */
+
+function drawCity() {
+
+    const buildings = [
+
+        [40,300,90,120],
+        [150,250,100,170],
+        [270,315,80,105],
+        [375,230,115,190],
+        [520,285,90,135],
+        [635,245,100,175],
+        [760,300,80,120],
+        [865,260,70,160]
+
+    ];
+
+    ctx.fillStyle = "#20294b";
+
+    for (const building of buildings) {
+
+        ctx.fillRect(
+            building[0],
+            building[1],
+            building[2],
+            building[3]
+        );
+
+    }
+
+    /* Windows */
+
+    ctx.fillStyle = "#ffd86b";
+
+    for (const building of buildings) {
+
+        const x = building[0];
+        const y = building[1];
+        const w = building[2];
+
+        for (
+            let wx = x + 15;
+            wx < x + w - 10;
+            wx += 25
+        ) {
+
+            for (
+                let wy = y + 20;
+                wy < 400;
+                wy += 30
+            ) {
+
+                ctx.fillRect(
+                    wx,
+                    wy,
+                    8,
+                    10
+                );
+
+            }
+
+        }
+
+    }
+
+}
+
+
+/* =========================================================
+   PLAYER
 ========================================================= */
 
 function drawPlayer() {
 
     const x = player.x;
-
     const y = player.y;
-
 
     /* Body */
 
@@ -1363,7 +1730,6 @@ function drawPlayer() {
         24,
         35
     );
-
 
     /* Head */
 
@@ -1381,7 +1747,6 @@ function drawPlayer() {
 
     ctx.fill();
 
-
     /* Hair */
 
     ctx.fillStyle = "#4a2c20";
@@ -1397,7 +1762,6 @@ function drawPlayer() {
     );
 
     ctx.fill();
-
 
     /* Legs */
 
@@ -1421,36 +1785,189 @@ function drawPlayer() {
 
 
 /* =========================================================
-   DRAW WORLD
+   BACKGROUND FOR CHAPTER 1
 ========================================================= */
 
-function drawWorld() {
+function drawFirstMeetingBackground() {
 
-    drawSky();
+    drawSky(true);
 
-    drawClouds();
+    drawCloud(120, 100, 1);
+    drawCloud(500, 80, .8);
+    drawCloud(800, 130, 1);
 
-    drawGround();
+    drawGrass();
 
     drawTree(
-        180,
-        340,
+        170,
+        325,
         1
     );
 
     drawTree(
-        400,
-        350,
-        0.8
+        410,
+        335,
+        .8
     );
 
     drawTree(
-        870,
-        350,
-        0.9
+        875,
+        325,
+        .9
     );
 
-    drawHouse();
+    drawHouse(
+        650,
+        275
+    );
+
+}
+
+
+/* =========================================================
+   BACKGROUND FOR CHAPTER 2
+========================================================= */
+
+function drawGirlfriendBackground() {
+
+    drawSky(true);
+
+    drawCloud(150, 95, 1);
+    drawCloud(520, 70, .9);
+    drawCloud(820, 115, .8);
+
+    drawGrass();
+
+    drawFence();
+
+    drawTree(
+        150,
+        320,
+        1
+    );
+
+    drawTree(
+        820,
+        325,
+        .9
+    );
+
+    drawHouse(
+        610,
+        270
+    );
+
+    drawGiftBasket();
+
+}
+
+
+/* =========================================================
+   BACKGROUND FOR CHAPTER 3
+========================================================= */
+
+function drawPittsburghBackground() {
+
+    drawSky(true);
+
+    drawAirport();
+
+    drawAirplane(
+        720,
+        150,
+        .8
+    );
+
+}
+
+
+/* =========================================================
+   BACKGROUND FOR CHAPTER 4
+========================================================= */
+
+function drawWeddingBackground() {
+
+    drawSky(true);
+
+    drawCloud(120, 80, .8);
+    drawCloud(750, 90, .9);
+
+    drawGrass();
+
+    drawWeddingChairs();
+
+    drawWeddingArch();
+
+}
+
+
+/* =========================================================
+   BACKGROUND FOR CHAPTER 5
+========================================================= */
+
+function drawDistanceBackground() {
+
+    drawSky(false);
+
+    drawStars();
+
+    drawMoon();
+
+    drawCity();
+
+    ctx.fillStyle = "#11182e";
+
+    ctx.fillRect(
+        0,
+        420,
+        canvas.width,
+        120
+    );
+
+}
+
+
+/* =========================================================
+   DRAW CURRENT WORLD
+========================================================= */
+
+function drawWorld() {
+
+    /*
+       THIS IS WHAT MAKES EACH LEVEL HAVE
+       ITS OWN BACKGROUND.
+    */
+
+    if (currentChapter === 0) {
+
+        drawFirstMeetingBackground();
+
+    }
+
+    else if (currentChapter === 1) {
+
+        drawGirlfriendBackground();
+
+    }
+
+    else if (currentChapter === 2) {
+
+        drawPittsburghBackground();
+
+    }
+
+    else if (currentChapter === 3) {
+
+        drawWeddingBackground();
+
+    }
+
+    else if (currentChapter === 4) {
+
+        drawDistanceBackground();
+
+    }
+
 
     drawPlayer();
 
@@ -1473,7 +1990,7 @@ function gameLoop() {
 
 
 /* =========================================================
-   START LOOP
+   START
 ========================================================= */
 
 gameLoop();
