@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,68 +17,83 @@ body {
     background: #111;
     color: white;
     font-family: Arial, sans-serif;
+
     display: flex;
     justify-content: center;
     align-items: center;
+
     min-height: 100vh;
 }
 
 #gameContainer {
     position: relative;
+
     width: 960px;
     height: 540px;
+
     overflow: hidden;
+
     background: #87ceeb;
 }
 
 canvas {
     display: block;
+
     width: 960px;
     height: 540px;
 }
 
-
-/* -----------------------------
-   TITLE SCREEN
------------------------------ */
+/* ---------------- TITLE SCREEN ---------------- */
 
 #titleScreen {
     position: absolute;
+
     inset: 0;
-    background: linear-gradient(
-        #87ceeb,
-        #bdefff
-    );
+
+    background: linear-gradient(#87ceeb, #bdefff);
 
     display: flex;
     flex-direction: column;
+
     justify-content: center;
     align-items: center;
 
     text-align: center;
+
     z-index: 10;
 }
 
 #titleScreen h1 {
     font-size: 48px;
+
     margin: 0 0 10px 0;
-    color: #fff;
+
+    color: white;
+
     text-shadow: 3px 3px #555;
 }
 
 #titleScreen p {
     font-size: 22px;
+
     margin-bottom: 30px;
 }
 
 #startButton {
     padding: 15px 30px;
+
     font-size: 20px;
+
     border: none;
+
     border-radius: 12px;
+
     background: #ff6f91;
+
     color: white;
+
     cursor: pointer;
+
     box-shadow: 0 4px 0 #c94f6e;
 }
 
@@ -89,23 +103,25 @@ canvas {
 
 #startButton:active {
     transform: translateY(3px);
+
     box-shadow: 0 1px 0 #c94f6e;
 }
 
-
-/* -----------------------------
-   CHAPTER TITLE
------------------------------ */
+/* ---------------- CHAPTER TITLE ---------------- */
 
 #chapterTitle {
     position: absolute;
+
     inset: 0;
 
-    background: rgba(0, 0, 0, 0.65);
+    background: rgba(0,0,0,.65);
 
     display: flex;
+
     flex-direction: column;
+
     justify-content: center;
+
     align-items: center;
 
     text-align: center;
@@ -115,22 +131,17 @@ canvas {
 
 #chapterTitle h2 {
     font-size: 48px;
+
     margin: 0;
 }
 
 #chapterTitle p {
     font-size: 25px;
+
     margin-top: 10px;
 }
 
-.hidden {
-    display: none !important;
-}
-
-
-/* -----------------------------
-   DIALOGUE
------------------------------ */
+/* ---------------- DIALOGUE ---------------- */
 
 #dialogueBox {
     position: absolute;
@@ -142,7 +153,7 @@ canvas {
 
     width: 880px;
 
-    background: rgba(0, 0, 0, 0.82);
+    background: rgba(0,0,0,.82);
 
     border: 3px solid white;
 
@@ -154,7 +165,10 @@ canvas {
 }
 
 #speaker {
-    font-size: 20px;
+    display: block !important;
+
+    font-size: 24px;
+
     font-weight: bold;
 
     margin-bottom: 8px;
@@ -164,6 +178,7 @@ canvas {
 
 #dialogueText {
     font-size: 19px;
+
     line-height: 1.4;
 
     min-height: 55px;
@@ -179,10 +194,7 @@ canvas {
     margin-top: 8px;
 }
 
-
-/* -----------------------------
-   CONTROLS
------------------------------ */
+/* ---------------- CONTROLS ---------------- */
 
 #controls {
     position: absolute;
@@ -190,7 +202,7 @@ canvas {
     top: 12px;
     left: 12px;
 
-    background: rgba(0, 0, 0, 0.45);
+    background: rgba(0,0,0,.45);
 
     padding: 8px 12px;
 
@@ -201,6 +213,12 @@ canvas {
     z-index: 5;
 }
 
+/* ---------------- HIDDEN ---------------- */
+
+.hidden {
+    display: none !important;
+}
+
 </style>
 </head>
 
@@ -209,24 +227,16 @@ canvas {
 
 <div id="gameContainer">
 
-    <canvas
-        id="gameCanvas"
-        width="960"
-        height="540">
-    </canvas>
+    <canvas id="gameCanvas" width="960" height="540"></canvas>
 
 
     <!-- TITLE SCREEN -->
 
     <div id="titleScreen">
 
-        <h1>
-            Our Little Adventure ❤️
-        </h1>
+        <h1>Our Little Adventure ❤️</h1>
 
-        <p>
-            A story about us
-        </p>
+        <p>A story about us</p>
 
         <button id="startButton">
             Start Our Story
@@ -237,30 +247,11 @@ canvas {
 
     <!-- CHAPTER TITLE -->
 
-    <div
-        id="chapterTitle"
-        class="hidden">
+    <div id="chapterTitle" class="hidden">
 
-        <h2 id="chapterTitleMain"></h2>
+        <h2 id="chapterTitleText"></h2>
 
-        <p id="chapterTitleSub"></p>
-
-    </div>
-
-
-    <!-- DIALOGUE -->
-
-    <div
-        id="dialogueBox"
-        class="hidden">
-
-        <div id="speaker"></div>
-
-        <div id="dialogueText"></div>
-
-        <div id="continueText">
-            Press SPACE or ENTER to continue
-        </div>
+        <p id="chapterSubtitle"></p>
 
     </div>
 
@@ -268,7 +259,24 @@ canvas {
     <!-- CONTROLS -->
 
     <div id="controls">
+
         ← → or A / D to move
+
+    </div>
+
+
+    <!-- DIALOGUE -->
+
+    <div id="dialogueBox" class="hidden">
+
+        <div id="speaker"></div>
+
+        <div id="dialogueText"></div>
+
+        <div id="continueText">
+            Press SPACE or ENTER
+        </div>
+
     </div>
 
 </div>
@@ -277,34 +285,24 @@ canvas {
 <script>
 
 /* =========================================================
-   CANVAS
+   BASIC SETUP
 ========================================================= */
 
-const canvas =
-    document.getElementById("gameCanvas");
+const canvas = document.getElementById("gameCanvas");
 
-const ctx =
-    canvas.getContext("2d");
+const ctx = canvas.getContext("2d");
 
+const titleScreen = document.getElementById("titleScreen");
 
-/* =========================================================
-   HTML ELEMENTS
-========================================================= */
+const startButton = document.getElementById("startButton");
 
-const titleScreen =
-    document.getElementById("titleScreen");
+const chapterTitle = document.getElementById("chapterTitle");
 
-const startButton =
-    document.getElementById("startButton");
+const chapterTitleText =
+    document.getElementById("chapterTitleText");
 
-const chapterTitle =
-    document.getElementById("chapterTitle");
-
-const chapterTitleMain =
-    document.getElementById("chapterTitleMain");
-
-const chapterTitleSub =
-    document.getElementById("chapterTitleSub");
+const chapterSubtitle =
+    document.getElementById("chapterSubtitle");
 
 const dialogueBox =
     document.getElementById("dialogueBox");
@@ -315,9 +313,6 @@ const speakerElement =
 const dialogueTextElement =
     document.getElementById("dialogueText");
 
-const continueText =
-    document.getElementById("continueText");
-
 
 /* =========================================================
    GAME STATE
@@ -325,64 +320,13 @@ const continueText =
 
 let gameStarted = false;
 
-let currentChapter = 1;
+let currentChapter = 0;
 
 let currentDialogue = 0;
 
-let dialogueActive = false;
+let showingDialogue = false;
 
-let firstMeetingTriggered = false;
-
-let girlfriendQuestionTriggered = false;
-
-let airportTriggered = false;
-
-let weddingTriggered = false;
-
-let distanceTriggered = false;
-
-
-/* =========================================================
-   KEYBOARD
-========================================================= */
-
-const keys = {};
-
-
-document.addEventListener(
-    "keydown",
-    function(event) {
-
-        keys[event.key.toLowerCase()] = true;
-
-
-        if (
-            event.code === "Space" ||
-            event.code === "Enter"
-        ) {
-
-            if (dialogueActive) {
-
-                event.preventDefault();
-
-                nextDialogue();
-
-            }
-
-        }
-
-    }
-);
-
-
-document.addEventListener(
-    "keyup",
-    function(event) {
-
-        keys[event.key.toLowerCase()] = false;
-
-    }
-);
+let chapterTitleTimer = null;
 
 
 /* =========================================================
@@ -391,29 +335,37 @@ document.addEventListener(
 
 const player = {
 
-    x: 180,
+    x: 120,
 
-    y: 390,
+    y: 400,
 
-    width: 32,
+    width: 40,
 
-    height: 44,
+    height: 60,
 
-    speed: 4
+    speed: 5
+
+};
+
+
+const keys = {
+
+    left: false,
+
+    right: false
 
 };
 
 
 /* =========================================================
-   DIALOGUE
+   CHAPTERS
 ========================================================= */
 
 const chapters = {
 
-
-    /* =====================================================
+    /* -----------------------------------------------------
        CHAPTER 1
-    ===================================================== */
+    ----------------------------------------------------- */
 
     firstMeeting: [
 
@@ -475,9 +427,9 @@ const chapters = {
     ],
 
 
-    /* =====================================================
+    /* -----------------------------------------------------
        CHAPTER 2
-    ===================================================== */
+    ----------------------------------------------------- */
 
     girlfriendQuestion: [
 
@@ -524,9 +476,9 @@ const chapters = {
     ],
 
 
-    /* =====================================================
+    /* -----------------------------------------------------
        CHAPTER 3
-    ===================================================== */
+    ----------------------------------------------------- */
 
     pittsburgh: [
 
@@ -588,9 +540,9 @@ const chapters = {
     ],
 
 
-    /* =====================================================
+    /* -----------------------------------------------------
        CHAPTER 4
-    ===================================================== */
+    ----------------------------------------------------- */
 
     wedding: [
 
@@ -652,9 +604,9 @@ const chapters = {
     ],
 
 
-    /* =====================================================
+    /* -----------------------------------------------------
        CHAPTER 5
-    ===================================================== */
+    ----------------------------------------------------- */
 
     distance: [
 
@@ -754,42 +706,206 @@ const chapters = {
 
 
 /* =========================================================
-   GET CURRENT DIALOGUE
+   CHAPTER INFORMATION
 ========================================================= */
 
-function getCurrentDialogue() {
+const chapterInfo = [
 
-    if (currentChapter === 1) {
+    {
+        name: "The First Meeting",
+        subtitle: "Where our story began."
+    },
 
-        return chapters.firstMeeting;
+    {
+        name: "The Question",
+        subtitle: "The day we became us."
+    },
+
+    {
+        name: "A Little Distance",
+        subtitle: "Sometimes being apart makes you realize what matters most."
+    },
+
+    {
+        name: "Our Wedding",
+        subtitle: "The beginning of forever."
+    },
+
+    {
+        name: "No Matter the Distance",
+        subtitle: "Our story isn't finished yet."
+    }
+
+];
+
+
+/* =========================================================
+   GET CHAPTER ARRAY
+========================================================= */
+
+function getCurrentChapter() {
+
+    const chapterNames = Object.keys(chapters);
+
+    return chapters[chapterNames[currentChapter]];
+
+}
+
+
+/* =========================================================
+   SHOW CHAPTER TITLE
+========================================================= */
+
+function showChapterTitle() {
+
+    const info = chapterInfo[currentChapter];
+
+    chapterTitleText.textContent = info.name;
+
+    chapterSubtitle.textContent = info.subtitle;
+
+    chapterTitle.classList.remove("hidden");
+
+    if (chapterTitleTimer) {
+
+        clearTimeout(chapterTitleTimer);
 
     }
 
-    if (currentChapter === 2) {
+    chapterTitleTimer = setTimeout(() => {
 
-        return chapters.girlfriendQuestion;
+        chapterTitle.classList.add("hidden");
+
+        showDialogue();
+
+    }, 3000);
+
+}
+
+
+/* =========================================================
+   SHOW DIALOGUE
+========================================================= */
+
+function showDialogue() {
+
+    const chapter = getCurrentChapter();
+
+    if (currentDialogue >= chapter.length) {
+
+        nextChapter();
+
+        return;
 
     }
 
-    if (currentChapter === 3) {
+    showingDialogue = true;
 
-        return chapters.pittsburgh;
+    const dialogue = chapter[currentDialogue];
+
+    /*
+       IMPORTANT:
+
+       This automatically converts any old speaker
+       names such as "Me" or "Her" into the correct
+       names.
+
+       So even if an old version of the dialogue
+       somehow remains, the box will still display:
+
+       Me  -> Cooper
+       Her -> Alyssa
+    */
+
+    const speakerNames = {
+
+        "Me": "Cooper",
+
+        "Her": "Alyssa",
+
+        "Cooper": "Cooper",
+
+        "Alyssa": "Alyssa"
+
+    };
+
+    const speakerName =
+        speakerNames[dialogue.speaker] ||
+        dialogue.speaker;
+
+    speakerElement.textContent = speakerName;
+
+    dialogueTextElement.textContent =
+        dialogue.text;
+
+    dialogueBox.classList.remove("hidden");
+
+}
+
+
+/* =========================================================
+   ADVANCE DIALOGUE
+========================================================= */
+
+function advanceDialogue() {
+
+    if (!gameStarted) {
+        return;
+    }
+
+    if (!showingDialogue) {
+        return;
+    }
+
+    currentDialogue++;
+
+    const chapter = getCurrentChapter();
+
+    if (currentDialogue >= chapter.length) {
+
+        dialogueBox.classList.add("hidden");
+
+        showingDialogue = false;
+
+        nextChapter();
+
+        return;
 
     }
 
-    if (currentChapter === 4) {
+    showDialogue();
 
-        return chapters.wedding;
+}
+
+
+/* =========================================================
+   NEXT CHAPTER
+========================================================= */
+
+function nextChapter() {
+
+    currentChapter++;
+
+    currentDialogue = 0;
+
+    if (currentChapter >= chapterInfo.length) {
+
+        currentChapter = chapterInfo.length - 1;
+
+        dialogueBox.classList.remove("hidden");
+
+        speakerElement.textContent = "Cooper";
+
+        dialogueTextElement.textContent =
+            "This is only the beginning of the rest of our story. ❤️";
+
+        return;
 
     }
 
-    if (currentChapter === 5) {
+    player.x = 120;
 
-        return chapters.distance;
-
-    }
-
-    return [];
+    showChapterTitle();
 
 }
 
@@ -802,32 +918,82 @@ function startGame() {
 
     gameStarted = true;
 
-    currentChapter = 1;
+    currentChapter = 0;
 
     currentDialogue = 0;
 
-    dialogueActive = false;
-
-    firstMeetingTriggered = false;
-
-    girlfriendQuestionTriggered = false;
-
-    airportTriggered = false;
-
-    weddingTriggered = false;
-
-    distanceTriggered = false;
-
-    player.x = 180;
+    player.x = 120;
 
     titleScreen.classList.add("hidden");
 
-    showChapter(
-        "CHAPTER 1",
-        "The Beginning"
-    );
+    showChapterTitle();
 
 }
+
+
+/* =========================================================
+   KEYBOARD CONTROLS
+========================================================= */
+
+document.addEventListener("keydown", function(event) {
+
+    if (
+        event.key === "ArrowLeft" ||
+        event.key.toLowerCase() === "a"
+    ) {
+
+        keys.left = true;
+
+    }
+
+    if (
+        event.key === "ArrowRight" ||
+        event.key.toLowerCase() === "d"
+    ) {
+
+        keys.right = true;
+
+    }
+
+    if (
+        event.key === " " ||
+        event.key === "Enter"
+    ) {
+
+        if (gameStarted) {
+
+            event.preventDefault();
+
+            advanceDialogue();
+
+        }
+
+    }
+
+});
+
+
+document.addEventListener("keyup", function(event) {
+
+    if (
+        event.key === "ArrowLeft" ||
+        event.key.toLowerCase() === "a"
+    ) {
+
+        keys.left = false;
+
+    }
+
+    if (
+        event.key === "ArrowRight" ||
+        event.key.toLowerCase() === "d"
+    ) {
+
+        keys.right = false;
+
+    }
+
+});
 
 
 /* =========================================================
@@ -841,393 +1007,337 @@ startButton.addEventListener(
 
 
 /* =========================================================
-   SHOW CHAPTER TITLE
-========================================================= */
-
-function showChapter(
-    title,
-    subtitle
-) {
-
-    chapterTitleMain.textContent =
-        title;
-
-    chapterTitleSub.textContent =
-        subtitle;
-
-    chapterTitle.classList.remove(
-        "hidden"
-    );
-
-
-    setTimeout(
-        function() {
-
-            chapterTitle.classList.add(
-                "hidden"
-            );
-
-        },
-        3000
-    );
-
-}
-
-
-/* =========================================================
-   START DIALOGUE
-========================================================= */
-
-function startDialogue() {
-
-    if (dialogueActive) {
-
-        return;
-
-    }
-
-    dialogueActive = true;
-
-    currentDialogue = 0;
-
-    continueText.textContent =
-        "Press SPACE or ENTER to continue";
-
-    dialogueBox.classList.remove(
-        "hidden"
-    );
-
-    const dialogue =
-        getCurrentDialogue();
-
-    if (
-        dialogue &&
-        dialogue.length > 0
-    ) {
-
-        displayDialogue(
-            dialogue[0]
-        );
-
-    }
-
-}
-
-
-/* =========================================================
-   DISPLAY DIALOGUE
-========================================================= */
-
-function displayDialogue(
-    dialogue
-) {
-
-    speakerElement.textContent =
-        dialogue.speaker;
-
-    dialogueTextElement.textContent =
-        dialogue.text;
-
-}
-
-
-/* =========================================================
-   NEXT DIALOGUE
-========================================================= */
-
-function nextDialogue() {
-
-    if (!dialogueActive) {
-
-        return;
-
-    }
-
-
-    const dialogue =
-        getCurrentDialogue();
-
-
-    currentDialogue++;
-
-
-    if (
-        currentDialogue >=
-        dialogue.length
-    ) {
-
-        endDialogue();
-
-        return;
-
-    }
-
-
-    displayDialogue(
-        dialogue[currentDialogue]
-    );
-
-}
-
-
-/* =========================================================
-   END DIALOGUE
-========================================================= */
-
-function endDialogue() {
-
-    dialogueActive = false;
-
-    dialogueBox.classList.add(
-        "hidden"
-    );
-
-    currentDialogue = 0;
-
-
-    /* -----------------------------------------
-       CHAPTER 1 → CHAPTER 2
-    ----------------------------------------- */
-
-    if (currentChapter === 1) {
-
-        currentChapter = 2;
-
-        player.x = 150;
-
-        girlfriendQuestionTriggered = false;
-
-        showChapter(
-            "CHAPTER 2",
-            "The Question"
-        );
-
-        return;
-
-    }
-
-
-    /* -----------------------------------------
-       CHAPTER 2 → CHAPTER 3
-    ----------------------------------------- */
-
-    if (currentChapter === 2) {
-
-        currentChapter = 3;
-
-        player.x = 150;
-
-        airportTriggered = false;
-
-        showChapter(
-            "CHAPTER 3",
-            "The Big Decision"
-        );
-
-        return;
-
-    }
-
-
-    /* -----------------------------------------
-       CHAPTER 3 → CHAPTER 4
-    ----------------------------------------- */
-
-    if (currentChapter === 3) {
-
-        currentChapter = 4;
-
-        player.x = 150;
-
-        weddingTriggered = false;
-
-        showChapter(
-            "CHAPTER 4",
-            "The Wedding"
-        );
-
-        return;
-
-    }
-
-
-    /* -----------------------------------------
-       CHAPTER 4 → CHAPTER 5
-    ----------------------------------------- */
-
-    if (currentChapter === 4) {
-
-        currentChapter = 5;
-
-        player.x = 150;
-
-        distanceTriggered = false;
-
-        showChapter(
-            "CHAPTER 5",
-            "The Distance"
-        );
-
-        return;
-
-    }
-
-
-    /* -----------------------------------------
-       CHAPTER 5 END
-    ----------------------------------------- */
-
-    if (currentChapter === 5) {
-
-        showChapter(
-            "I LOVE YOU ❤️",
-            "Forever and always"
-        );
-
-        return;
-
-    }
-
-}
-
-
-/* =========================================================
    UPDATE PLAYER
 ========================================================= */
 
 function updatePlayer() {
 
     if (!gameStarted) {
-
         return;
-
     }
 
-
-    if (dialogueActive) {
-
-        return;
-
-    }
-
-
-    if (
-        keys["arrowleft"] ||
-        keys["a"]
-    ) {
+    if (keys.left) {
 
         player.x -= player.speed;
 
     }
 
-
-    if (
-        keys["arrowright"] ||
-        keys["d"]
-    ) {
+    if (keys.right) {
 
         player.x += player.speed;
 
     }
 
+    if (player.x < 0) {
 
-    if (player.x < 20) {
-
-        player.x = 20;
-
-    }
-
-
-    if (player.x > 900) {
-
-        player.x = 900;
+        player.x = 0;
 
     }
 
+    if (player.x > canvas.width - player.width) {
 
-    /* -----------------------------------------
-       CHAPTER 1 TRIGGER
-    ----------------------------------------- */
-
-    if (
-        currentChapter === 1 &&
-        !firstMeetingTriggered &&
-        player.x > 720
-    ) {
-
-        firstMeetingTriggered = true;
-
-        startDialogue();
+        player.x =
+            canvas.width - player.width;
 
     }
 
-
-    /* -----------------------------------------
-       CHAPTER 2 TRIGGER
-    ----------------------------------------- */
-
-    if (
-        currentChapter === 2 &&
-        !girlfriendQuestionTriggered &&
-        player.x > 700
-    ) {
-
-        girlfriendQuestionTriggered = true;
-
-        startDialogue();
-
-    }
+}
 
 
-    /* -----------------------------------------
-       CHAPTER 3 TRIGGER
-    ----------------------------------------- */
+/* =========================================================
+   DRAW SKY
+========================================================= */
 
-    if (
-        currentChapter === 3 &&
-        !airportTriggered &&
-        player.x > 700
-    ) {
+function drawSky() {
 
-        airportTriggered = true;
+    const gradient =
+        ctx.createLinearGradient(
+            0,
+            0,
+            0,
+            canvas.height
+        );
 
-        startDialogue();
+    gradient.addColorStop(
+        0,
+        "#87ceeb"
+    );
 
-    }
+    gradient.addColorStop(
+        1,
+        "#dff8ff"
+    );
+
+    ctx.fillStyle = gradient;
+
+    ctx.fillRect(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+    );
+
+}
 
 
-    /* -----------------------------------------
-       CHAPTER 4 TRIGGER
-    ----------------------------------------- */
+/* =========================================================
+   DRAW CLOUDS
+========================================================= */
 
-    if (
-        currentChapter === 4 &&
-        !weddingTriggered &&
-        player.x > 650
-    ) {
+function drawCloud(x, y, scale = 1) {
 
-        weddingTriggered = true;
+    ctx.fillStyle = "white";
 
-        startDialogue();
+    ctx.beginPath();
 
-    }
+    ctx.arc(
+        x,
+        y,
+        25 * scale,
+        0,
+        Math.PI * 2
+    );
+
+    ctx.arc(
+        x + 30 * scale,
+        y - 10 * scale,
+        32 * scale,
+        0,
+        Math.PI * 2
+    );
+
+    ctx.arc(
+        x + 65 * scale,
+        y,
+        25 * scale,
+        0,
+        Math.PI * 2
+    );
+
+    ctx.fill();
+
+}
 
 
-    /* -----------------------------------------
-       CHAPTER 5 TRIGGER
-    ----------------------------------------- */
+function drawClouds() {
 
-    if (
-        currentChapter === 5 &&
-        !distanceTriggered &&
-        player.x > 650
-    ) {
+    drawCloud(120, 100, 1);
 
-        distanceTriggered = true;
+    drawCloud(500, 80, 0.8);
 
-        startDialogue();
+    drawCloud(800, 130, 1.1);
 
-    }
+}
+
+
+/* =========================================================
+   DRAW GROUND
+========================================================= */
+
+function drawGround() {
+
+    ctx.fillStyle = "#7ec850";
+
+    ctx.fillRect(
+        0,
+        430,
+        canvas.width,
+        110
+    );
+
+    ctx.fillStyle = "#5fa83b";
+
+    ctx.fillRect(
+        0,
+        430,
+        canvas.width,
+        8
+    );
+
+}
+
+
+/* =========================================================
+   DRAW SIMPLE HOUSE
+========================================================= */
+
+function drawHouse() {
+
+    const x = 650;
+
+    const y = 280;
+
+    /* House */
+
+    ctx.fillStyle = "#f4d6b2";
+
+    ctx.fillRect(
+        x,
+        y + 70,
+        180,
+        130
+    );
+
+
+    /* Roof */
+
+    ctx.fillStyle = "#b44b4b";
+
+    ctx.beginPath();
+
+    ctx.moveTo(
+        x - 20,
+        y + 70
+    );
+
+    ctx.lineTo(
+        x + 90,
+        y
+    );
+
+    ctx.lineTo(
+        x + 200,
+        y + 70
+    );
+
+    ctx.closePath();
+
+    ctx.fill();
+
+
+    /* Door */
+
+    ctx.fillStyle = "#704214";
+
+    ctx.fillRect(
+        x + 75,
+        y + 120,
+        40,
+        80
+    );
+
+
+    /* Windows */
+
+    ctx.fillStyle = "#9edfff";
+
+    ctx.fillRect(
+        x + 20,
+        y + 100,
+        40,
+        40
+    );
+
+    ctx.fillRect(
+        x + 125,
+        y + 100,
+        40,
+        40
+    );
+
+
+    /* Window lines */
+
+    ctx.strokeStyle = "#555";
+
+    ctx.lineWidth = 3;
+
+    ctx.beginPath();
+
+    ctx.moveTo(
+        x + 40,
+        y + 100
+    );
+
+    ctx.lineTo(
+        x + 40,
+        y + 140
+    );
+
+    ctx.moveTo(
+        x + 20,
+        y + 120
+    );
+
+    ctx.lineTo(
+        x + 60,
+        y + 120
+    );
+
+    ctx.moveTo(
+        x + 145,
+        y + 100
+    );
+
+    ctx.lineTo(
+        x + 145,
+        y + 140
+    );
+
+    ctx.moveTo(
+        x + 125,
+        y + 120
+    );
+
+    ctx.lineTo(
+        x + 165,
+        y + 120
+    );
+
+    ctx.stroke();
+
+}
+
+
+/* =========================================================
+   DRAW TREE
+========================================================= */
+
+function drawTree(x, y, scale = 1) {
+
+    /* Trunk */
+
+    ctx.fillStyle = "#7b4a25";
+
+    ctx.fillRect(
+        x - 12 * scale,
+        y,
+        24 * scale,
+        90 * scale
+    );
+
+
+    /* Leaves */
+
+    ctx.fillStyle = "#3f9639";
+
+    ctx.beginPath();
+
+    ctx.arc(
+        x,
+        y,
+        45 * scale,
+        0,
+        Math.PI * 2
+    );
+
+    ctx.arc(
+        x - 35 * scale,
+        y + 20 * scale,
+        35 * scale,
+        0,
+        Math.PI * 2
+    );
+
+    ctx.arc(
+        x + 35 * scale,
+        y + 20 * scale,
+        35 * scale,
+        0,
+        Math.PI * 2
+    );
+
+    ctx.fill();
 
 }
 
@@ -1238,1145 +1348,33 @@ function updatePlayer() {
 
 function drawPlayer() {
 
-    ctx.fillStyle = "#3155a5";
+    const x = player.x;
+
+    const y = player.y;
+
+
+    /* Body */
+
+    ctx.fillStyle = "#4b6cb7";
 
     ctx.fillRect(
-        player.x,
-        player.y + 15,
-        player.width,
-        29
-    );
-
-
-    ctx.fillStyle = "#f2c29b";
-
-    ctx.fillRect(
-        player.x + 7,
-        player.y,
-        18,
-        18
-    );
-
-
-    ctx.fillStyle = "#3a2417";
-
-    ctx.fillRect(
-        player.x + 6,
-        player.y,
-        20,
-        6
-    );
-
-
-    ctx.fillStyle = "#222";
-
-    ctx.fillRect(
-        player.x + 5,
-        player.y + 42,
-        8,
-        12
-    );
-
-    ctx.fillRect(
-        player.x + 20,
-        player.y + 42,
-        8,
-        12
-    );
-
-}
-
-
-/* =========================================================
-   BACKGROUND
-========================================================= */
-
-function drawBackground() {
-
-    if (currentChapter === 1) {
-
-        drawChapter1();
-
-    }
-
-    else if (currentChapter === 2) {
-
-        drawChapter2();
-
-    }
-
-    else if (currentChapter === 3) {
-
-        drawChapter3();
-
-    }
-
-    else if (currentChapter === 4) {
-
-        drawChapter4();
-
-    }
-
-    else if (currentChapter === 5) {
-
-        drawChapter5();
-
-    }
-
-}
-
-
-/* =========================================================
-   CHAPTER 1
-========================================================= */
-
-function drawChapter1() {
-
-    ctx.fillStyle = "#87ceeb";
-
-    ctx.fillRect(
-        0,
-        0,
-        960,
-        540
-    );
-
-
-    ctx.fillStyle = "#6dbb55";
-
-    ctx.fillRect(
-        0,
-        300,
-        960,
-        240
-    );
-
-
-    ctx.fillStyle = "#777";
-
-    ctx.fillRect(
-        0,
-        410,
-        960,
-        90
-    );
-
-
-    ctx.fillStyle = "#f4e6a1";
-
-    for (
-        let x = 0;
-        x < 960;
-        x += 100
-    ) {
-
-        ctx.fillRect(
-            x,
-            450,
-            55,
-            6
-        );
-
-    }
-
-
-    drawTree(90, 245);
-
-    drawTree(820, 235);
-
-    drawCloud(180, 90);
-
-    drawCloud(650, 70);
-
-
-    ctx.fillStyle = "#8b5a2b";
-
-    ctx.fillRect(
-        700,
-        270,
-        8,
-        100
-    );
-
-
-    ctx.fillStyle = "#f7d794";
-
-    ctx.fillRect(
-        650,
-        250,
-        110,
-        45
-    );
-
-
-    ctx.fillStyle = "#333";
-
-    ctx.font = "16px Arial";
-
-    ctx.fillText(
-        "FIRST MEETING",
-        660,
-        278
-    );
-
-}
-
-
-/* =========================================================
-   CHAPTER 2
-========================================================= */
-
-function drawChapter2() {
-
-    ctx.fillStyle = "#9edcf5";
-
-    ctx.fillRect(
-        0,
-        0,
-        960,
-        540
-    );
-
-
-    ctx.fillStyle = "#69b84f";
-
-    ctx.fillRect(
-        0,
-        280,
-        960,
-        260
-    );
-
-
-    ctx.fillStyle = "#e7d8bd";
-
-    ctx.fillRect(
-        350,
-        150,
-        300,
-        180
-    );
-
-
-    ctx.fillStyle = "#7b4f35";
-
-    ctx.beginPath();
-
-    ctx.moveTo(
-        320,
-        155
-    );
-
-    ctx.lineTo(
-        500,
-        50
-    );
-
-    ctx.lineTo(
-        680,
-        155
-    );
-
-    ctx.closePath();
-
-    ctx.fill();
-
-
-    ctx.fillStyle = "#8ed0e8";
-
-    ctx.fillRect(
-        390,
-        195,
-        65,
-        60
-    );
-
-    ctx.fillRect(
-        545,
-        195,
-        65,
-        60
-    );
-
-
-    ctx.fillStyle = "#70452c";
-
-    ctx.fillRect(
-        475,
-        225,
-        50,
-        105
-    );
-
-
-    drawFence();
-
-    drawTree(100, 230);
-
-    drawTree(820, 225);
-
-    drawCloud(170, 75);
-
-    drawCloud(690, 95);
-
-    drawGiftBasket(
-        700,
-        390
-    );
-
-}
-
-
-/* =========================================================
-   CHAPTER 3
-========================================================= */
-
-function drawChapter3() {
-
-    ctx.fillStyle = "#8ecae6";
-
-    ctx.fillRect(
-        0,
-        0,
-        960,
-        540
-    );
-
-
-    ctx.fillStyle = "#72b957";
-
-    ctx.fillRect(
-        0,
-        280,
-        960,
-        260
-    );
-
-
-    ctx.fillStyle = "#555";
-
-    ctx.fillRect(
-        0,
-        365,
-        960,
-        120
-    );
-
-
-    ctx.fillStyle = "#eee";
-
-    for (
-        let x = 0;
-        x < 960;
-        x += 120
-    ) {
-
-        ctx.fillRect(
-            x,
-            420,
-            70,
-            7
-        );
-
-    }
-
-
-    ctx.fillStyle = "#cfd8dc";
-
-    ctx.fillRect(
-        330,
-        145,
-        400,
-        150
-    );
-
-
-    ctx.fillStyle = "#7fc8e8";
-
-    for (
-        let x = 355;
-        x < 710;
-        x += 55
-    ) {
-
-        ctx.fillRect(
-            x,
-            175,
-            40,
-            50
-        );
-
-    }
-
-
-    ctx.fillStyle = "#333";
-
-    ctx.fillRect(
-        450,
-        100,
-        160,
-        45
-    );
-
-
-    ctx.fillStyle = "#fff";
-
-    ctx.font = "20px Arial";
-
-    ctx.fillText(
-        "AIRPORT",
-        490,
-        130
-    );
-
-
-    drawAirplane(
-        700,
-        80
-    );
-
-
-    drawSuitcase(
-        760,
-        390
-    );
-
-
-    drawCloud(
-        130,
-        75
-    );
-
-    drawCloud(
-        550,
-        60
-    );
-
-}
-
-
-/* =========================================================
-   CHAPTER 4
-========================================================= */
-
-function drawChapter4() {
-
-    ctx.fillStyle = "#9ddcf3";
-
-    ctx.fillRect(
-        0,
-        0,
-        960,
-        540
-    );
-
-
-    ctx.fillStyle = "#70b957";
-
-    ctx.fillRect(
-        0,
-        270,
-        960,
-        270
-    );
-
-
-    drawWeddingTree(
-        70,
-        160
-    );
-
-    drawWeddingTree(
-        170,
-        180
-    );
-
-    drawWeddingTree(
-        790,
-        170
-    );
-
-    drawWeddingTree(
-        880,
-        150
-    );
-
-
-    ctx.fillStyle = "#e7d8bd";
-
-    ctx.fillRect(
-        300,
-        145,
-        360,
-        150
-    );
-
-
-    ctx.fillStyle = "#754b35";
-
-    ctx.beginPath();
-
-    ctx.moveTo(
-        270,
-        150
-    );
-
-    ctx.lineTo(
-        480,
-        45
-    );
-
-    ctx.lineTo(
-        690,
-        150
-    );
-
-    ctx.closePath();
-
-    ctx.fill();
-
-
-    ctx.fillStyle = "#8ed0e8";
-
-    ctx.fillRect(
-        350,
-        180,
-        70,
-        55
-    );
-
-    ctx.fillRect(
-        540,
-        180,
-        70,
-        55
-    );
-
-
-    ctx.fillStyle = "#70452c";
-
-    ctx.fillRect(
-        455,
-        210,
-        50,
-        85
-    );
-
-
-    ctx.fillStyle = "#f4efe5";
-
-    ctx.beginPath();
-
-    ctx.moveTo(
-        390,
-        540
-    );
-
-    ctx.lineTo(
-        455,
-        300
-    );
-
-    ctx.lineTo(
-        505,
-        300
-    );
-
-    ctx.lineTo(
-        570,
-        540
-    );
-
-    ctx.closePath();
-
-    ctx.fill();
-
-
-    drawWeddingArch(
-        480,
-        275
-    );
-
-
-    drawFaceTimePhone(
-        760,
-        315
-    );
-
-
-    for (
-        let x = 250;
-        x <= 710;
-        x += 45
-    ) {
-
-        drawSmallWhiteFlower(
-            x,
-            310
-        );
-
-    }
-
-}
-
-
-/* =========================================================
-   CHAPTER 5
-========================================================= */
-
-function drawChapter5() {
-
-    ctx.fillStyle = "#17233f";
-
-    ctx.fillRect(
-        0,
-        0,
-        960,
-        540
-    );
-
-
-    /* Moon */
-
-    ctx.fillStyle = "#f7f1c7";
-
-    ctx.beginPath();
-
-    ctx.arc(
-        820,
-        85,
-        45,
-        0,
-        Math.PI * 2
-    );
-
-    ctx.fill();
-
-
-    /* Stars */
-
-    ctx.fillStyle = "#fff";
-
-    const stars = [
-        [90, 80],
-        [170, 125],
-        [260, 65],
-        [350, 110],
-        [450, 55],
-        [570, 95],
-        [670, 60],
-        [740, 135],
-        [900, 155],
-        [50, 180],
-        [400, 160]
-    ];
-
-
-    stars.forEach(
-        function(star) {
-
-            ctx.beginPath();
-
-            ctx.arc(
-                star[0],
-                star[1],
-                3,
-                0,
-                Math.PI * 2
-            );
-
-            ctx.fill();
-
-        }
-    );
-
-
-    /* Ground */
-
-    ctx.fillStyle = "#263d2b";
-
-    ctx.fillRect(
-        0,
-        300,
-        960,
-        240
-    );
-
-
-    /* Left house */
-
-    ctx.fillStyle = "#6d625a";
-
-    ctx.fillRect(
-        90,
-        175,
-        260,
-        155
-    );
-
-
-    ctx.fillStyle = "#403b3a";
-
-    ctx.beginPath();
-
-    ctx.moveTo(
-        60,
-        180
-    );
-
-    ctx.lineTo(
-        220,
-        80
-    );
-
-    ctx.lineTo(
-        380,
-        180
-    );
-
-    ctx.closePath();
-
-    ctx.fill();
-
-
-    /* Warm window */
-
-    ctx.fillStyle = "#f8d978";
-
-    ctx.fillRect(
-        150,
-        210,
-        70,
-        65
-    );
-
-
-    ctx.fillStyle = "#6d625a";
-
-    ctx.fillRect(
-        182,
-        210,
-        6,
-        65
-    );
-
-    ctx.fillRect(
-        150,
-        239,
-        70,
-        6
-    );
-
-
-    /* Right house */
-
-    ctx.fillStyle = "#625b58";
-
-    ctx.fillRect(
-        610,
-        185,
-        250,
-        145
-    );
-
-
-    ctx.fillStyle = "#403b3a";
-
-    ctx.beginPath();
-
-    ctx.moveTo(
-        580,
-        190
-    );
-
-    ctx.lineTo(
-        735,
-        95
-    );
-
-    ctx.lineTo(
-        890,
-        190
-    );
-
-    ctx.closePath();
-
-    ctx.fill();
-
-
-    /* FaceTime phone */
-
-    drawFaceTimePhone(
-        405,
-        250
-    );
-
-
-    /* Table */
-
-    ctx.fillStyle = "#513b2d";
-
-    ctx.fillRect(
-        390,
-        425,
-        150,
-        20
-    );
-
-    ctx.fillRect(
-        410,
-        445,
-        15,
-        60
-    );
-
-    ctx.fillRect(
-        505,
-        445,
-        15,
-        60
-    );
-
-}
-
-
-/* =========================================================
-   WEDDING ARCH
-========================================================= */
-
-function drawWeddingArch(
-    x,
-    y
-) {
-
-    ctx.strokeStyle = "#fff";
-
-    ctx.lineWidth = 10;
-
-    ctx.beginPath();
-
-    ctx.moveTo(
-        x - 90,
-        y + 100
-    );
-
-    ctx.lineTo(
-        x - 90,
-        y
-    );
-
-    ctx.quadraticCurveTo(
-        x,
-        y - 100,
-        x + 90,
-        y
-    );
-
-    ctx.lineTo(
-        x + 90,
-        y + 100
-    );
-
-    ctx.stroke();
-
-
-    for (
-        let i = -70;
-        i <= 70;
-        i += 35
-    ) {
-
-        drawArchFlower(
-            x + i,
-            y - Math.abs(i) * 0.35
-        );
-
-    }
-
-
-    ctx.fillStyle = "#8b5a3c";
-
-    ctx.fillRect(
-        x - 35,
-        y + 55,
-        70,
-        45
-    );
-
-}
-
-
-/* =========================================================
-   ARCH FLOWER
-========================================================= */
-
-function drawArchFlower(
-    x,
-    y
-) {
-
-    ctx.fillStyle = "#fff";
-
-    ctx.beginPath();
-
-    ctx.arc(
-        x,
-        y,
-        10,
-        0,
-        Math.PI * 2
-    );
-
-    ctx.fill();
-
-
-    ctx.fillStyle = "#f5c542";
-
-    ctx.beginPath();
-
-    ctx.arc(
-        x,
-        y,
-        3,
-        0,
-        Math.PI * 2
-    );
-
-    ctx.fill();
-
-}
-
-
-/* =========================================================
-   WEDDING TREE
-========================================================= */
-
-function drawWeddingTree(
-    x,
-    y
-) {
-
-    ctx.fillStyle = "#70452c";
-
-    ctx.fillRect(
-        x + 28,
-        y + 55,
-        18,
-        100
-    );
-
-
-    ctx.fillStyle = "#4f9e43";
-
-    ctx.beginPath();
-
-    ctx.arc(
-        x + 35,
-        y + 40,
-        45,
-        0,
-        Math.PI * 2
-    );
-
-    ctx.fill();
-
-
-    ctx.beginPath();
-
-    ctx.arc(
-        x + 5,
-        y + 70,
-        30,
-        0,
-        Math.PI * 2
-    );
-
-    ctx.fill();
-
-
-    ctx.beginPath();
-
-    ctx.arc(
-        x + 65,
-        y + 70,
-        30,
-        0,
-        Math.PI * 2
-    );
-
-    ctx.fill();
-
-}
-
-
-/* =========================================================
-   FACETIME PHONE
-========================================================= */
-
-function drawFaceTimePhone(
-    x,
-    y
-) {
-
-    ctx.fillStyle = "#222";
-
-    ctx.fillRect(
-        x,
-        y,
-        120,
-        150
-    );
-
-
-    ctx.fillStyle = "#8ed0e8";
-
-    ctx.fillRect(
-        x + 10,
-        y + 10,
-        100,
-        110
-    );
-
-
-    drawTinyPerson(
-        x + 30,
-        y + 40
-    );
-
-    drawTinyPerson(
-        x + 70,
-        y + 40
-    );
-
-
-    ctx.fillStyle = "#444";
-
-    ctx.fillRect(
-        x + 10,
-        y + 125,
-        100,
-        15
-    );
-
-
-    ctx.fillStyle = "#fff";
-
-    ctx.font = "11px Arial";
-
-    ctx.fillText(
-        "FaceTime",
-        x + 35,
-        y + 137
-    );
-
-}
-
-
-/* =========================================================
-   TINY PERSON
-========================================================= */
-
-function drawTinyPerson(
-    x,
-    y
-) {
-
-    ctx.fillStyle = "#f2c29b";
-
-    ctx.beginPath();
-
-    ctx.arc(
-        x,
-        y,
-        9,
-        0,
-        Math.PI * 2
-    );
-
-    ctx.fill();
-
-
-    ctx.fillStyle = "#3155a5";
-
-    ctx.fillRect(
-        x - 9,
-        y + 8,
-        18,
-        25
-    );
-
-}
-
-
-/* =========================================================
-   CLOUD
-========================================================= */
-
-function drawCloud(
-    x,
-    y
-) {
-
-    ctx.fillStyle = "#fff";
-
-    ctx.beginPath();
-
-    ctx.arc(
-        x,
-        y,
-        25,
-        0,
-        Math.PI * 2
-    );
-
-    ctx.arc(
-        x + 25,
-        y - 10,
-        30,
-        0,
-        Math.PI * 2
-    );
-
-    ctx.arc(
-        x + 55,
-        y,
+        x + 8,
+        y + 20,
         24,
-        0,
-        Math.PI * 2
-    );
-
-    ctx.fill();
-
-}
-
-
-/* =========================================================
-   NORMAL TREE
-========================================================= */
-
-function drawTree(
-    x,
-    y
-) {
-
-    ctx.fillStyle = "#70452c";
-
-    ctx.fillRect(
-        x + 35,
-        y + 70,
-        20,
-        100
+        35
     );
 
 
-    ctx.fillStyle = "#4c9b43";
+    /* Head */
+
+    ctx.fillStyle = "#f2c6a0";
 
     ctx.beginPath();
 
     ctx.arc(
-        x + 45,
-        y + 55,
-        50,
+        x + 20,
+        y + 12,
+        13,
         0,
         Math.PI * 2
     );
@@ -2384,377 +1382,77 @@ function drawTree(
     ctx.fill();
 
 
-    ctx.beginPath();
+    /* Hair */
 
-    ctx.arc(
-        x + 10,
-        y + 85,
-        35,
-        0,
-        Math.PI * 2
-    );
-
-    ctx.fill();
-
+    ctx.fillStyle = "#4a2c20";
 
     ctx.beginPath();
 
     ctx.arc(
-        x + 80,
-        y + 85,
-        35,
-        0,
-        Math.PI * 2
-    );
-
-    ctx.fill();
-
-}
-
-
-/* =========================================================
-   FLOWER
-========================================================= */
-
-function drawFlower(
-    x,
-    y
-) {
-
-    ctx.strokeStyle = "#3d7d35";
-
-    ctx.lineWidth = 3;
-
-    ctx.beginPath();
-
-    ctx.moveTo(
-        x,
-        y
-    );
-
-    ctx.lineTo(
-        x,
-        y + 25
-    );
-
-    ctx.stroke();
-
-
-    ctx.fillStyle = "#ff8fab";
-
-    ctx.beginPath();
-
-    ctx.arc(
-        x,
-        y,
-        6,
-        0,
-        Math.PI * 2
-    );
-
-    ctx.fill();
-
-}
-
-
-/* =========================================================
-   SMALL WHITE FLOWER
-========================================================= */
-
-function drawSmallWhiteFlower(
-    x,
-    y
-) {
-
-    ctx.strokeStyle = "#4c8b3c";
-
-    ctx.lineWidth = 2;
-
-    ctx.beginPath();
-
-    ctx.moveTo(
-        x,
-        y
-    );
-
-    ctx.lineTo(
-        x,
-        y + 20
-    );
-
-    ctx.stroke();
-
-
-    ctx.fillStyle = "#fff";
-
-    for (
-        let i = 0;
-        i < 5;
-        i++
-    ) {
-
-        const angle =
-            i * Math.PI * 2 / 5;
-
-        ctx.beginPath();
-
-        ctx.arc(
-            x + Math.cos(angle) * 5,
-            y + Math.sin(angle) * 5,
-            4,
-            0,
-            Math.PI * 2
-        );
-
-        ctx.fill();
-
-    }
-
-
-    ctx.fillStyle = "#f2c94c";
-
-    ctx.beginPath();
-
-    ctx.arc(
-        x,
-        y,
-        2,
-        0,
-        Math.PI * 2
-    );
-
-    ctx.fill();
-
-}
-
-
-/* =========================================================
-   FENCE
-========================================================= */
-
-function drawFence() {
-
-    ctx.fillStyle = "#eee";
-
-    for (
-        let x = 100;
-        x < 900;
-        x += 45
-    ) {
-
-        ctx.fillRect(
-            x,
-            315,
-            8,
-            65
-        );
-
-    }
-
-
-    ctx.fillRect(
-        90,
-        330,
-        810,
-        8
-    );
-
-    ctx.fillRect(
-        90,
-        360,
-        810,
-        8
-    );
-
-}
-
-
-/* =========================================================
-   GIFT BASKET
-========================================================= */
-
-function drawGiftBasket(
-    x,
-    y
-) {
-
-    ctx.fillStyle = "#9b6b43";
-
-    ctx.fillRect(
-        x,
-        y,
-        70,
-        45
-    );
-
-
-    ctx.strokeStyle = "#70452c";
-
-    ctx.lineWidth = 5;
-
-    ctx.beginPath();
-
-    ctx.arc(
-        x + 35,
-        y,
-        35,
+        x + 20,
+        y + 8,
+        13,
         Math.PI,
-        0
-    );
-
-    ctx.stroke();
-
-
-    ctx.fillStyle = "#ff8fab";
-
-    ctx.beginPath();
-
-    ctx.arc(
-        x + 20,
-        y - 10,
-        12,
-        0,
         Math.PI * 2
     );
 
     ctx.fill();
 
 
-    ctx.fillStyle = "#ffd166";
+    /* Legs */
 
-    ctx.beginPath();
-
-    ctx.arc(
-        x + 45,
-        y - 5,
-        12,
-        0,
-        Math.PI * 2
-    );
-
-    ctx.fill();
-
-}
-
-
-/* =========================================================
-   AIRPLANE
-========================================================= */
-
-function drawAirplane(
-    x,
-    y
-) {
-
-    ctx.fillStyle = "#fff";
-
-    ctx.beginPath();
-
-    ctx.moveTo(
-        x,
-        y
-    );
-
-    ctx.lineTo(
-        x + 100,
-        y + 20
-    );
-
-    ctx.lineTo(
-        x,
-        y + 40
-    );
-
-    ctx.lineTo(
-        x + 20,
-        y + 20
-    );
-
-    ctx.closePath();
-
-    ctx.fill();
-
-
-    ctx.fillStyle = "#ddd";
-
-    ctx.beginPath();
-
-    ctx.moveTo(
-        x + 40,
-        y + 18
-    );
-
-    ctx.lineTo(
-        x + 65,
-        y - 10
-    );
-
-    ctx.lineTo(
-        x + 70,
-        y + 20
-    );
-
-    ctx.closePath();
-
-    ctx.fill();
-
-}
-
-
-/* =========================================================
-   SUITCASE
-========================================================= */
-
-function drawSuitcase(
-    x,
-    y
-) {
-
-    ctx.fillStyle = "#8b5a9b";
+    ctx.fillStyle = "#333";
 
     ctx.fillRect(
-        x,
-        y,
-        60,
-        70
+        x + 9,
+        y + 55,
+        8,
+        12
     );
 
-
-    ctx.strokeStyle = "#333";
-
-    ctx.lineWidth = 4;
-
-    ctx.strokeRect(
-        x,
-        y,
-        60,
-        70
+    ctx.fillRect(
+        x + 23,
+        y + 55,
+        8,
+        12
     );
 
+}
 
-    ctx.beginPath();
 
-    ctx.moveTo(
-        x + 20,
-        y
+/* =========================================================
+   DRAW WORLD
+========================================================= */
+
+function drawWorld() {
+
+    drawSky();
+
+    drawClouds();
+
+    drawGround();
+
+    drawTree(
+        180,
+        340,
+        1
     );
 
-    ctx.lineTo(
-        x + 20,
-        y - 15
+    drawTree(
+        400,
+        350,
+        0.8
     );
 
-    ctx.lineTo(
-        x + 40,
-        y - 15
+    drawTree(
+        870,
+        350,
+        0.9
     );
 
-    ctx.lineTo(
-        x + 40,
-        y
-    );
+    drawHouse();
 
-    ctx.stroke();
+    drawPlayer();
 
 }
 
@@ -2765,30 +1463,17 @@ function drawSuitcase(
 
 function gameLoop() {
 
-    ctx.clearRect(
-        0,
-        0,
-        canvas.width,
-        canvas.height
-    );
-
-
-    drawBackground();
-
     updatePlayer();
 
-    drawPlayer();
+    drawWorld();
 
-
-    requestAnimationFrame(
-        gameLoop
-    );
+    requestAnimationFrame(gameLoop);
 
 }
 
 
 /* =========================================================
-   START GAME LOOP
+   START LOOP
 ========================================================= */
 
 gameLoop();
@@ -2797,8 +1482,3 @@ gameLoop();
 
 </body>
 </html>
-```
-
-**The important fixes are in the dialogue section.** In particular, Chapter 2 now says **“I had a little surprise planned”** instead of accidentally referring to Cooper in third person, and Chapter 4 now consistently uses **Alyssa's** instead of switching back to “her.”
-
-Also, when Alyssa is directly talking to Cooper, I left **“you”** alone because in lines like **“I miss you”** and **“You really think we can?”**, “you” means Cooper, not Alyssa.
