@@ -243,6 +243,8 @@ let firstMeetingTriggered = false;
 
 let girlfriendQuestionTriggered = false;
 
+let airportTriggered = false;
+
 
 /* =========================================================
    PLAYER
@@ -262,7 +264,6 @@ const player = {
 
 };
 
-
 let keys = {};
 
 
@@ -271,6 +272,11 @@ let keys = {};
 ========================================================= */
 
 const chapters = {
+
+
+    /* =====================================================
+       CHAPTER 1
+    ===================================================== */
 
     firstMeeting: [
 
@@ -331,6 +337,10 @@ const chapters = {
 
     ],
 
+
+    /* =====================================================
+       CHAPTER 2
+    ===================================================== */
 
     girlfriendQuestion: [
 
@@ -434,6 +444,145 @@ const chapters = {
             text: "Because look at us now. ❤️"
         }
 
+    ],
+
+
+    /* =====================================================
+       CHAPTER 3
+    ===================================================== */
+
+    pittsburgh: [
+
+        {
+            speaker: "You",
+            text: "And then came the day you had to leave."
+        },
+
+        {
+            speaker: "Her",
+            text: "I'm flying to Pittsburgh to visit my sister."
+        },
+
+        {
+            speaker: "You",
+            text: "I knew it wasn't forever..."
+        },
+
+        {
+            speaker: "You",
+            text: "But saying goodbye still wasn't easy."
+        },
+
+        {
+            speaker: "Her",
+            text: "I'll see you soon."
+        },
+
+        {
+            speaker: "You",
+            text: "I love you."
+        },
+
+        {
+            speaker: "Her",
+            text: "I love you too. ❤️"
+        },
+
+        {
+            speaker: "You",
+            text: "So I watched you leave..."
+        },
+
+        {
+            speaker: "You",
+            text: "And then watched the plane disappear into the sky."
+        },
+
+        {
+            speaker: "You",
+            text: "That's when it really hit me."
+        },
+
+        {
+            speaker: "You",
+            text: "I didn't want to keep saying goodbye to you."
+        },
+
+        {
+            speaker: "Her",
+            text: "I don't like being away from you."
+        },
+
+        {
+            speaker: "You",
+            text: "Me neither."
+        },
+
+        {
+            speaker: "Her",
+            text: "What if we didn't have to do this anymore?"
+        },
+
+        {
+            speaker: "You",
+            text: "What do you mean?"
+        },
+
+        {
+            speaker: "Her",
+            text: "What if we just... got married?"
+        },
+
+        {
+            speaker: "You",
+            text: "I remember thinking about it."
+        },
+
+        {
+            speaker: "You",
+            text: "And honestly..."
+        },
+
+        {
+            speaker: "You",
+            text: "It didn't feel crazy."
+        },
+
+        {
+            speaker: "You",
+            text: "It felt right."
+        },
+
+        {
+            speaker: "You",
+            text: "Let's do it."
+        },
+
+        {
+            speaker: "Her",
+            text: "Really?"
+        },
+
+        {
+            speaker: "You",
+            text: "Really."
+        },
+
+        {
+            speaker: "Her",
+            text: "Then let's get married. ❤️"
+        },
+
+        {
+            speaker: "You",
+            text: "And just like that..."
+        },
+
+        {
+            speaker: "You",
+            text: "We decided to spend the rest of our lives together."
+        }
+
     ]
 
 };
@@ -454,6 +603,12 @@ function getCurrentDialogue() {
     if (currentChapter === 2) {
 
         return chapters.girlfriendQuestion;
+
+    }
+
+    if (currentChapter === 3) {
+
+        return chapters.pittsburgh;
 
     }
 
@@ -482,6 +637,8 @@ function startGame() {
     firstMeetingTriggered = false;
 
     girlfriendQuestionTriggered = false;
+
+    airportTriggered = false;
 
     player.x = 180;
 
@@ -596,9 +753,9 @@ function endDialogue() {
     currentDialogue = 0;
 
 
-    /* -----------------------------------------------------
+    /* =====================================================
        CHAPTER 1 → CHAPTER 2
-    ----------------------------------------------------- */
+    ===================================================== */
 
     if (currentChapter === 1) {
 
@@ -613,6 +770,43 @@ function endDialogue() {
             "The Question"
         );
 
+        return;
+    }
+
+
+    /* =====================================================
+       CHAPTER 2 → CHAPTER 3
+    ===================================================== */
+
+    if (currentChapter === 2) {
+
+        currentChapter = 3;
+
+        player.x = 150;
+
+        airportTriggered = false;
+
+        showChapter(
+            "CHAPTER 3",
+            "The Big Decision"
+        );
+
+        return;
+    }
+
+
+    /* =====================================================
+       CHAPTER 3 END
+    ===================================================== */
+
+    if (currentChapter === 3) {
+
+        showChapter(
+            "CHAPTER 3",
+            "Let's Get Married ❤️"
+        );
+
+        return;
     }
 
 }
@@ -667,6 +861,8 @@ function updatePlayer() {
     }
 
 
+    /* Move right */
+
     if (
         keys["arrowright"] ||
         keys["d"]
@@ -676,6 +872,8 @@ function updatePlayer() {
 
     }
 
+
+    /* Move left */
 
     if (
         keys["arrowleft"] ||
@@ -734,6 +932,26 @@ function updatePlayer() {
         ) {
 
             girlfriendQuestionTriggered = true;
+
+            startDialogue();
+
+        }
+
+    }
+
+
+    /* =====================================================
+       CHAPTER 3 TRIGGER
+    ===================================================== */
+
+    if (currentChapter === 3) {
+
+        if (
+            !airportTriggered &&
+            player.x > 700
+        ) {
+
+            airportTriggered = true;
 
             startDialogue();
 
@@ -842,7 +1060,9 @@ function drawChapter1() {
     /* Clouds */
 
     drawCloud(150, 90);
+
     drawCloud(450, 70);
+
     drawCloud(750, 120);
 
 
@@ -865,8 +1085,11 @@ function drawChapter1() {
     ctx.beginPath();
 
     ctx.moveTo(350, 540);
+
     ctx.lineTo(560, 540);
+
     ctx.lineTo(520, 350);
+
     ctx.lineTo(400, 350);
 
     ctx.closePath();
@@ -877,10 +1100,11 @@ function drawChapter1() {
     /* Trees */
 
     drawTree(100, 280);
+
     drawTree(850, 275);
 
 
-    /* Sign */
+    /* Sign post */
 
     ctx.fillStyle = "#754c24";
 
@@ -891,6 +1115,8 @@ function drawChapter1() {
         90
     );
 
+
+    /* Sign */
 
     ctx.fillStyle = "#fff";
 
@@ -929,10 +1155,12 @@ function drawChapter1() {
     ctx.textAlign = "left";
 
 
-    /* Small flowers */
+    /* Flowers */
 
     drawFlower(300, 380);
+
     drawFlower(620, 410);
+
     drawFlower(680, 390);
 
 }
@@ -976,6 +1204,7 @@ function drawChapter2() {
     /* Clouds */
 
     drawCloud(170, 80);
+
     drawCloud(450, 110);
 
 
@@ -998,8 +1227,11 @@ function drawChapter2() {
     ctx.beginPath();
 
     ctx.moveTo(250, 540);
+
     ctx.lineTo(550, 540);
+
     ctx.lineTo(620, 350);
+
     ctx.lineTo(420, 350);
 
     ctx.closePath();
@@ -1063,9 +1295,11 @@ function drawChapter2() {
     ctx.beginPath();
 
     ctx.moveTo(720, 220);
+
     ctx.lineTo(720, 290);
 
     ctx.moveTo(680, 255);
+
     ctx.lineTo(760, 255);
 
     ctx.stroke();
@@ -1099,8 +1333,467 @@ function drawChapter2() {
     /* Flowers */
 
     drawFlower(200, 390);
+
     drawFlower(260, 420);
+
     drawFlower(910, 400);
+
+}
+
+
+/* =========================================================
+   CHAPTER 3 BACKGROUND
+========================================================= */
+
+function drawChapter3() {
+
+    /* =====================================================
+       AIRPORT SKY
+    ===================================================== */
+
+    ctx.fillStyle = "#b9d8ed";
+
+    ctx.fillRect(
+        0,
+        0,
+        960,
+        540
+    );
+
+
+    /* Clouds */
+
+    drawCloud(120, 90);
+
+    drawCloud(430, 70);
+
+    drawCloud(780, 110);
+
+
+    /* Airport building */
+
+    ctx.fillStyle = "#e7e7e7";
+
+    ctx.fillRect(
+        0,
+        190,
+        960,
+        170
+    );
+
+
+    /* Large windows */
+
+    ctx.fillStyle = "#6d9dbb";
+
+    for (
+        let x = 30;
+        x < 930;
+        x += 100
+    ) {
+
+        ctx.fillRect(
+            x,
+            215,
+            75,
+            95
+        );
+
+    }
+
+
+    /* Window frames */
+
+    ctx.strokeStyle = "#dceaf2";
+
+    ctx.lineWidth = 4;
+
+    for (
+        let x = 30;
+        x < 930;
+        x += 100
+    ) {
+
+        ctx.strokeRect(
+            x,
+            215,
+            75,
+            95
+        );
+
+    }
+
+
+    /* Airport floor */
+
+    ctx.fillStyle = "#888";
+
+    ctx.fillRect(
+        0,
+        360,
+        960,
+        180
+    );
+
+
+    /* Floor tiles */
+
+    ctx.strokeStyle = "#aaa";
+
+    ctx.lineWidth = 2;
+
+    for (
+        let x = 0;
+        x < 960;
+        x += 80
+    ) {
+
+        ctx.beginPath();
+
+        ctx.moveTo(x, 360);
+
+        ctx.lineTo(x, 540);
+
+        ctx.stroke();
+
+    }
+
+
+    for (
+        let y = 400;
+        y < 540;
+        y += 40
+    ) {
+
+        ctx.beginPath();
+
+        ctx.moveTo(0, y);
+
+        ctx.lineTo(960, y);
+
+        ctx.stroke();
+
+    }
+
+
+    /* Departure sign */
+
+    ctx.fillStyle = "#222";
+
+    ctx.fillRect(
+        70,
+        100,
+        260,
+        75
+    );
+
+
+    ctx.fillStyle = "#fff";
+
+    ctx.font = "bold 22px Arial";
+
+    ctx.textAlign = "center";
+
+    ctx.fillText(
+        "DEPARTURES",
+        200,
+        130
+    );
+
+
+    ctx.font = "18px Arial";
+
+    ctx.fillText(
+        "PITTSBURGH",
+        200,
+        157
+    );
+
+    ctx.textAlign = "left";
+
+
+    /* Gate */
+
+    ctx.fillStyle = "#333";
+
+    ctx.fillRect(
+        770,
+        105,
+        110,
+        65
+    );
+
+
+    ctx.fillStyle = "#fff";
+
+    ctx.font = "bold 30px Arial";
+
+    ctx.textAlign = "center";
+
+    ctx.fillText(
+        "GATE 12",
+        825,
+        145
+    );
+
+    ctx.textAlign = "left";
+
+
+    /* Airplane outside */
+
+    drawAirplane(
+        610,
+        270
+    );
+
+
+    /* Suitcase */
+
+    drawSuitcase(
+        715,
+        385
+    );
+
+
+    /* Goodbye heart */
+
+    ctx.fillStyle = "#ff5c7a";
+
+    ctx.font = "28px Arial";
+
+    ctx.fillText(
+        "❤️",
+        850,
+        400
+    );
+
+}
+
+
+/* =========================================================
+   AIRPLANE
+========================================================= */
+
+function drawAirplane(x, y) {
+
+    ctx.fillStyle = "#f5f5f5";
+
+    ctx.beginPath();
+
+    ctx.ellipse(
+        x,
+        y,
+        110,
+        25,
+        0,
+        0,
+        Math.PI * 2
+    );
+
+    ctx.fill();
+
+
+    /* Nose */
+
+    ctx.beginPath();
+
+    ctx.moveTo(
+        x + 105,
+        y
+    );
+
+    ctx.lineTo(
+        x + 145,
+        y + 5
+    );
+
+    ctx.lineTo(
+        x + 105,
+        y + 18
+    );
+
+    ctx.closePath();
+
+    ctx.fill();
+
+
+    /* Wings */
+
+    ctx.fillStyle = "#d5d5d5";
+
+    ctx.beginPath();
+
+    ctx.moveTo(
+        x - 10,
+        y
+    );
+
+    ctx.lineTo(
+        x - 65,
+        y - 65
+    );
+
+    ctx.lineTo(
+        x - 25,
+        y - 10
+    );
+
+    ctx.closePath();
+
+    ctx.fill();
+
+
+    ctx.beginPath();
+
+    ctx.moveTo(
+        x + 20,
+        y + 5
+    );
+
+    ctx.lineTo(
+        x - 35,
+        y + 60
+    );
+
+    ctx.lineTo(
+        x + 5,
+        y + 15
+    );
+
+    ctx.closePath();
+
+    ctx.fill();
+
+
+    /* Tail */
+
+    ctx.beginPath();
+
+    ctx.moveTo(
+        x - 85,
+        y
+    );
+
+    ctx.lineTo(
+        x - 110,
+        y - 45
+    );
+
+    ctx.lineTo(
+        x - 75,
+        y - 10
+    );
+
+    ctx.closePath();
+
+    ctx.fill();
+
+
+    /* Windows */
+
+    ctx.fillStyle = "#4b7590";
+
+    for (
+        let i = -65;
+        i < 80;
+        i += 25
+    ) {
+
+        ctx.beginPath();
+
+        ctx.arc(
+            x + i,
+            y - 7,
+            5,
+            0,
+            Math.PI * 2
+        );
+
+        ctx.fill();
+
+    }
+
+}
+
+
+/* =========================================================
+   SUITCASE
+========================================================= */
+
+function drawSuitcase(x, y) {
+
+    ctx.fillStyle = "#4d5d75";
+
+    ctx.fillRect(
+        x,
+        y,
+        55,
+        65
+    );
+
+
+    ctx.strokeStyle = "#222";
+
+    ctx.lineWidth = 3;
+
+    ctx.strokeRect(
+        x,
+        y,
+        55,
+        65
+    );
+
+
+    /* Handle */
+
+    ctx.beginPath();
+
+    ctx.moveTo(
+        x + 18,
+        y
+    );
+
+    ctx.lineTo(
+        x + 18,
+        y - 15
+    );
+
+    ctx.lineTo(
+        x + 38,
+        y - 15
+    );
+
+    ctx.lineTo(
+        x + 38,
+        y
+    );
+
+    ctx.stroke();
+
+
+    /* Wheels */
+
+    ctx.fillStyle = "#222";
+
+    ctx.beginPath();
+
+    ctx.arc(
+        x + 12,
+        y + 67,
+        5,
+        0,
+        Math.PI * 2
+    );
+
+    ctx.arc(
+        x + 43,
+        y + 67,
+        5,
+        0,
+        Math.PI * 2
+    );
+
+    ctx.fill();
 
 }
 
@@ -1115,11 +1808,29 @@ function drawCloud(x, y) {
 
     ctx.beginPath();
 
-    ctx.arc(x, y, 25, 0, Math.PI * 2);
+    ctx.arc(
+        x,
+        y,
+        25,
+        0,
+        Math.PI * 2
+    );
 
-    ctx.arc(x + 30, y - 10, 32, 0, Math.PI * 2);
+    ctx.arc(
+        x + 30,
+        y - 10,
+        32,
+        0,
+        Math.PI * 2
+    );
 
-    ctx.arc(x + 65, y, 25, 0, Math.PI * 2);
+    ctx.arc(
+        x + 65,
+        y,
+        25,
+        0,
+        Math.PI * 2
+    );
 
     ctx.fill();
 
@@ -1377,7 +2088,7 @@ function drawGiftBasket(x, y) {
     ctx.fill();
 
 
-    /* Label */
+    /* Heart */
 
     ctx.fillStyle = "#fff";
 
@@ -1397,7 +2108,7 @@ function drawGiftBasket(x, y) {
 
 
 /* =========================================================
-   BACKGROUND
+   BACKGROUND SWITCHER
 ========================================================= */
 
 function drawBackground() {
@@ -1411,6 +2122,12 @@ function drawBackground() {
     else if (currentChapter === 2) {
 
         drawChapter2();
+
+    }
+
+    else if (currentChapter === 3) {
+
+        drawChapter3();
 
     }
 
